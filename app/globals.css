@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme {
+  /* SHoP Brand */
+  --color-shop-ink: #111111;
+  --color-shop-cream: #f3ede2;
+  --color-shop-paper: #faf9f6;
+  --color-shop-white: #ffffff;
+  --color-shop-muted: #6b6b67;
+  --color-shop-border: #d9d5cc;
+
+  /* Typography */
+  --font-display: "DM Serif Display", Georgia, serif;
+  --font-sans: "Inter", Arial, sans-serif;
+
+  /* Layout */
+  --container-shop: 1440px;
+
+  /* SHoP Motion */
+  --ease-shop: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --shop-ink: #111111;
+  --shop-cream: #f3ede2;
+  --shop-paper: #faf9f6;
+  --shop-white: #ffffff;
+  --shop-muted: #6b6b67;
+  --shop-border: #d9d5cc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--shop-paper);
+  color: var(--shop-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--shop-ink);
+  color: var(--shop-cream);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.shop-container {
+  width: min(100% - 40px, 1440px);
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .shop-container {
+    width: min(100% - 80px, 1440px);
+  }
+}
+
+.shop-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+.shop-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.shop-section {
+  padding-block: 6rem;
+}
+
+@media (min-width: 768px) {
+  .shop-section {
+    padding-block: 8rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .shop-section {
+    padding-block: 10rem;
+  }
+}
