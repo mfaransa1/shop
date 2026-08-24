@@ -1,5 +1,7 @@
+import ChessJourney from "@/components/home/ChessJourney";
 import Hero from "@/components/home/Hero";
 import Impact from "@/components/home/Impact";
+import Mission from "@/components/home/Mission";
 import Navbar from "@/components/layout/Navbar";
 
 export default function Home() {
@@ -10,6 +12,8 @@ export default function Home() {
       <main>
         <Hero />
         <Impact />
+        <Mission />
+        <ChessJourney />
       </main>
     </>
   );
