@@ -1,92 +1,110 @@
-import Link from "next/link";
+import Image from "next/image";
+import Reveal from "@/components/animations/Reveal";
+
+const principles = ["Think", "Play", "Belong", "Become"];
 
 export default function Mission() {
   return (
     <section className="relative overflow-hidden bg-[#111111] text-[#F3EDE2]">
-      <div className="shop-container py-28 md:py-40 lg:py-52">
-        <div className="grid gap-16 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
-          {/* Label */}
-          <div>
+      <div className="shop-container py-24 md:py-32 lg:py-40">
+        {/* Top label */}
+        <Reveal>
+          <div className="flex items-center justify-between">
             <p className="shop-eyebrow text-[#F3EDE2]/50">
               02 — Our mission
             </p>
 
-            <div className="mt-8 hidden lg:block">
+            <span className="hidden text-[9px] font-bold tracking-[0.25em] text-[#F3EDE2]/30 md:block">
+              KAWANGWARE · NAIROBI
+            </span>
+          </div>
+        </Reveal>
+
+        {/* Photography-led statement */}
+        <Reveal delay={100}>
+          <div className="relative mt-12 overflow-hidden md:mt-16">
+            <div className="relative aspect-[16/9] min-h-[480px] overflow-hidden md:min-h-[600px]">
+              <Image
+                src="/images/sessions/session-01.jpg"
+                alt="Young people playing chess at SHoP"
+                fill
+                sizes="100vw"
+                className="object-cover object-center transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.03]"
+              />
+
+              {/* Image treatment */}
+              <div className="absolute inset-0 bg-black/35" />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+              {/* Statement */}
+              <div className="absolute inset-x-0 bottom-0 p-7 sm:p-10 md:p-14 lg:p-16">
+                <Reveal delay={250}>
+                  <p className="shop-eyebrow text-[#F3EDE2]/65">
+                    Why we exist
+                  </p>
+                </Reveal>
+
+                <Reveal delay={350}>
+                  <h2 className="shop-display mt-5 max-w-6xl text-[clamp(3.5rem,7vw,8rem)] leading-[0.84]">
+                    A place to think.
+                    <br />
+                    A place to belong.
+                  </h2>
+                </Reveal>
+              </div>
+
+              {/* Image index */}
+              <div className="absolute right-6 top-6 text-[9px] font-bold tracking-[0.2em] text-white/60 md:right-8 md:top-8">
+                SHoP / 02
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Supporting copy */}
+        <Reveal delay={150}>
+          <div className="mt-10 grid gap-8 md:grid-cols-[0.7fr_1.3fr] md:gap-16">
+            <div>
               <span className="text-[10px] font-bold tracking-[0.2em] text-[#F3EDE2]/30">
-                SHoP / KAWANGWARE / NAIROBI
+                THE IDEA
               </span>
             </div>
+
+            <div className="grid gap-8 sm:grid-cols-2">
+              <p className="text-base leading-7 text-[#F3EDE2]/65 sm:text-lg sm:leading-8">
+                SHoP creates a positive space where young people can discover
+                chess, challenge themselves and connect with others.
+              </p>
+
+              <p className="text-base leading-7 text-[#F3EDE2]/65 sm:text-lg sm:leading-8">
+                The game teaches patience, discipline and strategic thinking.
+                But the bigger goal is what those lessons make possible beyond
+                the board.
+              </p>
+            </div>
           </div>
+        </Reveal>
 
-          {/* Main story */}
-          <div>
-            <h2 className="shop-display max-w-6xl text-[clamp(3.5rem,7vw,7.5rem)] leading-[0.88]">
-              Every young person deserves a place to think, play, belong and
-              become.
-            </h2>
-
-            <div className="mt-12 grid gap-10 md:grid-cols-2">
-              <p className="text-base leading-7 text-[#F3EDE2]/65 sm:text-lg sm:leading-8">
-                SHoP uses chess to create a space where young people can
-                discover their abilities, challenge themselves and build
-                meaningful relationships with others.
-              </p>
-
-              <p className="text-base leading-7 text-[#F3EDE2]/65 sm:text-lg sm:leading-8">
-                Our goal goes beyond teaching the game. We want every session
-                to create confidence, discipline, strategic thinking and a
-                sense of possibility.
-              </p>
-            </div>
-
-            {/* Mission principles */}
-            <div className="mt-20 grid border-t border-[#F3EDE2]/15 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                "Think",
-                "Play",
-                "Belong",
-                "Become",
-              ].map((item, index) => (
-                <div
-                  key={item}
-                  className="border-[#F3EDE2]/15 py-7 sm:px-6 lg:border-l lg:first:border-l-0"
-                >
-                  <span className="text-[10px] font-bold tracking-[0.2em] text-[#F3EDE2]/35">
-                    0{index + 1}
-                  </span>
-
-                  <h3 className="shop-display mt-6 text-3xl sm:text-4xl">
-                    {item}
-                  </h3>
-                </div>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <div className="mt-16">
-              <Link
-                href="/about"
-                className="group inline-flex items-center gap-4 border border-[#F3EDE2]/30 px-6 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:bg-[#F3EDE2] hover:!text-[#111111]"
+        {/* Principles */}
+        <Reveal delay={250}>
+          <div className="mt-16 grid border-t border-[#F3EDE2]/15 sm:grid-cols-4">
+            {principles.map((item, index) => (
+              <div
+                key={item}
+                className="group border-b border-[#F3EDE2]/15 py-6 transition-colors duration-300 hover:bg-[#F3EDE2]/[0.03] sm:border-b-0 sm:border-l sm:px-6 sm:first:border-l-0"
               >
-                Discover our story
-                <span
-                  aria-hidden="true"
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                >
-                  →
+                <span className="text-[9px] font-bold tracking-[0.2em] text-[#F3EDE2]/30">
+                  0{index + 1}
                 </span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Editorial marker */}
-      <div
-        aria-hidden="true"
-        className="absolute bottom-8 right-8 hidden text-[9px] font-bold tracking-[0.3em] text-[#F3EDE2]/20 lg:block"
-      >
-        KILA HATUA INA MAANA
+                <p className="shop-display mt-5 text-3xl transition-transform duration-300 group-hover:translate-x-2 md:text-4xl">
+                  {item}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

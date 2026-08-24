@@ -105,23 +105,6 @@ img {
     padding-block: 10rem;
   }
 }
-@keyframes shop-reveal {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.shop-reveal {
-  opacity: 0;
-  animation: shop-reveal 900ms var(--ease-shop) forwards;
-}
-
 @keyframes shop-pawn {
   0%,
   100% {

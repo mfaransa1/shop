@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import Reveal from "@/components/animations/Reveal";
 
 const moves = [
   "01. e4",
@@ -31,79 +33,96 @@ export default function Hero() {
           {/* LEFT */}
           <div className="relative z-10">
             {/* Brand */}
-            <div className="shop-reveal mb-10 flex items-center gap-4">
-              <img
-                src="/images/brand/logo-mark.svg"
-                alt=""
-                className="h-12 w-12 object-contain"
-              />
+            <Reveal delay={100}>
+              <div className="mb-10 flex items-center gap-4">
+                <img
+                  src="/images/brand/logo-mark.svg"
+                  alt=""
+                  className="h-12 w-12 object-contain"
+                />
 
-              <div>
-                <p className="shop-eyebrow text-shop-ink">
-                  Southside House of Pawns
-                </p>
+                <div>
+                  <p className="shop-eyebrow text-shop-ink">
+                    Southside House of Pawns
+                  </p>
 
-                <p className="mt-1 text-xs font-medium tracking-wide text-shop-muted">
-                  Kawangware · Nairobi
-                </p>
+                  <p className="mt-1 text-xs font-medium tracking-wide text-shop-muted">
+                    Kawangware · Nairobi
+                  </p>
+                </div>
               </div>
-            </div>
+            </Reveal>
 
             {/* Eyebrow */}
-            <p className="shop-reveal shop-eyebrow mb-6 text-shop-muted [animation-delay:120ms]">
-              Chess · Community · Possibility
-            </p>
+            <Reveal delay={200}>
+              <p className="shop-eyebrow mb-6 text-shop-muted">
+                Chess · Community · Possibility
+              </p>
+            </Reveal>
 
             {/* Headline */}
-            <h1 className="shop-display shop-reveal max-w-5xl text-[clamp(4rem,8vw,8.5rem)] leading-[0.88] text-shop-ink [animation-delay:180ms]">
-              The board is bigger than the game.
-            </h1>
+            <Reveal delay={300}>
+              <h1 className="shop-display max-w-5xl text-[clamp(4rem,8vw,8.5rem)] leading-[0.88] text-shop-ink">
+                The board is bigger than the game.
+              </h1>
+            </Reveal>
 
             {/* Description */}
-            <div className="shop-reveal mt-10 max-w-xl [animation-delay:300ms]">
-              <p className="text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
-                We use chess to bring young people together, develop talent,
-                build confidence and create positive possibilities beyond the
-                board.
-              </p>
-            </div>
+            <Reveal delay={450}>
+              <div className="mt-10 max-w-xl">
+                <p className="text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
+                  We use chess to bring young people together, develop talent,
+                  build confidence and create positive possibilities beyond the
+                  board.
+                </p>
+              </div>
+            </Reveal>
 
             {/* Actions */}
-            <div className="shop-reveal mt-10 flex flex-wrap items-center gap-3 [animation-delay:420ms]">
-              <Link
-                href="/join"
-                className="group inline-flex items-center gap-4 bg-[#111111] px-6 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:-translate-y-1"
-              >
-                <span className="!text-[#F3EDE2]">Join SHoP</span>
-
-                <span
-                  aria-hidden="true"
-                  className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1"
+            <Reveal delay={550}>
+              <div className="mt-10 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/join"
+                  className="group inline-flex items-center gap-4 bg-[#111111] px-6 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:-translate-y-1"
                 >
-                  →
-                </span>
-              </Link>
-              <Link
-                href="/about"
-                className="inline-flex items-center gap-4 border border-shop-ink/20 px-6 py-4 text-sm font-semibold transition-all duration-300 hover:bg-shop-paper"
-              >
-                Our story
-                <span aria-hidden="true">↗</span>
-              </Link>
-            </div>
+                  <span className="!text-[#F3EDE2]">Join SHoP</span>
+
+                  <span
+                    aria-hidden="true"
+                    className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1"
+                  >
+                    →
+                  </span>
+                </Link>
+
+                <Link
+                  href="/about"
+                  className="inline-flex items-center gap-4 border border-shop-ink/20 px-6 py-4 text-sm font-semibold transition-all duration-300 hover:bg-shop-paper"
+                >
+                  Our story
+                  <span aria-hidden="true">↗</span>
+                </Link>
+              </div>
+            </Reveal>
 
             {/* Philosophy */}
-            <div className="shop-reveal mt-16 flex items-center gap-5 [animation-delay:520ms]">
-              <span className="h-px w-12 bg-shop-ink/30" />
+            <Reveal delay={650}>
+              <div className="mt-16 flex items-center gap-5">
+                <span className="h-px w-12 bg-shop-ink/30" />
 
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-shop-muted">
-                Kila hatua ina maana
-              </span>
-            </div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-shop-muted">
+                  Kila hatua ina maana
+                </span>
+              </div>
+            </Reveal>
           </div>
 
           {/* RIGHT — CHESS VISUAL */}
-          <div className="shop-reveal relative mx-auto w-full max-w-[620px] [animation-delay:250ms] lg:ml-auto">
+          <Reveal
+            delay={350}
+            direction="right"
+            className="relative mx-auto w-full max-w-[620px] lg:ml-auto"
+          >
             <div className="relative aspect-square overflow-hidden bg-[#111111]">
               {/* Chess board */}
               <div
@@ -163,18 +182,23 @@ export default function Hero() {
 
               <p className="shop-display mt-1 text-2xl">01. e4</p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 items-center gap-3 md:flex">
-        <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-shop-muted">
-          Scroll to explore
-        </span>
+      <Reveal
+        delay={800}
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 md:flex"
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-shop-muted">
+            Scroll to explore
+          </span>
 
-        <span className="h-8 w-px bg-shop-ink/30" />
-      </div>
+          <span className="h-8 w-px bg-shop-ink/30" />
+        </div>
+      </Reveal>
     </section>
   );
 }

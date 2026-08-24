@@ -1,24 +1,24 @@
 export const impactStats = [
   {
-    value: null,
+    value: 100,
     suffix: "",
     label: "Young people",
     description: "Building confidence, discipline and strategic thinking through chess.",
   },
   {
-    value: null,
+    value: 23,
     suffix: "",
     label: "Schools",
     description: "Bringing chess opportunities into schools across the community.",
   },
   {
-    value: null,
+    value: 1000,
     suffix: "",
     label: "Sessions",
     description: "Creating regular spaces where young people can learn and play.",
   },
   {
-    value: null,
+    value: 15,
     suffix: "",
     label: "Tournaments",
     description: "Giving players opportunities to compete, connect and grow.",
