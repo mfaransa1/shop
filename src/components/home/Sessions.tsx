@@ -1,6 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
+
 import Reveal from "@/components/animations/Reveal";
+import SectionHeading from "@/components/ui/SectionHeading";
+import Button from "@/components/ui/Button";
 
 const sessions = [
   {
@@ -32,28 +34,20 @@ export default function Sessions() {
       <div className="shop-container py-24 md:py-32 lg:py-40">
         {/* Header */}
         <Reveal>
-          <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-            <div>
-              <p className="shop-eyebrow text-shop-muted">04 — At SHoP</p>
-            </div>
-
-            <div>
-              <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.9]">
-                Come for the chess. Stay for the community.
-              </h2>
-
-              <p className="mt-8 max-w-2xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
-                Our sessions are places to learn, play, compete and connect.
-                Every board creates another opportunity to grow.
-              </p>
-            </div>
-          </div>
+          <SectionHeading
+            eyebrow="04 — At SHoP"
+            title="Come for the chess. Stay for the community."
+            description="Our sessions are places to learn, play, compete and connect. Every board creates another opportunity to grow."
+          />
         </Reveal>
 
         {/* Session cards */}
         <div className="mt-20 grid gap-8 md:grid-cols-3 md:gap-5">
           {sessions.map((session, index) => (
-            <Reveal key={session.number} delay={index * 120}>
+            <Reveal
+              key={session.number}
+              delay={index * 120}
+            >
               <article className="group">
                 {/* Image */}
                 <div className="relative aspect-[4/5] overflow-hidden bg-[#111111]">
@@ -120,19 +114,16 @@ export default function Sessions() {
               </p>
             </div>
 
-            <Link
+            <Button
               href="/join"
-              className="group inline-flex w-fit items-center gap-4 bg-[#111111] px-6 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:-translate-y-1"
+              variant="primary"
+              size="lg"
+              className="!text-[#F3EDE2]"
             >
-              <span className="!text-[#F3EDE2]">Join a session</span>
-
-              <span
-                aria-hidden="true"
-                className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1"
-              >
-                →
+              <span className="!text-[#F3EDE2]">
+                Join a session
               </span>
-            </Link>
+            </Button>
           </div>
         </Reveal>
       </div>

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { impactStats } from "@/data/impact";
 import Counter from "@/components/ui/Counter";
 import Reveal from "@/components/animations/Reveal";
@@ -11,14 +13,45 @@ export default function Impact() {
       <div className="shop-container py-24 md:py-32 lg:py-40">
         {/* Intro */}
         <Reveal>
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div className="grid gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-20">
+            {/* Left — label + image */}
             <div>
               <p className="shop-eyebrow text-shop-muted">
                 01 — Our impact
               </p>
+
+              <Reveal delay={120}>
+                <div className="relative mt-10 max-w-[360px] overflow-hidden md:mt-14">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-shop-cream">
+                    <Image
+                      src="/images/123.jpeg"
+                      alt="Young people participating in a SHoP chess session"
+                      fill
+                      sizes="(max-width: 1023px) 360px, 30vw"
+                      className="object-cover object-center transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.03]"
+                    />
+
+                    {/* Image treatment */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+
+                    {/* Image label */}
+                    <span className="absolute bottom-4 left-4 text-[8px] font-bold uppercase tracking-[0.2em] text-white/75">
+                      SHoP / 01
+                    </span>
+                  </div>
+
+                  {/* Editorial image marker */}
+                  <div className="absolute -bottom-3 -right-3 bg-[#111111] px-4 py-3 text-[#F3EDE2]">
+                    <span className="text-[8px] font-bold uppercase tracking-[0.18em]">
+                      The impact
+                    </span>
+                  </div>
+                </div>
+              </Reveal>
             </div>
 
-            <div>
+            {/* Right — statement */}
+            <div className="lg:pt-1">
               <h2 className="shop-display max-w-5xl text-[clamp(3rem,6vw,6.5rem)] leading-[0.9]">
                 Chess is the medium. People are the impact.
               </h2>
@@ -49,7 +82,7 @@ export default function Impact() {
               >
                 <div className="flex items-start justify-between">
                   <span className="text-[10px] font-bold tracking-[0.2em] text-shop-muted">
-                    0{index + 1}
+                    {String(index + 1).padStart(2, "0")}
                   </span>
 
                   <span className="text-xs text-shop-muted transition-transform duration-300 group-hover:translate-x-1">

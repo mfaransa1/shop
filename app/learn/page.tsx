@@ -3,6 +3,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
 import ChessPuzzle from "@/components/chess/ChessPuzzle";
+import GameCard from "@/components/chess/GameCard";
 import LearningPaths from "@/components/learn/LearningPaths";
 
 const levels = [
@@ -103,20 +104,20 @@ export default function LearnPage() {
               <Reveal delay={420}>
                 <div className="mt-14 flex flex-wrap gap-3">
                   <a
-  href="#levels"
-  className="group inline-flex items-center gap-4 bg-[#111111] px-7 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:-translate-y-1"
->
-  <span className="!text-[#F3EDE2]">
-    Find your level
-  </span>
+                    href="#levels"
+                    className="group inline-flex items-center gap-4 bg-[#111111] px-7 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <span className="!text-[#F3EDE2]">
+                      Find your level
+                    </span>
 
-  <span
-    aria-hidden="true"
-    className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-y-1"
-  >
-    ↓
-  </span>
-</a>
+                    <span
+                      aria-hidden="true"
+                      className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-y-1"
+                    >
+                      ↓
+                    </span>
+                  </a>
 
                   <Link
                     href="/join"
@@ -214,120 +215,191 @@ export default function LearnPage() {
         <LearningPaths />
 
         {/* =========================================================
+            FEATURED GAMES
+        ========================================================= */}
+        <section className="overflow-hidden bg-[#111111] text-[#F3EDE2]">
+          <div className="shop-container py-24 md:py-32 lg:py-40">
+            <Reveal>
+              <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+                <div>
+                  <p className="shop-eyebrow text-[#F3EDE2]/45">
+                    02 — Study the game
+                  </p>
+
+                  <p className="mt-8 hidden max-w-xs text-xs leading-5 text-[#F3EDE2]/35 lg:block">
+                    Don't only learn the moves. Learn why they work.
+                  </p>
+                </div>
+
+                <div>
+                  <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.86]">
+                    See the game
+                    <br />
+                    differently.
+                  </h2>
+
+                  <p className="mt-8 max-w-2xl text-base leading-7 text-[#F3EDE2]/50 sm:text-lg sm:leading-8">
+                    Study positions, openings and tactical ideas through games
+                    that give you something to look for—not just something to
+                    memorise.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+
+            <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <Reveal delay={100}>
+                <GameCard
+                  title="The First Move"
+                  description="Understand why controlling the centre matters from the beginning."
+                  level="Beginner"
+                  moves={12}
+                  opening="Opening"
+                  featured
+                  href="#practice"
+                />
+              </Reveal>
+
+              <Reveal delay={180}>
+                <GameCard
+                  title="Find the Tactic"
+                  description="Train your eye to recognise the opportunity before making your move."
+                  level="Intermediate"
+                  moves={18}
+                  opening="Tactics"
+                  href="#practice"
+                />
+              </Reveal>
+
+              <Reveal delay={260}>
+                <GameCard
+                  title="Think Ahead"
+                  description="Explore positions where planning several moves ahead changes everything."
+                  level="Advanced"
+                  moves={24}
+                  opening="Strategy"
+                  href="#practice"
+                />
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================
             PRACTICE
         ========================================================= */}
-{/* =========================================================
-    PRACTICE
-========================================================= */}
-<section className="overflow-hidden bg-shop-cream">
-  <div className="shop-container py-24 md:py-32 lg:py-40">
-    {/* Section introduction */}
-    <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-      <Reveal>
-        <div>
-          <p className="shop-eyebrow text-shop-muted">
-            03 — Practice
-          </p>
-
-          <div className="mt-8 hidden lg:block">
-            <span className="text-[9px] font-bold tracking-[0.2em] text-shop-muted/60">
-              THINK · CALCULATE · PLAY
-            </span>
-
-            <div className="mt-5 h-px w-24 bg-shop-ink/20" />
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal delay={120}>
-        <div>
-          <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.86]">
-            The best way
-            <br />
-            to learn is to play.
-          </h2>
-
-          <p className="mt-8 max-w-2xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
-            Chess becomes clearer when you stop only reading about it and
-            start making decisions. Work through positions, test ideas and
-            learn to see possibilities before they happen.
-          </p>
-        </div>
-      </Reveal>
-    </div>
-
-    {/* Practice statement */}
-    <Reveal delay={220}>
-      <div className="mt-16 border-y border-shop-border py-7 md:mt-20 md:py-8">
-        <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-          <p className="max-w-2xl text-sm leading-6 text-shop-muted">
-            One position. One decision. One move at a time.
-          </p>
-
-          <span className="font-mono text-[10px] font-semibold tracking-[0.15em] text-shop-muted">
-            WHITE TO MOVE
-          </span>
-        </div>
-      </div>
-    </Reveal>
-
-    {/* Puzzle stage */}
-    <Reveal delay={320}>
-      <div className="relative mt-8 overflow-hidden bg-[#111111] text-[#F3EDE2] md:mt-10">
-        {/* Ambient background */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 overflow-hidden"
+        <section
+          id="practice"
+          className="scroll-mt-20 overflow-hidden bg-shop-cream"
         >
-          <div className="absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[#F3EDE2]/[0.025] blur-3xl" />
+          <div className="shop-container py-24 md:py-32 lg:py-40">
+            {/* Section introduction */}
+            <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+              <Reveal>
+                <div>
+                  <p className="shop-eyebrow text-shop-muted">
+                    03 — Practice
+                  </p>
 
-          <div className="absolute -bottom-40 -left-20 h-80 w-80 rounded-full bg-[#F3EDE2]/[0.02] blur-3xl" />
+                  <div className="mt-8 hidden lg:block">
+                    <span className="text-[9px] font-bold tracking-[0.2em] text-shop-muted/60">
+                      THINK · CALCULATE · PLAY
+                    </span>
 
-          <div className="absolute right-0 top-0 h-px w-1/3 bg-[#F3EDE2]/20" />
+                    <div className="mt-5 h-px w-24 bg-shop-ink/20" />
+                  </div>
+                </div>
+              </Reveal>
 
-          <div className="absolute bottom-0 left-0 h-px w-1/3 bg-[#F3EDE2]/20" />
-        </div>
+              <Reveal delay={120}>
+                <div>
+                  <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.86]">
+                    The best way
+                    <br />
+                    to learn is to play.
+                  </h2>
 
-        {/* Puzzle header */}
-        <div className="relative z-10 flex flex-col gap-5 border-b border-[#F3EDE2]/10 px-6 py-6 sm:px-10 md:flex-row md:items-center md:justify-between md:px-12 lg:px-16">
-          <div className="flex items-center gap-4">
-            <span className="flex h-8 w-8 items-center justify-center border border-[#F3EDE2]/20 font-mono text-[10px]">
-              01
-            </span>
+                  <p className="mt-8 max-w-2xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
+                    Chess becomes clearer when you stop only reading about it
+                    and start making decisions. Work through positions, test
+                    ideas and learn to see possibilities before they happen.
+                  </p>
+                </div>
+              </Reveal>
+            </div>
 
-            <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#F3EDE2]/45">
-              SHoP Chess Puzzle
-            </span>
+            {/* Practice statement */}
+            <Reveal delay={220}>
+              <div className="mt-16 border-y border-shop-border py-7 md:mt-20 md:py-8">
+                <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                  <p className="max-w-2xl text-sm leading-6 text-shop-muted">
+                    One position. One decision. One move at a time.
+                  </p>
+
+                  <span className="font-mono text-[10px] font-semibold tracking-[0.15em] text-shop-muted">
+                    WHITE TO MOVE
+                  </span>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Puzzle stage */}
+            <Reveal delay={320}>
+              <div className="relative mt-8 overflow-hidden bg-[#111111] text-[#F3EDE2] md:mt-10">
+                {/* Ambient background */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 overflow-hidden"
+                >
+                  <div className="absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[#F3EDE2]/[0.025] blur-3xl" />
+
+                  <div className="absolute -bottom-40 -left-20 h-80 w-80 rounded-full bg-[#F3EDE2]/[0.02] blur-3xl" />
+
+                  <div className="absolute right-0 top-0 h-px w-1/3 bg-[#F3EDE2]/20" />
+
+                  <div className="absolute bottom-0 left-0 h-px w-1/3 bg-[#F3EDE2]/20" />
+                </div>
+
+                {/* Puzzle header */}
+                <div className="relative z-10 flex flex-col gap-5 border-b border-[#F3EDE2]/10 px-6 py-6 sm:px-10 md:flex-row md:items-center md:justify-between md:px-12 lg:px-16">
+                  <div className="flex items-center gap-4">
+                    <span className="flex h-8 w-8 items-center justify-center border border-[#F3EDE2]/20 font-mono text-[10px]">
+                      01
+                    </span>
+
+                    <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#F3EDE2]/45">
+                      SHoP Chess Puzzle
+                    </span>
+                  </div>
+
+                  <span className="font-mono text-[9px] font-semibold tracking-[0.15em] text-[#F3EDE2]/30">
+                    MATE IN ONE
+                  </span>
+                </div>
+
+                {/* Puzzle */}
+                <div className="relative z-10 p-6 sm:p-10 md:p-12 lg:p-16">
+                  <ChessPuzzle />
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Bottom note */}
+            <Reveal delay={420}>
+              <div className="mt-10 flex flex-col gap-5 border-t border-shop-border pt-7 sm:flex-row sm:items-center sm:justify-between">
+                <p className="max-w-xl text-sm leading-6 text-shop-muted">
+                  Don't worry about getting it right immediately. Good players
+                  learn by looking at the position, making a decision and
+                  understanding what happens next.
+                </p>
+
+                <span className="shop-eyebrow whitespace-nowrap text-shop-muted">
+                  Kila hatua ina maana
+                </span>
+              </div>
+            </Reveal>
           </div>
-
-          <span className="font-mono text-[9px] font-semibold tracking-[0.15em] text-[#F3EDE2]/30">
-            MATE IN ONE
-          </span>
-        </div>
-
-        {/* Puzzle */}
-        <div className="relative z-10 p-6 sm:p-10 md:p-12 lg:p-16">
-          <ChessPuzzle />
-        </div>
-      </div>
-    </Reveal>
-
-    {/* Bottom note */}
-    <Reveal delay={420}>
-      <div className="mt-10 flex flex-col gap-5 border-t border-shop-border pt-7 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-xl text-sm leading-6 text-shop-muted">
-          Don't worry about getting it right immediately. Good players learn
-          by looking at the position, making a decision and understanding what
-          happens next.
-        </p>
-
-        <span className="shop-eyebrow whitespace-nowrap text-shop-muted">
-          Kila hatua ina maana
-        </span>
-      </div>
-    </Reveal>
-  </div>
-</section>
+        </section>
 
         {/* =========================================================
             BEYOND CHESS

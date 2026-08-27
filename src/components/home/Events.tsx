@@ -1,4 +1,6 @@
-import Link from "next/link";
+import Button from "@/components/ui/Button";
+import Badge from "@/components/ui/Badge";
+import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/animations/Reveal";
 
 const events = [
@@ -9,6 +11,7 @@ const events = [
     description:
       "A community tournament bringing players together to compete, learn and connect.",
     type: "TOURNAMENT",
+    href: "/tournaments",
   },
   {
     number: "02",
@@ -17,6 +20,7 @@ const events = [
     description:
       "Weekly opportunities to learn, play and spend time around the board.",
     type: "COMMUNITY",
+    href: "/learn",
   },
   {
     number: "03",
@@ -25,6 +29,7 @@ const events = [
     description:
       "Chess activities and competitions connecting schools and young players.",
     type: "SCHOOLS",
+    href: "/schools",
   },
 ];
 
@@ -47,14 +52,12 @@ export default function Events() {
             </div>
 
             <div>
-              <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.9]">
-                The next move starts here.
-              </h2>
-
-              <p className="mt-8 max-w-2xl text-base leading-7 text-[#F3EDE2]/60 sm:text-lg sm:leading-8">
-                Follow SHoP events, tournaments and community activities as we
-                create more opportunities for young people to play and compete.
-              </p>
+              <SectionHeading
+                eyebrow=""
+                theme="dark"
+                title="The next move starts here."
+                description="Follow SHoP events, tournaments and community activities as we create more opportunities for young people to play and compete."
+              />
             </div>
           </div>
         </Reveal>
@@ -102,22 +105,23 @@ export default function Events() {
                 </span>
 
                 {/* Date */}
-                <span
-                  className="
-                    text-[10px] font-bold tracking-[0.18em]
-                    text-[#F3EDE2]/50
-                    transition-colors duration-300
-                    group-hover:text-[#F3EDE2]/80
-                  "
+                <Badge
+                  variant="outline"
+                  size="sm"
+                  className="w-fit border-[#F3EDE2]/20 !text-[#F3EDE2]/50"
                 >
                   {event.date}
-                </span>
+                </Badge>
 
                 {/* Main */}
                 <div>
-                  <span className="text-[9px] font-bold tracking-[0.2em] text-[#F3EDE2]/35">
+                  <Badge
+                    variant="outline"
+                    size="sm"
+                    className="border-transparent !px-0 !text-[#F3EDE2]/35"
+                  >
                     {event.type}
-                  </span>
+                  </Badge>
 
                   <h3
                     className="
@@ -135,9 +139,11 @@ export default function Events() {
                   </p>
                 </div>
 
-                {/* Arrow */}
+                {/* Arrow / event link */}
                 <div className="flex items-center md:justify-end">
-                  <span
+                  <a
+                    href={event.href}
+                    aria-label={`View ${event.title}`}
                     className="
                       flex h-12 w-12 items-center justify-center
                       border border-[#F3EDE2]/20
@@ -149,8 +155,8 @@ export default function Events() {
                       group-hover:text-[#111111]
                     "
                   >
-                    →
-                  </span>
+                    <span aria-hidden="true">→</span>
+                  </a>
                 </div>
               </article>
             </Reveal>
@@ -165,27 +171,21 @@ export default function Events() {
               tournament, there is always another move ahead.
             </p>
 
-            <Link
+            <Button
               href="/tournaments"
+              variant="outline"
+              size="lg"
               className="
-                group inline-flex w-fit items-center gap-4
-                border border-[#F3EDE2]/30
-                px-6 py-4 text-sm font-semibold
+                border-[#F3EDE2]/30
                 !text-[#F3EDE2]
-                transition-all duration-300
                 hover:bg-[#F3EDE2]
                 hover:!text-[#111111]
               "
             >
-              <span className="!text-current">View all events</span>
-
-              <span
-                aria-hidden="true"
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              >
-                →
+              <span className="!text-current">
+                View all events
               </span>
-            </Link>
+            </Button>
           </div>
         </Reveal>
       </div>

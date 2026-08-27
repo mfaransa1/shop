@@ -1,41 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
+
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
 
-const upcomingEvents = [
-  {
-    number: "01",
-    status: "UPCOMING",
-    date: "01",
-    month: "TBA",
-    title: "SHoP Chess Tournament",
-    type: "TOURNAMENT",
-    description:
-      "A community tournament bringing young players together to compete, learn and experience the energy of chess beyond regular sessions.",
-  },
-  {
-    number: "02",
-    status: "REGULAR",
-    date: "SAT",
-    month: "WEEKLY",
-    title: "Saturday Chess Sessions",
-    type: "COMMUNITY",
-    description:
-      "Weekly opportunities to learn, play, analyse games and spend time around the board with the SHoP community.",
-  },
-  {
-    number: "03",
-    status: "COMING SOON",
-    date: "—",
-    month: "TBA",
-    title: "School Chess Events",
-    type: "SCHOOLS",
-    description:
-      "Chess activities and competitions connecting schools, young players and the wider chess community.",
-  },
-];
+import TournamentCard from "@/components/tournaments/TournamentCard";
+
+import {
+  upcomingTournaments,
+  activeTournaments,
+} from "@/data/events";
 
 const calendar = [
   {
@@ -168,31 +143,31 @@ export default function TournamentsPage() {
 
                 <Reveal delay={400}>
                   <div className="mt-10 flex flex-wrap gap-3">
-  <Link
-    href="#upcoming"
-    className="group inline-flex items-center gap-4 bg-[#F3EDE2] px-6 py-4 text-sm font-semibold !text-[#111111] transition-all duration-300 hover:-translate-y-1"
-  >
-    <span className="!text-[#111111]">
-      See upcoming events
-    </span>
+                    <Link
+                      href="#upcoming"
+                      className="group inline-flex items-center gap-4 bg-[#F3EDE2] px-6 py-4 text-sm font-semibold !text-[#111111] transition-all duration-300 hover:-translate-y-1"
+                    >
+                      <span className="!text-[#111111]">
+                        See upcoming events
+                      </span>
 
-    <span
-      aria-hidden="true"
-      className="!text-[#111111] transition-transform duration-300 group-hover:translate-y-1"
-    >
-      ↓
-    </span>
-  </Link>
+                      <span
+                        aria-hidden="true"
+                        className="!text-[#111111] transition-transform duration-300 group-hover:translate-y-1"
+                      >
+                        ↓
+                      </span>
+                    </Link>
 
-  <Link
-    href="/join"
-    className="inline-flex items-center gap-4 border border-[#F3EDE2]/25 px-6 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:bg-[#F3EDE2] hover:!text-[#111111]"
-  >
-    <span className="!text-current">
-      Join SHoP
-    </span>
-  </Link>
-</div>
+                    <Link
+                      href="/join"
+                      className="inline-flex items-center gap-4 border border-[#F3EDE2]/25 px-6 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:bg-[#F3EDE2] hover:!text-[#111111]"
+                    >
+                      <span className="!text-current">
+                        Join SHoP
+                      </span>
+                    </Link>
+                  </div>
                 </Reveal>
 
                 <Reveal delay={520}>
@@ -202,7 +177,7 @@ export default function TournamentsPage() {
                     </span>
 
                     <span className="hidden text-[9px] font-bold tracking-[0.2em] text-[#F3EDE2]/30 sm:block">
-                      SHoP / EVENTS
+                      SHoP / TOURNAMENTS
                     </span>
                   </div>
                 </Reveal>
@@ -252,7 +227,7 @@ export default function TournamentsPage() {
         </section>
 
         {/* =========================================================
-            UPCOMING
+            UPCOMING TOURNAMENTS
         ========================================================= */}
         <section
           id="upcoming"
@@ -284,55 +259,111 @@ export default function TournamentsPage() {
               </div>
             </Reveal>
 
-            <div className="mt-20 border-t border-shop-border">
-              {upcomingEvents.map((event, index) => (
-                <Reveal key={event.number} delay={index * 100}>
-                  <article className="group grid gap-7 border-b border-shop-border py-9 transition-colors duration-500 hover:bg-shop-paper md:grid-cols-[80px_150px_1fr_80px] md:items-center md:gap-8 md:px-6 md:py-11">
-                    <span className="text-[10px] font-bold tracking-[0.2em] text-shop-muted">
-                      {event.number}
-                    </span>
-
-                    <div>
-                      <span className="block text-[9px] font-bold tracking-[0.18em] text-shop-muted/70">
-                        {event.status}
-                      </span>
-
-                      <div className="mt-2 flex items-baseline gap-2">
-                        <span className="shop-display text-4xl leading-none">
-                          {event.date}
-                        </span>
-
-                        <span className="text-[9px] font-bold tracking-[0.15em] text-shop-muted">
-                          {event.month}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div>
-                      <span className="text-[9px] font-bold tracking-[0.2em] text-shop-muted">
-                        {event.type}
-                      </span>
-
-                      <h3 className="shop-display mt-3 text-3xl leading-none transition-transform duration-500 group-hover:translate-x-1 sm:text-4xl">
-                        {event.title}
-                      </h3>
-
-                      <p className="mt-4 max-w-xl text-sm leading-6 text-shop-muted">
-                        {event.description}
-                      </p>
-                    </div>
-
-                    <div className="flex md:justify-end">
-                      <span className="flex h-11 w-11 items-center justify-center border border-shop-border text-lg transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-[#111111] group-hover:text-[#F3EDE2]">
-                        →
-                      </span>
-                    </div>
-                  </article>
+            {/* Tournament cards from data */}
+            <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {upcomingTournaments.map((tournament, index) => (
+                <Reveal key={tournament.id} delay={index * 100}>
+                  <TournamentCard tournament={tournament} />
                 </Reveal>
               ))}
             </div>
+
+            {/* Regular events */}
+            <Reveal delay={220}>
+              <div className="mt-16 border-t border-shop-border pt-10">
+                <div className="mb-8 flex items-end justify-between gap-6">
+                  <div>
+                    <span className="text-[9px] font-bold tracking-[0.2em] text-shop-muted">
+                      REGULAR COMMUNITY EVENT
+                    </span>
+
+                    <h3 className="shop-display mt-3 text-3xl sm:text-4xl">
+                      Saturday Chess Sessions
+                    </h3>
+                  </div>
+
+                  <span className="hidden font-mono text-[9px] tracking-[0.15em] text-shop-muted sm:block">
+                    EVERY SATURDAY
+                  </span>
+                </div>
+
+                <div className="border border-shop-border bg-shop-paper p-6 sm:p-8">
+                  <div className="grid gap-6 md:grid-cols-[120px_1fr_auto] md:items-center md:gap-10">
+                    <div>
+                      <span className="text-[9px] font-bold tracking-[0.18em] text-shop-muted/60">
+                        FREQUENCY
+                      </span>
+
+                      <p className="mt-2 text-sm font-semibold">
+                        Every Saturday
+                      </p>
+                    </div>
+
+                    <p className="max-w-2xl text-sm leading-6 text-shop-muted">
+                      Weekly opportunities to learn, play, analyse games and
+                      spend time around the board with the SHoP community.
+                    </p>
+
+                    <Link
+                      href="/join"
+                      className="group inline-flex w-fit items-center gap-3 bg-[#111111] px-5 py-3 text-xs font-semibold !text-[#F3EDE2] transition-all duration-300 hover:-translate-y-0.5"
+                    >
+                      <span className="!text-[#F3EDE2]">
+                        Join a session
+                      </span>
+
+                      <span className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1">
+                        →
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </section>
+
+        {/* =========================================================
+            LIVE TOURNAMENTS
+        ========================================================= */}
+        {activeTournaments.length > 0 && (
+          <section className="overflow-hidden bg-[#111111] text-[#F3EDE2]">
+            <div className="shop-container py-24 md:py-32 lg:py-40">
+              <Reveal>
+                <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+                  <div>
+                    <p className="shop-eyebrow text-[#F3EDE2]/45">
+                      02 — Live now
+                    </p>
+
+                    <p className="mt-8 hidden max-w-xs text-xs leading-5 text-[#F3EDE2]/30 lg:block">
+                      The board is live. Follow the competition.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.86]">
+                      On the board.
+                    </h2>
+
+                    <p className="mt-8 max-w-2xl text-base leading-7 text-[#F3EDE2]/50 sm:text-lg sm:leading-8">
+                      Follow active SHoP tournaments and see how players are
+                      progressing through the competition.
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+
+              <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {activeTournaments.map((tournament, index) => (
+                  <Reveal key={tournament.id} delay={index * 100}>
+                    <TournamentCard tournament={tournament} />
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* =========================================================
             CALENDAR
@@ -342,7 +373,7 @@ export default function TournamentsPage() {
             <Reveal>
               <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
                 <p className="shop-eyebrow text-[#F3EDE2]/45">
-                  02 — Calendar
+                  03 — Calendar
                 </p>
 
                 <div>
@@ -392,7 +423,7 @@ export default function TournamentsPage() {
             <Reveal>
               <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
                 <p className="shop-eyebrow text-shop-muted">
-                  03 — Tournament formats
+                  04 — Tournament formats
                 </p>
 
                 <div>
@@ -436,7 +467,7 @@ export default function TournamentsPage() {
               <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
                 <div>
                   <p className="shop-eyebrow text-[#F3EDE2]/45">
-                    04 — Saturday sessions
+                    05 — Saturday sessions
                   </p>
                 </div>
 
@@ -531,7 +562,7 @@ export default function TournamentsPage() {
             <Reveal>
               <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
                 <p className="shop-eyebrow text-shop-muted">
-                  05 — Past games
+                  06 — Past games
                 </p>
 
                 <div>
@@ -577,7 +608,7 @@ export default function TournamentsPage() {
             <Reveal>
               <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
                 <p className="shop-eyebrow text-[#F3EDE2]/45">
-                  06 — Get involved
+                  07 — Get involved
                 </p>
 
                 <div>

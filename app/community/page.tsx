@@ -1,8 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
+
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
+
+import MemberCard from "@/components/community/MemberCard";
+import StoryCard from "@/components/community/StoryCard";
+import Gallery from "@/components/community/Gallery";
 
 const experiences = [
   {
@@ -74,6 +79,48 @@ const stories = [
   },
 ];
 
+const communityMembers = [
+  {
+    number: "01",
+    name: "The Players",
+    role: "THE BOARD",
+    bio: "Young people who come to play, learn, compete and discover what they can do through chess.",
+    image: "/images/sessions/session-01.jpg",
+  },
+  {
+    number: "02",
+    name: "The Coaches",
+    role: "THE JOURNEY",
+    bio: "Mentors who help players understand the game, develop confidence and keep moving forward.",
+    image: "/images/sessions/session-02.jpg",
+  },
+  {
+    number: "03",
+    name: "The Community",
+    role: "THE PEOPLE",
+    bio: "Families, friends, volunteers and supporters who help create a place where everyone can belong.",
+    image: "/images/sessions/session-03.jpg",
+  },
+];
+
+const galleryItems = [
+  {
+    src: "/images/sessions/session-01.jpg",
+    alt: "Young people playing chess at SHoP",
+    caption: "First moves",
+  },
+  {
+    src: "/images/sessions/session-02.jpg",
+    alt: "Young people together during a chess session",
+    caption: "Saturday together",
+  },
+  {
+    src: "/images/sessions/session-03.jpg",
+    alt: "Chess players during a SHoP session",
+    caption: "Beyond the board",
+  },
+];
+
 const involvement = [
   {
     number: "01",
@@ -111,7 +158,6 @@ export default function CommunityPage() {
             HERO
         ========================================================= */}
         <section className="relative min-h-screen overflow-hidden bg-[#111111] text-[#F3EDE2]">
-          {/* Ambient background */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -123,7 +169,6 @@ export default function CommunityPage() {
 
           <div className="shop-container relative z-10 flex min-h-screen items-center py-32 md:py-40 lg:py-44">
             <div className="grid w-full items-center gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-              {/* Text */}
               <div>
                 <Reveal>
                   <div className="flex items-center gap-4">
@@ -186,7 +231,6 @@ export default function CommunityPage() {
                 </Reveal>
               </div>
 
-              {/* Hero photograph */}
               <Reveal delay={180}>
                 <div className="relative mx-auto w-full max-w-[680px] lg:ml-auto">
                   <div className="relative aspect-[4/5] overflow-hidden bg-[#F3EDE2]/5">
@@ -218,7 +262,6 @@ export default function CommunityPage() {
                     </div>
                   </div>
 
-                  {/* Floating label */}
                   <div className="absolute -bottom-5 -left-4 bg-[#F3EDE2] px-5 py-4 text-[#111111] sm:-left-7">
                     <span className="text-[9px] font-bold tracking-[0.18em]">
                       KILA HATUA INA MAANA
@@ -265,7 +308,6 @@ export default function CommunityPage() {
               </div>
             </Reveal>
 
-            {/* Large statement */}
             <Reveal delay={180}>
               <div className="mt-16 border-y border-shop-border py-10 md:mt-20 md:py-14">
                 <div className="grid gap-8 md:grid-cols-[0.35fr_1fr] md:gap-16">
@@ -280,6 +322,18 @@ export default function CommunityPage() {
                 </div>
               </div>
             </Reveal>
+
+            {/* Reusable member cards */}
+            <div className="mt-16 grid gap-6 md:grid-cols-3">
+              {communityMembers.map((member, index) => (
+                <Reveal
+                  key={member.number}
+                  delay={index * 100}
+                >
+                  <MemberCard {...member} />
+                </Reveal>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -362,51 +416,20 @@ export default function CommunityPage() {
               </div>
             </Reveal>
 
-            <div className="mt-20 space-y-16 md:space-y-24">
+            {/* Reusable StoryCards */}
+            <div className="mt-20 grid gap-6 md:grid-cols-2">
               {stories.map((story, index) => (
-                <Reveal key={story.number} delay={100}>
-                  <article
-                    className={[
-                      "grid items-center gap-8 md:grid-cols-2 md:gap-14 lg:gap-20",
-                      index % 2 === 1
-                        ? "md:[&>*:first-child]:order-2"
-                        : "",
-                    ].join(" ")}
-                  >
-                    {/* Image */}
-                    <div className="group relative aspect-[4/5] overflow-hidden bg-[#111111]">
-                      <Image
-                        src={story.image}
-                        alt={story.title}
-                        fill
-                        sizes="(max-width: 767px) 100vw, 50vw"
-                        className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
-                      />
-
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-                      <span className="absolute left-5 top-5 text-[9px] font-bold tracking-[0.2em] text-white/55">
-                        SHoP / {story.number}
-                      </span>
-                    </div>
-
-                    {/* Story */}
-                    <div>
-                      <span className="text-[9px] font-bold tracking-[0.2em] text-shop-muted">
-                        STORY {story.number}
-                      </span>
-
-                      <h3 className="shop-display mt-5 text-5xl leading-[0.88] sm:text-6xl">
-                        {story.title}
-                      </h3>
-
-                      <p className="mt-7 max-w-lg text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
-                        {story.text}
-                      </p>
-
-                      <div className="mt-8 h-px w-16 bg-shop-ink/25" />
-                    </div>
-                  </article>
+                <Reveal
+                  key={story.number}
+                  delay={index * 100}
+                >
+                  <StoryCard
+                    title={story.title}
+                    text={story.text}
+                    image={story.image}
+                    number={story.number}
+                    featured={index === 0}
+                  />
                 </Reveal>
               ))}
             </div>
@@ -526,6 +549,44 @@ export default function CommunityPage() {
         </section>
 
         {/* =========================================================
+            GALLERY
+        ========================================================= */}
+        <section className="overflow-hidden bg-shop-cream">
+          <div className="shop-container pb-24 md:pb-32 lg:pb-40">
+            <Reveal>
+              <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+                <div>
+                  <p className="shop-eyebrow text-shop-muted">
+                    06 — The room
+                  </p>
+
+                  <p className="mt-8 hidden max-w-xs text-xs leading-5 text-shop-muted lg:block">
+                    The people, the boards and the moments in between.
+                  </p>
+                </div>
+
+                <div>
+                  <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.86]">
+                    See the community.
+                  </h2>
+
+                  <p className="mt-8 max-w-2xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
+                    A glimpse into the room where games become conversations,
+                    lessons become friendships and players keep coming back.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={160}>
+              <div className="mt-16">
+                <Gallery items={galleryItems} />
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* =========================================================
             GET INVOLVED
         ========================================================= */}
         <section className="overflow-hidden bg-[#111111] text-[#F3EDE2]">
@@ -533,7 +594,7 @@ export default function CommunityPage() {
             <Reveal>
               <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
                 <p className="shop-eyebrow text-[#F3EDE2]/45">
-                  06 — Get involved
+                  07 — Get involved
                 </p>
 
                 <div>

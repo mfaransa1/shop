@@ -20,11 +20,25 @@ export default function Counter({
   useEffect(() => {
     const element = ref.current;
 
-    if (!element || value === null || started) return;
+    if (!element || value === null || started) {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReducedMotion) {
+      setCount(value);
+      setStarted(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return;
+        if (!entry.isIntersecting) {
+          return;
+        }
 
         setStarted(true);
         observer.unobserve(element);
@@ -32,15 +46,18 @@ export default function Counter({
         const startTime = performance.now();
 
         const animate = (currentTime: number) => {
-          const progress = Math.min(
-            (currentTime - startTime) / duration,
-            1,
-          );
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
 
+          // Ease-out cubic
           const easedProgress =
             1 - Math.pow(1 - progress, 3);
 
-          setCount(Math.round(value * easedProgress));
+          setCount(
+            progress === 1
+              ? value
+              : Math.round(value * easedProgress),
+          );
 
           if (progress < 1) {
             requestAnimationFrame(animate);
@@ -56,7 +73,9 @@ export default function Counter({
 
     observer.observe(element);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, [value, duration, started]);
 
   if (value === null) {

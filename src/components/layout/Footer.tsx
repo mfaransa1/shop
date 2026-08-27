@@ -1,6 +1,9 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
+
+import SocialLinks from "@/components/layout/SocialLinks";
 
 const footerLinks = [
   {
@@ -27,8 +30,8 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer className="overflow-hidden bg-[#111111] text-[#F3EDE2]">
-      {/* Main footer */}
       <div className="shop-container">
+        {/* Main footer */}
         <div className="border-b border-[#F3EDE2]/15 py-20 md:py-28 lg:py-32">
           <div className="grid gap-16 lg:grid-cols-[1.2fr_0.8fr] lg:gap-24">
             {/* Brand statement */}
@@ -99,71 +102,71 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* CTA strip */}
+          {/* Social links */}
           <div className="mt-20 border-t border-[#F3EDE2]/15 pt-8">
-            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="text-sm font-semibold">
-                  Ready to make your move?
+                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#F3EDE2]/35">
+                  Follow SHoP
                 </p>
 
                 <p className="mt-2 text-sm text-[#F3EDE2]/40">
-                  Join the SHoP community in Kawangware.
+                  Follow the journey beyond the board.
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  href="/join"
-                  className="group inline-flex items-center gap-4 bg-[#F3EDE2] px-6 py-4 text-sm font-semibold text-[#111111] transition-all duration-300 hover:-translate-y-1"
-                >
-                  <span>Join SHoP</span>
-
-                  <span
-                    aria-hidden="true"
-                    className="transition-transform duration-300 group-hover:translate-x-1"
-                  >
-                    →
-                  </span>
-                </Link>
-
-                <Link
-                  href="/support"
-                  className="inline-flex items-center gap-4 border border-[#F3EDE2]/25 px-6 py-4 text-sm font-semibold text-[#F3EDE2] transition-colors duration-300 hover:border-[#F3EDE2]/60"
-                >
-                  Support SHoP
-                </Link>
-              </div>
+              <SocialLinks />
             </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col gap-6 py-8 text-[10px] font-semibold tracking-[0.12em] text-[#F3EDE2]/35 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-col gap-2 sm:flex-row sm:gap-6">
-            <span>© {new Date().getFullYear()} SHoP</span>
-            <span className="hidden sm:block">·</span>
-            <span>Southside House of Pawns</span>
-          </div>
+        <div className="border-t border-[#F3EDE2]/15 py-8">
+          <div className="flex flex-col gap-5 text-[10px] font-semibold tracking-[0.12em] text-[#F3EDE2]/35 md:flex-row md:items-center md:justify-between">
+            {/* Copyright + developer credit */}
+            <div className="flex flex-wrap items-center justify-center gap-3 md:justify-start">
+              <span>© {new Date().getFullYear()} SHoP</span>
 
-          <div className="flex flex-col gap-2 sm:flex-row sm:gap-6">
-            <span>KAWANGWARE · NAIROBI · KENYA</span>
+              <span>·</span>
 
-            <button
-              type="button"
-              onClick={() =>
-                window.scrollTo({
-                  top: 0,
-                  behavior: "smooth",
-                })
-              }
-              className="group flex items-center gap-2 text-left transition-colors duration-300 hover:text-[#F3EDE2]"
-            >
-              BACK TO TOP
-              <span className="transition-transform duration-300 group-hover:-translate-y-1">
-                ↑
+              <span>Southside House of Pawns</span>
+
+              <span>·</span>
+
+              <span>
+                Built by{" "}
+                <a
+                  href="https://kurarinsolutions.co.ke/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-[#F3EDE2]/50 transition-colors duration-300 hover:text-[#F3EDE2]"
+                >
+                  Kurarin Solutions
+                </a>
               </span>
-            </button>
+            </div>
+
+            {/* Location + back to top */}
+            <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-6 md:items-center">
+              <span>KAWANGWARE · NAIROBI · KENYA</span>
+
+              <button
+                type="button"
+                onClick={() =>
+                  window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                  })
+                }
+                className="group flex items-center gap-2 text-left transition-colors duration-300 hover:text-[#F3EDE2]"
+              >
+                BACK TO TOP
+
+                <span className="transition-transform duration-300 group-hover:-translate-y-1">
+                  ↑
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

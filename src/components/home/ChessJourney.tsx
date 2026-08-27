@@ -1,5 +1,6 @@
-import Link from "next/link";
+import Image from "next/image";
 import Reveal from "@/components/animations/Reveal";
+import Button from "@/components/ui/Button";
 
 const journey = [
   {
@@ -34,14 +35,45 @@ export default function ChessJourney() {
       <div className="shop-container py-24 md:py-32 lg:py-40">
         {/* Header */}
         <Reveal>
-          <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+          <div className="grid gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-20">
+            {/* Left — label + image */}
             <div>
               <p className="shop-eyebrow text-shop-muted">
                 03 — The chess journey
               </p>
+
+              <Reveal delay={120}>
+                <div className="relative mt-10 max-w-[360px] overflow-hidden md:mt-14">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-shop-cream">
+                    <Image
+                      src="/images/125.jpeg"
+                      alt="Young chess player during a SHoP session"
+                      fill
+                      sizes="(max-width: 1023px) 360px, 30vw"
+                      className="object-cover object-center transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.03]"
+                    />
+
+                    {/* Image treatment */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+
+                    {/* Image label */}
+                    <span className="absolute bottom-4 left-4 text-[8px] font-bold uppercase tracking-[0.2em] text-white/75">
+                      SHoP / 03
+                    </span>
+                  </div>
+
+                  {/* Editorial image marker */}
+                  <div className="absolute -bottom-3 -right-3 bg-[#111111] px-4 py-3 text-[#F3EDE2]">
+                    <span className="text-[8px] font-bold uppercase tracking-[0.18em]">
+                      The journey
+                    </span>
+                  </div>
+                </div>
+              </Reveal>
             </div>
 
-            <div>
+            {/* Right — heading */}
+            <div className="lg:pt-1">
               <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.9]">
                 You don't just learn chess. You learn how to think.
               </h2>
@@ -154,29 +186,16 @@ export default function ChessJourney() {
               SHoP.
             </p>
 
-            <Link
+            <Button
               href="/learn"
-              className="
-                group inline-flex w-fit items-center gap-4
-                bg-[#111111] px-6 py-4 text-sm font-semibold
-                !text-[#F3EDE2]
-                transition-all duration-300
-                hover:-translate-y-1
-              "
+              variant="primary"
+              size="lg"
+              className="!text-[#F3EDE2]"
             >
-              <span className="!text-[#F3EDE2]">Explore chess</span>
-
-              <span
-                aria-hidden="true"
-                className="
-                  !text-[#F3EDE2]
-                  transition-transform duration-300
-                  group-hover:translate-x-1
-                "
-              >
-                →
+              <span className="!text-[#F3EDE2]">
+                Explore chess
               </span>
-            </Link>
+            </Button>
           </div>
         </Reveal>
       </div>

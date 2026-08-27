@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+
+import MagneticButton from "@/components/ui/MagneticButton";
 import Reveal from "@/components/animations/Reveal";
 
 const moves = [
@@ -81,26 +83,28 @@ export default function Hero() {
             {/* Actions */}
             <Reveal delay={550}>
               <div className="mt-10 flex flex-wrap items-center gap-3">
-                <Link
+                <MagneticButton
                   href="/join"
-                  className="group inline-flex items-center gap-4 bg-[#111111] px-6 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:-translate-y-1"
+                  strength={0.2}
+                  className="bg-[#111111] px-6 py-4 text-sm font-semibold !text-[#F3EDE2]"
                 >
-                  <span className="!text-[#F3EDE2]">Join SHoP</span>
-
-                  <span
-                    aria-hidden="true"
-                    className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1"
-                  >
-                    →
+                  <span className="!text-[#F3EDE2]">
+                    Join SHoP
                   </span>
-                </Link>
+                </MagneticButton>
 
                 <Link
                   href="/about"
-                  className="inline-flex items-center gap-4 border border-shop-ink/20 px-6 py-4 text-sm font-semibold transition-all duration-300 hover:bg-shop-paper"
+                  className="group inline-flex items-center gap-4 border border-shop-ink/20 px-6 py-4 text-sm font-semibold transition-all duration-300 hover:bg-shop-paper"
                 >
-                  Our story
-                  <span aria-hidden="true">↗</span>
+                  <span>Our story</span>
+
+                  <span
+                    aria-hidden="true"
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  >
+                    ↗
+                  </span>
                 </Link>
               </div>
             </Reveal>
@@ -137,7 +141,11 @@ export default function Hero() {
                   return (
                     <div
                       key={index}
-                      className={dark ? "bg-[#F3EDE2]" : "bg-[#111111]"}
+                      className={
+                        dark
+                          ? "bg-[#F3EDE2]"
+                          : "bg-[#111111]"
+                      }
                     />
                   );
                 })}
@@ -180,7 +188,9 @@ export default function Hero() {
                 First move
               </p>
 
-              <p className="shop-display mt-1 text-2xl">01. e4</p>
+              <p className="shop-display mt-1 text-2xl">
+                01. e4
+              </p>
             </div>
           </Reveal>
         </div>
