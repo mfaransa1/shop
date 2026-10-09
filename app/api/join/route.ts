@@ -38,6 +38,17 @@ function badRequest(message: string) {
   return NextResponse.json({ ok: false, error: message }, { status: 400 });
 }
 
+function serviceUnavailable() {
+  return NextResponse.json(
+    {
+      ok: false,
+      error:
+        "The registration service is not configured yet. Please contact SHoP directly or try again later.",
+    },
+    { status: 503 }
+  );
+}
+
 export async function POST(request: Request) {
   let payload: JoinPayload;
 
@@ -47,15 +58,16 @@ export async function POST(request: Request) {
     return badRequest("Please check the form and try again.");
   }
 
-  // Honeypot: silently accept the request without forwarding obvious bot submissions.
+  // Honeypot: accept obvious bot submissions without storing or emailing them.
   if (cleanText(payload.website, 200)) {
     return NextResponse.json({ ok: true });
   }
 
   const fullName = cleanText(payload.fullName, 120);
-  const ageValue = typeof payload.age === "string" || typeof payload.age === "number"
-    ? Number(payload.age)
-    : Number.NaN;
+  const ageValue =
+    typeof payload.age === "string" || typeof payload.age === "number"
+      ? Number(payload.age)
+      : Number.NaN;
   const guardianName = cleanText(payload.guardianName, 120);
   const guardianConsent = payload.guardianConsent === true;
   const phone = cleanText(payload.phone, 40);
@@ -89,77 +101,120 @@ export async function POST(request: Request) {
     return badRequest("Please select what you are interested in.");
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const recipient = process.env.SHOP_JOIN_TO_EMAIL;
-  const sender = process.env.RESEND_FROM_EMAIL;
+  const supabaseUrl = process.env.SUPABASE_URL?.replace(/\/$/, "");
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  if (!apiKey || !recipient || !sender) {
+  if (!supabaseUrl || !supabaseServiceRoleKey) {
     console.error(
-      "SHoP Join submission is not configured. Set RESEND_API_KEY, SHOP_JOIN_TO_EMAIL, and RESEND_FROM_EMAIL."
+      "SHoP Join storage is not configured. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY."
     );
-    return NextResponse.json(
-      {
-        ok: false,
-        error:
-          "The registration service is not configured yet. Please contact SHoP directly or try again later.",
-      },
-      { status: 503 }
-    );
+    return serviceUnavailable();
   }
 
-  const lines = [
-    "A new SHoP membership application was submitted.",
-    "",
-    `Full name: ${fullName}`,
-    `Age: ${ageValue}`,
-    `Phone: ${phone}`,
-    `Email: ${email || "Not provided"}`,
-    `Parent / guardian: ${guardianName || "Not provided"}`,
-    `Guardian permission confirmed: ${ageValue < 18 ? "Yes" : "Not required (18+)"}`,
-    `School / organisation: ${school || "Not provided"}`,
-    `Chess experience: ${experience}`,
-    `Interest: ${interest}`,
-    "",
-    "Additional message:",
-    message || "None provided",
-  ];
+  const application = {
+    full_name: fullName,
+    age: ageValue,
+    guardian_name: guardianName || null,
+    guardian_consent: ageValue < 18 ? guardianConsent : false,
+    phone,
+    email: email || null,
+    school: school || null,
+    experience,
+    interest,
+    message: message || null,
+    status: "new",
+  };
 
-  let emailResponse: Response;
+  let storageResponse: Response;
   try {
-    emailResponse = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: sender,
-        to: [recipient],
-        subject: `New SHoP application — ${fullName}`,
-        text: lines.join("\n"),
-        ...(email ? { reply_to: email } : {}),
-      }),
-      cache: "no-store",
-    });
+    storageResponse = await fetch(
+      `${supabaseUrl}/rest/v1/join_applications`,
+      {
+        method: "POST",
+        headers: {
+          apikey: supabaseServiceRoleKey,
+          Authorization: `Bearer ${supabaseServiceRoleKey}`,
+          "Content-Type": "application/json",
+          Prefer: "return=minimal",
+        },
+        body: JSON.stringify(application),
+        cache: "no-store",
+      }
+    );
   } catch {
     return NextResponse.json(
       {
         ok: false,
-        error: "We could not send your application right now. Please try again later.",
+        error: "We could not save your application right now. Please try again later.",
       },
       { status: 502 }
     );
   }
 
-  if (!emailResponse.ok) {
-    // Do not log application content or the provider's potentially sensitive response body.
-    console.error(`SHoP Join email delivery failed with status ${emailResponse.status}.`);
+  if (!storageResponse.ok) {
+    // Log only the HTTP status; never log application data or provider response bodies.
+    console.error(`SHoP Join storage failed with status ${storageResponse.status}.`);
     return NextResponse.json(
       {
         ok: false,
-        error: "We could not send your application right now. Please try again later.",
+        error: "We could not save your application right now. Please try again later.",
       },
       { status: 502 }
+    );
+  }
+
+  // Email is a notification only. The database is the source of truth, so a
+  // notification outage must not tell applicants their saved application failed.
+  const apiKey = process.env.RESEND_API_KEY;
+  const recipient = process.env.SHOP_JOIN_TO_EMAIL;
+  const sender = process.env.RESEND_FROM_EMAIL;
+
+  if (apiKey && recipient && sender) {
+    const lines = [
+      "A new SHoP membership application was saved.",
+      "",
+      `Full name: ${fullName}`,
+      `Age: ${ageValue}`,
+      `Phone: ${phone}`,
+      `Email: ${email || "Not provided"}`,
+      `Parent / guardian: ${guardianName || "Not provided"}`,
+      `Guardian permission confirmed: ${ageValue < 18 ? "Yes (self-reported)" : "Not required (18+)"}`,
+      `School / organisation: ${school || "Not provided"}`,
+      `Chess experience: ${experience}`,
+      `Interest: ${interest}`,
+      "",
+      "Additional message:",
+      message || "None provided",
+    ];
+
+    try {
+      const emailResponse = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: sender,
+          to: [recipient],
+          subject: `New SHoP application — ${fullName}`,
+          text: lines.join("\n"),
+          ...(email ? { reply_to: email } : {}),
+        }),
+        cache: "no-store",
+      });
+
+      if (!emailResponse.ok) {
+        console.error(
+          `SHoP Join notification email failed with status ${emailResponse.status}.`
+        );
+      }
+    } catch {
+      console.error("SHoP Join notification email request failed.");
+    }
+  } else {
+    console.warn(
+      "SHoP Join application saved; email notification is not configured."
     );
   }
 
