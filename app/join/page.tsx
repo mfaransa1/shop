@@ -17,6 +17,7 @@ type FormData = {
   experience: string;
   interest: string;
   message: string;
+  website: string;
 };
 
 const initialForm: FormData = {
@@ -29,6 +30,7 @@ const initialForm: FormData = {
   experience: "",
   interest: "",
   message: "",
+  website: "",
 };
 
 const inputClass =
@@ -41,6 +43,9 @@ export default function JoinPage() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [guardianConsent, setGuardianConsent] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const isMinor = form.age !== "" && Number(form.age) < 18;
 
   function updateField(
     field: keyof FormData,
@@ -54,19 +59,38 @@ export default function JoinPage() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     setSubmitting(true);
+    setSubmitError("");
 
-    // Temporary submission layer.
-    // Connect this to your backend/email service later.
-    await new Promise((resolve) => setTimeout(resolve, 900));
+    try {
+      const response = await fetch("/api/join", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, guardianConsent }),
+      });
+      const result = (await response.json()) as { ok?: boolean; error?: string };
 
-    setSubmitting(false);
-    setSubmitted(true);
+      if (!response.ok || !result.ok) {
+        setSubmitError(
+          result.error || "We could not send your application. Please try again."
+        );
+        return;
+      }
+
+      setSubmitted(true);
+    } catch {
+      setSubmitError(
+        "We could not connect to SHoP. Check your connection and try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   function resetForm() {
     setForm(initialForm);
+    setGuardianConsent(false);
+    setSubmitError("");
     setSubmitted(false);
   }
 
@@ -343,6 +367,20 @@ export default function JoinPage() {
                       onSubmit={handleSubmit}
                       className="space-y-10"
                     >
+                      {/* Honeypot field for basic automated-spam filtering. */}
+                      <div aria-hidden="true" className="absolute -left-[10000px] h-px w-px overflow-hidden">
+                        <label htmlFor="website">Leave this field empty</label>
+                        <input
+                          id="website"
+                          name="website"
+                          type="text"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={form.website}
+                          onChange={(e) => updateField("website", e.target.value)}
+                        />
+                      </div>
+
                       {/* Basic details */}
                       <div>
                         <div className="mb-8 flex items-center justify-between">
@@ -452,20 +490,38 @@ export default function JoinPage() {
                           htmlFor="guardianName"
                           className={labelClass}
                         >
-                          Parent / Guardian name
+                          Parent / Guardian name{isMinor ? " *" : ""}
                         </label>
 
                         <input
                           id="guardianName"
                           name="guardianName"
                           value={form.guardianName}
+                          required={isMinor}
                           onChange={(e) =>
                             updateField("guardianName", e.target.value)
                           }
-                          placeholder="Required for younger players"
+                          placeholder={isMinor ? "Parent or guardian's full name" : "Required for younger players"}
                           className={inputClass}
                         />
                       </div>
+
+                      {isMinor && (
+                        <div className="border-t border-shop-border pt-6">
+                          <label className="flex items-start gap-3 text-sm leading-6 text-shop-muted">
+                            <input
+                              type="checkbox"
+                              checked={guardianConsent}
+                              onChange={(event) => setGuardianConsent(event.target.checked)}
+                              required
+                              className="mt-1 h-4 w-4 accent-[#111111]"
+                            />
+                            <span>
+                              I confirm that my parent or guardian knows about this application and has agreed that I may submit it.
+                            </span>
+                          </label>
+                        </div>
+                      )}
 
                       {/* School */}
                       <div>
@@ -586,6 +642,15 @@ export default function JoinPage() {
                           className={`${inputClass} resize-none`}
                         />
                       </div>
+
+                      {submitError && (
+                        <div
+                          role="alert"
+                          className="border border-red-700/30 bg-red-50 px-4 py-3 text-sm leading-6 text-red-800"
+                        >
+                          {submitError}
+                        </div>
+                      )}
 
                       {/* Submit */}
                       <div className="border-t border-shop-border pt-8">
