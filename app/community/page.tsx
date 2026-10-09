@@ -409,7 +409,7 @@ export default function CommunityPage() {
                   </h2>
 
                   <p className="mt-8 max-w-2xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
-                    The most important part of SHoP isn't the score at the end
+                    The most important part of SHoP isn&apos;t the score at the end
                     of a game. It is what happens to the people who played it.
                   </p>
                 </div>

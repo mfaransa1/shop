@@ -111,7 +111,7 @@ export default function JoinPage() {
 
                 <Reveal delay={260}>
                   <p className="mt-10 max-w-xl text-base leading-7 text-[#F3EDE2]/55 sm:text-lg sm:leading-8">
-                    Whether you're picking up a chessboard for the first time
+                    Whether you&apos;re picking up a chessboard for the first time
                     or already preparing for your next tournament, there is a
                     place for you at SHoP.
                   </p>
@@ -216,7 +216,7 @@ export default function JoinPage() {
 
                   <p className="mt-8 max-w-2xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
                     SHoP welcomes young people at different stages of their
-                    chess journey. Tell us a little about yourself and we'll
+                    chess journey. Tell us a little about yourself and we&apos;ll
                     help you find the right place to start.
                   </p>
                 </div>
@@ -276,7 +276,7 @@ export default function JoinPage() {
 
                   <p className="mt-8 max-w-sm text-sm leading-6 text-[#F3EDE2]/45">
                     Complete the form and tell us a little about yourself.
-                    We'll use your details to understand how SHoP can best
+                    We&apos;ll use your details to understand how SHoP can best
                     welcome you.
                   </p>
 
@@ -286,7 +286,7 @@ export default function JoinPage() {
                     </span>
 
                     <p className="mt-4 text-sm leading-6 text-[#F3EDE2]/45">
-                      We'll review your registration and get in touch with
+                      We&apos;ll review your registration and get in touch with
                       information about sessions and next steps.
                     </p>
                   </div>
@@ -304,13 +304,13 @@ export default function JoinPage() {
                         </span>
 
                         <h3 className="shop-display mt-8 max-w-2xl text-[clamp(3.5rem,7vw,7rem)] leading-[0.82]">
-                          You're on
+                          You&apos;re on
                           <br />
                           the board.
                         </h3>
 
                         <p className="mt-8 max-w-xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
-                          Thanks for registering your interest in SHoP. We'll
+                          Thanks for registering your interest in SHoP. We&apos;ll
                           be in touch with the next steps.
                         </p>
                       </div>
@@ -511,7 +511,7 @@ export default function JoinPage() {
                             Select your level
                           </option>
                           <option value="beginner">
-                            Beginner — I'm new to chess
+                            Beginner — I&apos;m new to chess
                           </option>
                           <option value="developing">
                             Developing — I know the basics
@@ -571,7 +571,7 @@ export default function JoinPage() {
                           htmlFor="message"
                           className={labelClass}
                         >
-                          Anything you'd like us to know?
+                          Anything you&apos;d like us to know?
                         </label>
 
                         <textarea

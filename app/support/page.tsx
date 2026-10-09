@@ -526,7 +526,7 @@ export default function SupportPage() {
               <div className="mt-16 border-y border-[#F3EDE2]/15 py-8 md:mt-20 md:py-10">
                 <div className="flex flex-col gap-7 md:flex-row md:items-center md:justify-between">
                   <p className="max-w-2xl text-sm leading-6 text-[#F3EDE2]/45 md:text-base md:leading-7">
-                    Have an idea for how you can contribute? We'd like to hear
+                    Have an idea for how you can contribute? We&apos;d like to hear
                     it.
                   </p>
 

@@ -100,7 +100,7 @@ export default function SchoolImpact() {
         {/* Highlights */}
         <Reveal delay={200}>
           <div className="mt-16 grid border-t border-shop-border md:grid-cols-3">
-            {highlights.map((item, index) => (
+            {highlights.map((item) => (
               <article
                 key={item.number}
                 className="

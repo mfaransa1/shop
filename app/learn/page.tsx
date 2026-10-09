@@ -93,7 +93,7 @@ export default function LearnPage() {
                   </div>
 
                   <p className="max-w-3xl text-lg leading-8 text-shop-muted md:text-xl md:leading-9">
-                    Whether you're touching a chessboard for the first time or
+                    Whether you&apos;re touching a chessboard for the first time or
                     preparing for competition, SHoP gives you a place to learn,
                     practise and improve.
                   </p>
@@ -164,7 +164,7 @@ export default function LearnPage() {
                   </h2>
 
                   <p className="mt-8 max-w-2xl text-base leading-7 text-[#F3EDE2]/55 sm:text-lg sm:leading-8">
-                    Chess is a journey. You don't need to know everything
+                    Chess is a journey. You don&apos;t need to know everything
                     before you make your first move.
                   </p>
                 </div>
@@ -227,7 +227,7 @@ export default function LearnPage() {
                   </p>
 
                   <p className="mt-8 hidden max-w-xs text-xs leading-5 text-[#F3EDE2]/35 lg:block">
-                    Don't only learn the moves. Learn why they work.
+                    Don&apos;t only learn the moves. Learn why they work.
                   </p>
                 </div>
 
@@ -388,7 +388,7 @@ export default function LearnPage() {
             <Reveal delay={420}>
               <div className="mt-10 flex flex-col gap-5 border-t border-shop-border pt-7 sm:flex-row sm:items-center sm:justify-between">
                 <p className="max-w-xl text-sm leading-6 text-shop-muted">
-                  Don't worry about getting it right immediately. Good players
+                  Don&apos;t worry about getting it right immediately. Good players
                   learn by looking at the position, making a decision and
                   understanding what happens next.
                 </p>

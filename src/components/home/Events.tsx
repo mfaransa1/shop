@@ -167,7 +167,7 @@ export default function Events() {
         <Reveal delay={350}>
           <div className="mt-12 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <p className="max-w-xl text-sm leading-6 text-[#F3EDE2]/50">
-              Whether you're playing your first game or preparing for a
+              Whether you&apos;re playing your first game or preparing for a
               tournament, there is always another move ahead.
             </p>
 

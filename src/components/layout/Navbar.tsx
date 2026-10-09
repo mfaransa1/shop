@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { navigation, navigationActions } from "@/data/navigation";
@@ -22,9 +23,12 @@ export default function Navbar() {
             onClick={() => setMenuOpen(false)}
           >
             <span className="flex h-10 w-10 items-center justify-center">
-              <img
+              <Image
                 src="/images/brand/logo-mark.svg"
                 alt=""
+                width={40}
+                height={40}
+                priority
                 className="h-full w-full object-contain"
               />
             </span>

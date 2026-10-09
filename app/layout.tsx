@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Southside House of Pawns" }],
   creator: "Southside House of Pawns",
-  metadataBase: new URL("https://shop.example.com"),
+  metadataBase: new URL("https://shopchess.vercel.app"),
   openGraph: {
     title: "SHoP — Southside House of Pawns",
     description:
@@ -43,7 +45,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   );
 }

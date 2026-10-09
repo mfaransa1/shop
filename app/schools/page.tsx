@@ -4,29 +4,6 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
 
-const schoolBenefits = [
-  {
-    number: "01",
-    title: "Discover",
-    text: "Introduce students to chess in an environment that makes learning the game approachable, engaging and social.",
-  },
-  {
-    number: "02",
-    title: "Develop",
-    text: "Use chess to strengthen concentration, patience, problem-solving and strategic thinking.",
-  },
-  {
-    number: "03",
-    title: "Compete",
-    text: "Give students opportunities to test their skills through games, school events and tournaments.",
-  },
-  {
-    number: "04",
-    title: "Grow",
-    text: "Create experiences that help young people build confidence and carry what they learn beyond the chessboard.",
-  },
-];
-
 const programmeSteps = [
   {
     number: "01",
@@ -257,7 +234,7 @@ export default function SchoolsPage() {
                     A chessboard gives students a practical environment in
                     which decisions have consequences. They learn to slow
                     down, recognise patterns, think ahead and respond when
-                    things don't go according to plan.
+                    things don&apos;t go according to plan.
                   </p>
                 </div>
               </div>

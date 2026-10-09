@@ -75,7 +75,7 @@ export default function ChessJourney() {
             {/* Right — heading */}
             <div className="lg:pt-1">
               <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.9]">
-                You don't just learn chess. You learn how to think.
+                You don&apos;t just learn chess. You learn how to think.
               </h2>
 
               <p className="mt-8 max-w-2xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
@@ -181,8 +181,8 @@ export default function ChessJourney() {
         <Reveal delay={400}>
           <div className="mt-12 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <p className="max-w-lg text-sm leading-6 text-shop-muted">
-              Whether you're touching a chessboard for the first time or
-              preparing for your next tournament, there's a place for you at
+              Whether you&apos;re touching a chessboard for the first time or
+              preparing for your next tournament, there&apos;s a place for you at
               SHoP.
             </p>
 

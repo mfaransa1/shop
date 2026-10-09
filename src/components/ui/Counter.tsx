@@ -29,9 +29,12 @@ export default function Counter({
     ).matches;
 
     if (prefersReducedMotion) {
-      setCount(value);
-      setStarted(true);
-      return;
+      const frameId = window.requestAnimationFrame(() => {
+        setCount(value);
+        setStarted(true);
+      });
+
+      return () => window.cancelAnimationFrame(frameId);
     }
 
     const observer = new IntersectionObserver(

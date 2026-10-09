@@ -479,7 +479,7 @@ export default function TournamentsPage() {
                   <p className="mt-8 max-w-2xl text-base leading-7 text-[#F3EDE2]/50 sm:text-lg sm:leading-8">
                     Before the tournament comes the board. Join regular
                     Saturday sessions to build your game and meet the people
-                    you'll eventually compete alongside.
+                    you&apos;ll eventually compete alongside.
                   </p>
                 </div>
               </div>
@@ -622,7 +622,7 @@ export default function TournamentsPage() {
             <Reveal delay={180}>
               <div className="mt-14 flex flex-col gap-6 border-t border-[#F3EDE2]/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
                 <p className="max-w-xl text-sm leading-6 text-[#F3EDE2]/45">
-                  Whether you're ready to compete, learn or simply sit down
+                  Whether you&apos;re ready to compete, learn or simply sit down
                   for your first game, there is a place for you at SHoP.
                 </p>
 

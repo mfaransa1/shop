@@ -5,7 +5,6 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
 
-import TournamentCard from "@/components/tournaments/TournamentCard";
 import Leaderboard from "@/components/tournaments/Leaderboard";
 import TournamentBracket from "@/components/tournaments/TournamentBracket";
 
@@ -338,7 +337,7 @@ export default async function TournamentPage({
                     <h2 className="shop-display text-[clamp(3.25rem,6vw,6rem)] leading-[0.86]">
                       Know who
                       <br />
-                      you're playing.
+                      you&apos;re playing.
                     </h2>
                   </div>
                 </div>

@@ -37,9 +37,12 @@ export default function Hero() {
             {/* Brand */}
             <Reveal delay={100}>
               <div className="mb-10 flex items-center gap-4">
-                <img
+                <Image
                   src="/images/brand/logo-mark.svg"
                   alt=""
+                  width={48}
+                  height={48}
+                  priority
                   className="h-12 w-12 object-contain"
                 />
 
