@@ -7,6 +7,8 @@ import Reveal from "@/components/animations/Reveal";
 
 import Leaderboard from "@/components/tournaments/Leaderboard";
 import TournamentBracket from "@/components/tournaments/TournamentBracket";
+import TournamentRegistrationForm from "@/components/tournaments/TournamentRegistrationForm";
+import { canAcceptTournamentRegistration } from "@/lib/tournament-registration";
 
 import {
   getTournamentBySlug,
@@ -18,6 +20,8 @@ type TournamentPageProps = {
     slug: string;
   }>;
 };
+
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return tournaments.map((tournament) => ({
@@ -35,6 +39,8 @@ export default async function TournamentPage({
   if (!tournament) {
     notFound();
   }
+
+  const canRegister = canAcceptTournamentRegistration(tournament);
 
   const date = new Date(
     `${tournament.date}T00:00:00`
@@ -223,14 +229,13 @@ export default async function TournamentPage({
                     </div>
                   </div>
 
-                  {tournament.status ===
-                    "registration-open" && (
+                  {canRegister && (
                     <Link
-                      href="/join"
+                      href="#registration"
                       className="group mt-7 flex items-center justify-between bg-[#111111] px-5 py-4 text-sm font-semibold !text-[#F3EDE2] transition-transform duration-300 hover:-translate-y-1"
                     >
                       <span className="!text-[#F3EDE2]">
-                        Register interest
+                        Register for this tournament
                       </span>
 
                       <span className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1">
@@ -243,6 +248,34 @@ export default async function TournamentPage({
             </div>
           </div>
         </section>
+
+        {canRegister && (
+          <section id="registration" className="scroll-mt-24 overflow-hidden bg-shop-cream">
+            <div className="shop-container py-20 md:py-28 lg:py-32">
+              <Reveal>
+                <div className="mb-10 grid gap-6 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+                  <p className="shop-eyebrow text-shop-muted">Registration</p>
+                  <div>
+                    <h2 className="shop-display max-w-5xl text-[clamp(3rem,6vw,5.5rem)] leading-[0.88]">
+                      Your place at the board starts here.
+                    </h2>
+                    <p className="mt-6 max-w-2xl text-sm leading-6 text-shop-muted sm:text-base sm:leading-7">
+                      Submit your details below. Registration requests are reviewed by SHoP, and a place is not confirmed until the organisers contact you.
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+              <Reveal delay={100}>
+                <TournamentRegistrationForm
+                  tournamentSlug={tournament.slug}
+                  tournamentName={tournament.name}
+                  maxPlayers={tournament.maxPlayers}
+                  registeredPlayers={tournament.registeredPlayers}
+                />
+              </Reveal>
+            </div>
+          </section>
+        )}
 
         {/* =========================================================
             LEADERBOARD

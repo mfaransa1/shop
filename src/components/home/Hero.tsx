@@ -37,12 +37,9 @@ export default function Hero() {
             {/* Brand */}
             <Reveal delay={100}>
               <div className="mb-10 flex items-center gap-4">
-                <Image
+                <img
                   src="/images/brand/logo-mark.svg"
                   alt=""
-                  width={48}
-                  height={48}
-                  priority
                   className="h-12 w-12 object-contain"
                 />
 
@@ -98,16 +95,9 @@ export default function Hero() {
 
                 <Link
                   href="/about"
-                  className="group inline-flex items-center gap-4 border border-shop-ink/20 px-6 py-4 text-sm font-semibold transition-all duration-300 hover:bg-shop-paper"
+                  className="inline-flex items-center border border-shop-ink/20 px-6 py-4 text-sm font-semibold transition-all duration-300 hover:bg-shop-paper"
                 >
                   <span>Our story</span>
-
-                  <span
-                    aria-hidden="true"
-                    className="transition-transform duration-300 group-hover:translate-x-1"
-                  >
-                    ↗
-                  </span>
                 </Link>
               </div>
             </Reveal>

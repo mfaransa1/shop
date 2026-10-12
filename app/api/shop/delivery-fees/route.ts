@@ -1,0 +1,3 @@
+import { NextResponse } from "next/server"; import { shopDb } from "@/lib/shop-commerce-store";
+export const dynamic="force-dynamic";
+export async function GET(){try{const r=await shopDb("shop_commerce_settings?setting_key=eq.delivery_pricing&select=setting_value&limit=1");const rows=Array.isArray(r.data)?r.data as Array<{setting_value?:{default_fee_kes?:number;county_fees?:Record<string,number>}}>:[];const p=rows[0]?.setting_value;return NextResponse.json({defaultFeeKes:Number.isInteger(p?.default_fee_kes)?p?.default_fee_kes:0,countyFees:p?.county_fees??{}})}catch{return NextResponse.json({defaultFeeKes:0,countyFees:{}})}}

@@ -1,0 +1,24 @@
+/* High-contrast text fixes scoped only to donation and merch checkout forms. */
+.shop-donation-checkout { color: #111111 !important; }
+.shop-donation-checkout h3 { color: #171717 !important; }
+.shop-donation-checkout label,
+.shop-donation-checkout legend { color: #111111 !important; }
+.shop-donation-checkout input,
+.shop-donation-checkout textarea,
+.shop-donation-checkout select { color: #111111 !important; background-color: #ffffff !important; }
+.shop-donation-checkout input::placeholder,
+.shop-donation-checkout textarea::placeholder { color: #6b6b6b !important; opacity: 1 !important; }
+.shop-donation-checkout .shop-donation-amount { color: #111111 !important; }
+.shop-donation-checkout .shop-donation-amount[aria-pressed="true"] { color: #ffffff !important; }
+.shop-donation-checkout .shop-donation-submit { color: #ffffff !important; }
+.shop-merch-checkout { color: #111111 !important; }
+.shop-merch-checkout label,
+.shop-merch-checkout legend,
+.shop-merch-checkout h2 { color: #111111 !important; }
+.shop-merch-checkout input,
+.shop-merch-checkout textarea,
+.shop-merch-checkout select { color: #111111 !important; background-color: #ffffff !important; }
+.shop-merch-checkout input::placeholder,
+.shop-merch-checkout textarea::placeholder { color: #6b6b6b !important; opacity: 1 !important; }
+.shop-merch-checkout button { color: #111111 !important; }
+.shop-merch-checkout button[type="submit"] { color: #ffffff !important; }

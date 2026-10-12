@@ -9,12 +9,15 @@ import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import CommunityStories from "@/components/home/CommunityStories";
 import HomeCTA from "@/components/home/HomeCTA";
+import HomeAnnouncement from "@/components/home/HomeAnnouncement";
+
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-
+      <HomeAnnouncement />
       <main>
         <Hero />
         <Impact />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
@@ -169,7 +170,13 @@ export function AdminApplications({ adminEmail }: { adminEmail: string }) {
             </p>
             <h1 className="shop-display mt-2 text-3xl sm:text-4xl">Membership applications</h1>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/admin/tournaments"
+              className="border border-shop-border px-4 py-2 text-xs font-semibold transition-colors hover:bg-shop-cream"
+            >
+              Tournament registrations
+            </Link>
             <span className="hidden max-w-56 truncate text-xs text-shop-muted sm:block">{adminEmail}</span>
             <button
               type="button"

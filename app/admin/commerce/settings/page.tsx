@@ -1,0 +1,3 @@
+import { redirect } from "next/navigation"; import { createClient } from "@/lib/supabase/server"; import { DeliverySettingsAdmin } from "@/components/admin/DeliverySettingsAdmin";
+export const dynamic="force-dynamic";
+export default async function SettingsPage(){let supabase;try{supabase=await createClient()}catch{return <main className="p-10">Supabase authentication is not configured.</main>}const {data:{user}}=await supabase.auth.getUser();if(!user?.email)redirect("/admin/login");const allowed=(process.env.SHOP_ADMIN_EMAILS??"").split(",").map(x=>x.trim().toLowerCase()).filter(Boolean);if(!allowed.includes(user.email.toLowerCase()))return <main className="p-10">This account is not authorised to manage SHoP commerce.</main>;return <DeliverySettingsAdmin/>}

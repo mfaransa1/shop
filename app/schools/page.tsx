@@ -4,6 +4,29 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
 
+const schoolBenefits = [
+  {
+    number: "01",
+    title: "Discover",
+    text: "Introduce students to chess in an environment that makes learning the game approachable, engaging and social.",
+  },
+  {
+    number: "02",
+    title: "Develop",
+    text: "Use chess to strengthen concentration, patience, problem-solving and strategic thinking.",
+  },
+  {
+    number: "03",
+    title: "Compete",
+    text: "Give students opportunities to test their skills through games, school events and tournaments.",
+  },
+  {
+    number: "04",
+    title: "Grow",
+    text: "Create experiences that help young people build confidence and carry what they learn beyond the chessboard.",
+  },
+];
+
 const programmeSteps = [
   {
     number: "01",
@@ -133,20 +156,14 @@ export default function SchoolsPage() {
                         Explore the programme
                       </span>
 
-                      <span
-                        aria-hidden="true"
-                        className="!text-[#111111] transition-transform duration-300 group-hover:translate-y-1"
-                      >
-                        ↓
-                      </span>
                     </Link>
 
                     <Link
-                      href="/join"
+                      href="/support"
                       className="inline-flex items-center gap-4 border border-[#F3EDE2]/25 px-6 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:bg-[#F3EDE2] hover:!text-[#111111]"
                     >
                       <span className="!text-current">
-                        Talk to SHoP
+                        Discuss a school partnership
                       </span>
                     </Link>
                   </div>
@@ -234,7 +251,7 @@ export default function SchoolsPage() {
                     A chessboard gives students a practical environment in
                     which decisions have consequences. They learn to slow
                     down, recognise patterns, think ahead and respond when
-                    things don&apos;t go according to plan.
+                    things don't go according to plan.
                   </p>
                 </div>
               </div>
@@ -511,19 +528,10 @@ export default function SchoolsPage() {
                   </p>
 
                   <Link
-                    href="/join"
-                    className="group inline-flex w-fit items-center gap-4 bg-[#F3EDE2] px-7 py-4 text-sm font-semibold !text-[#111111] transition-all duration-300 hover:-translate-y-1"
+                    href="/support"
+                    className="inline-flex w-fit items-center bg-[#F3EDE2] px-7 py-4 text-sm font-semibold !text-[#111111] transition-colors duration-300 hover:bg-white"
                   >
-                    <span className="!text-[#111111]">
-                      Start a conversation
-                    </span>
-
-                    <span
-                      aria-hidden="true"
-                      className="!text-[#111111] transition-transform duration-300 group-hover:translate-x-1"
-                    >
-                      →
-                    </span>
+                    Explore partnership options
                   </Link>
                 </div>
               </div>
@@ -560,19 +568,10 @@ export default function SchoolsPage() {
             <Reveal delay={260}>
               <div className="mt-10 flex flex-wrap gap-3">
                 <Link
-                  href="/join"
-                  className="group inline-flex items-center gap-4 bg-[#111111] px-7 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:-translate-y-1"
+                  href="/support"
+                  className="inline-flex items-center bg-[#111111] px-7 py-4 text-sm font-semibold !text-[#F3EDE2] transition-colors duration-300 hover:bg-[#292929]"
                 >
-                  <span className="!text-[#F3EDE2]">
-                    Partner with SHoP
-                  </span>
-
-                  <span
-                    aria-hidden="true"
-                    className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1"
-                  >
-                    →
-                  </span>
+                  Explore partnership options
                 </Link>
 
                 <Link

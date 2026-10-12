@@ -3,35 +3,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
 import ChessPuzzle from "@/components/chess/ChessPuzzle";
-import GameCard from "@/components/chess/GameCard";
 import LearningPaths from "@/components/learn/LearningPaths";
-
-const levels = [
-  {
-    number: "01",
-    level: "Beginner",
-    title: "Start with the board.",
-    description:
-      "Learn how the pieces move, understand the board and begin playing with confidence.",
-    move: "e4",
-  },
-  {
-    number: "02",
-    level: "Intermediate",
-    title: "See the position.",
-    description:
-      "Develop your tactical awareness, opening principles and ability to plan ahead.",
-    move: "Nf3",
-  },
-  {
-    number: "03",
-    level: "Advanced",
-    title: "Think several moves ahead.",
-    description:
-      "Deepen your strategy, analyse positions and prepare yourself for competitive play.",
-    move: "Bb5",
-  },
-];
 
 export default function LearnPage() {
   return (
@@ -93,7 +65,7 @@ export default function LearnPage() {
                   </div>
 
                   <p className="max-w-3xl text-lg leading-8 text-shop-muted md:text-xl md:leading-9">
-                    Whether you&apos;re touching a chessboard for the first time or
+                    Whether you're touching a chessboard for the first time or
                     preparing for competition, SHoP gives you a place to learn,
                     practise and improve.
                   </p>
@@ -104,19 +76,13 @@ export default function LearnPage() {
               <Reveal delay={420}>
                 <div className="mt-14 flex flex-wrap gap-3">
                   <a
-                    href="#levels"
+                    href="#learning-paths"
                     className="group inline-flex items-center gap-4 bg-[#111111] px-7 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:-translate-y-1"
                   >
                     <span className="!text-[#F3EDE2]">
-                      Find your level
+                      Explore learning paths
                     </span>
 
-                    <span
-                      aria-hidden="true"
-                      className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-y-1"
-                    >
-                      ↓
-                    </span>
                   </a>
 
                   <Link
@@ -145,142 +111,47 @@ export default function LearnPage() {
         </section>
 
         {/* =========================================================
-            LEVELS
-        ========================================================= */}
-        <section
-          id="levels"
-          className="scroll-mt-20 overflow-hidden bg-[#111111] text-[#F3EDE2]"
-        >
-          <div className="shop-container py-24 md:py-32 lg:py-40">
-            <Reveal>
-              <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-                <p className="shop-eyebrow text-[#F3EDE2]/50">
-                  01 — Find your level
-                </p>
-
-                <div>
-                  <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.88]">
-                    Start where you are.
-                  </h2>
-
-                  <p className="mt-8 max-w-2xl text-base leading-7 text-[#F3EDE2]/55 sm:text-lg sm:leading-8">
-                    Chess is a journey. You don&apos;t need to know everything
-                    before you make your first move.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-
-            <div className="mt-20 border-t border-[#F3EDE2]/15">
-              {levels.map((item, index) => (
-                <Reveal key={item.number} delay={index * 120}>
-                  <article className="group relative grid gap-8 border-b border-[#F3EDE2]/15 py-10 transition-colors duration-500 hover:bg-[#F3EDE2]/[0.035] md:grid-cols-[90px_0.7fr_1.3fr_100px] md:items-center md:gap-10 md:px-6">
-                    <span className="text-[10px] font-bold tracking-[0.2em] text-[#F3EDE2]/30">
-                      {item.number}
-                    </span>
-
-                    <div>
-                      <span className="text-[9px] font-bold tracking-[0.2em] text-[#F3EDE2]/40">
-                        {item.level}
-                      </span>
-
-                      <h3 className="shop-display mt-3 text-4xl leading-none transition-transform duration-500 group-hover:translate-x-1 md:text-5xl">
-                        {item.title}
-                      </h3>
-                    </div>
-
-                    <p className="max-w-xl text-sm leading-6 text-[#F3EDE2]/50 md:text-base md:leading-7">
-                      {item.description}
-                    </p>
-
-                    <div className="flex items-center md:justify-end">
-                      <span className="font-mono text-sm font-semibold">
-                        {item.move}
-                      </span>
-
-                      <span className="ml-3 text-[#F3EDE2]/40 transition-transform duration-500 group-hover:translate-x-2">
-                        →
-                      </span>
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* =========================================================
             LEARNING PATHS
         ========================================================= */}
-        <LearningPaths />
+        <div id="learning-paths" className="scroll-mt-20">
+          <LearningPaths />
+        </div>
 
         {/* =========================================================
-            FEATURED GAMES
+            PUT LEARNING INTO PRACTICE
         ========================================================= */}
         <section className="overflow-hidden bg-[#111111] text-[#F3EDE2]">
-          <div className="shop-container py-24 md:py-32 lg:py-40">
+          <div className="shop-container py-20 md:py-28 lg:py-32">
             <Reveal>
-              <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-                <div>
-                  <p className="shop-eyebrow text-[#F3EDE2]/45">
-                    02 — Study the game
-                  </p>
-
-                  <p className="mt-8 hidden max-w-xs text-xs leading-5 text-[#F3EDE2]/35 lg:block">
-                    Don&apos;t only learn the moves. Learn why they work.
-                  </p>
-                </div>
-
-                <div>
-                  <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.86]">
-                    See the game
-                    <br />
-                    differently.
-                  </h2>
-
-                  <p className="mt-8 max-w-2xl text-base leading-7 text-[#F3EDE2]/50 sm:text-lg sm:leading-8">
-                    Study positions, openings and tactical ideas through games
-                    that give you something to look for—not just something to
-                    memorise.
-                  </p>
-                </div>
+              <p className="shop-eyebrow text-[#F3EDE2]/45">Learn by doing</p>
+              <div className="mt-8 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end lg:gap-16">
+                <h2 className="shop-display max-w-3xl text-[clamp(3rem,6vw,6rem)] leading-[0.88]">
+                  Take the next step.
+                </h2>
+                <p className="max-w-2xl text-base leading-7 text-[#F3EDE2]/60 sm:text-lg sm:leading-8">
+                  Build confidence through practice, learn alongside other players, and put your skills to use in club games and competitions.
+                </p>
               </div>
             </Reveal>
-
-            <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <Reveal delay={100}>
-                <GameCard
-                  title="The First Move"
-                  description="Understand why controlling the centre matters from the beginning."
-                  level="Beginner"
-                  moves={12}
-                  opening="Opening"
-                  featured
-                  href="#practice"
-                />
-              </Reveal>
-
-              <Reveal delay={180}>
-                <GameCard
-                  title="Find the Tactic"
-                  description="Train your eye to recognise the opportunity before making your move."
-                  level="Intermediate"
-                  moves={18}
-                  opening="Tactics"
-                  href="#practice"
-                />
-              </Reveal>
-
-              <Reveal delay={260}>
-                <GameCard
-                  title="Think Ahead"
-                  description="Explore positions where planning several moves ahead changes everything."
-                  level="Advanced"
-                  moves={24}
-                  opening="Strategy"
-                  href="#practice"
-                />
-              </Reveal>
+            <div className="mt-12 grid gap-0 border-t border-[#F3EDE2]/15 sm:grid-cols-2 lg:grid-cols-3">
+              <Link href="/dashboard" className="group border-b border-[#F3EDE2]/15 py-6 sm:border-r sm:px-6 lg:px-7">
+                <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#F3EDE2]/40">01 · Practice</span>
+                <h3 className="shop-display mt-4 text-3xl">Your chess dashboard</h3>
+                <p className="mt-3 text-sm leading-6 text-[#F3EDE2]/55">Continue your chess journey and access the activities available to your account.</p>
+                <span className="mt-5 inline-flex border-b border-[#F3EDE2]/40 pb-1 text-sm font-semibold">Open dashboard</span>
+              </Link>
+              <Link href="/community" className="group border-b border-[#F3EDE2]/15 py-6 sm:px-6 lg:px-7">
+                <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#F3EDE2]/40">02 · Connect</span>
+                <h3 className="shop-display mt-4 text-3xl">Learn with others</h3>
+                <p className="mt-3 text-sm leading-6 text-[#F3EDE2]/55">Meet the SHoP community, discover players and find ways to take part.</p>
+                <span className="mt-5 inline-flex border-b border-[#F3EDE2]/40 pb-1 text-sm font-semibold">Explore community</span>
+              </Link>
+              <Link href="/tournaments" className="group border-b border-[#F3EDE2]/15 py-6 sm:col-span-2 sm:px-6 lg:col-span-1 lg:border-l lg:px-7">
+                <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#F3EDE2]/40">03 · Compete</span>
+                <h3 className="shop-display mt-4 text-3xl">Play with purpose</h3>
+                <p className="mt-3 text-sm leading-6 text-[#F3EDE2]/55">Explore tournament information and prepare to test your skills over the board.</p>
+                <span className="mt-5 inline-flex border-b border-[#F3EDE2]/40 pb-1 text-sm font-semibold">Explore tournaments</span>
+              </Link>
             </div>
           </div>
         </section>
@@ -388,7 +259,7 @@ export default function LearnPage() {
             <Reveal delay={420}>
               <div className="mt-10 flex flex-col gap-5 border-t border-shop-border pt-7 sm:flex-row sm:items-center sm:justify-between">
                 <p className="max-w-xl text-sm leading-6 text-shop-muted">
-                  Don&apos;t worry about getting it right immediately. Good players
+                  Don't worry about getting it right immediately. Good players
                   learn by looking at the position, making a decision and
                   understanding what happens next.
                 </p>
@@ -470,12 +341,6 @@ export default function LearnPage() {
                     Join SHoP
                   </span>
 
-                  <span
-                    aria-hidden="true"
-                    className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1"
-                  >
-                    →
-                  </span>
                 </Link>
 
                 <Link

@@ -84,10 +84,6 @@ export default function Impact() {
                   <span className="text-[10px] font-bold tracking-[0.2em] text-shop-muted">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-
-                  <span className="text-xs text-shop-muted transition-transform duration-300 group-hover:translate-x-1">
-                    ↗
-                  </span>
                 </div>
 
                 <div className="shop-display mt-12 text-6xl leading-none sm:text-7xl">

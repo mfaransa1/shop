@@ -121,13 +121,6 @@ export default function CommunityStories() {
 
                     <div className="mt-6 flex items-center gap-3 text-[9px] font-bold uppercase tracking-[0.18em] text-white/60">
                       <span>Read the story</span>
-
-                      <span
-                        aria-hidden="true"
-                        className="transition-transform duration-300 group-hover:translate-x-2"
-                      >
-                        →
-                      </span>
                     </div>
                   </div>
                 </div>
@@ -182,13 +175,6 @@ export default function CommunityStories() {
                       <p className="mt-3 text-sm leading-6 text-shop-muted">
                         {story.description}
                       </p>
-
-                      <span
-                        aria-hidden="true"
-                        className="mt-4 text-shop-muted transition-transform duration-300 group-hover:translate-x-2"
-                      >
-                        →
-                      </span>
                     </div>
                   </article>
                 </Link>

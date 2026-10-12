@@ -1,0 +1,49 @@
+/* SHoP admin: remove nested/legacy page navigation when the universal sidebar is active.
+   Imported by app/admin/layout.tsx, so it applies consistently across admin routes. */
+.shop-admin {
+  --shop-admin-sidebar-width: 260px;
+}
+.shop-admin .shop-admin-secondary-sidebar,
+.shop-admin .shop-admin-page-sidebar,
+.shop-admin [data-admin-secondary-nav],
+.shop-admin [data-admin-page-sidebar] {
+  display: none !important;
+}
+.shop-admin .shop-admin-page-shell,
+.shop-admin .shop-admin-content-shell,
+.shop-admin [data-admin-content-shell] {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.shop-admin main,
+.shop-admin [data-admin-main] {
+  min-width: 0;
+  width: 100%;
+}
+.shop-admin .shop-admin-sidebar {
+  z-index: 40;
+}
+@media (min-width: 768px) {
+  .shop-admin .shop-admin-sidebar {
+    position: sticky;
+    top: 0;
+    width: var(--shop-admin-sidebar-width);
+    height: 100vh;
+    flex: 0 0 var(--shop-admin-sidebar-width);
+  }
+  .shop-admin .shop-admin-content {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+}
+@media (max-width: 767px) {
+  .shop-admin .shop-admin-sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+}

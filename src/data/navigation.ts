@@ -1,5 +1,9 @@
 export const navigation = [
   {
+    label: "Home",
+    href: "/",
+  },
+  {
     label: "About",
     href: "/about",
   },
@@ -19,15 +23,23 @@ export const navigation = [
     label: "Tournaments",
     href: "/tournaments",
   },
+  {
+    label: "Merch",
+    href: "/merch",
+  },
 ];
 
 export const navigationActions = [
   {
-    label: "Join SHoP",
-    href: "/join",
+    label: "Player Area",
+    href: "/dashboard",
   },
   {
     label: "Support SHoP",
     href: "/support",
+  },
+  {
+    label: "Join SHoP",
+    href: "/join",
   },
 ];

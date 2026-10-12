@@ -160,17 +160,6 @@ export default function ChessJourney() {
                   >
                     {item.move}
                   </span>
-
-                  <span
-                    aria-hidden="true"
-                    className="
-                      ml-3 inline-block text-shop-muted
-                      transition-transform duration-500
-                      group-hover:translate-x-2
-                    "
-                  >
-                    →
-                  </span>
                 </div>
               </article>
             </Reveal>

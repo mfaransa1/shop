@@ -152,10 +152,10 @@ export default function Events() {
                       group-hover:-translate-y-1
                       group-hover:border-[#F3EDE2]
                       group-hover:bg-[#F3EDE2]
-                      group-hover:text-[#111111]
+                      group-hover:!text-[#111111]
+                      
                     "
                   >
-                    <span aria-hidden="true">→</span>
                   </a>
                 </div>
               </article>

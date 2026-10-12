@@ -21,7 +21,7 @@ const footerLinks = [
     links: [
       { label: "Join SHoP", href: "/join" },
       { label: "Support us", href: "/support" },
-      { label: "Volunteer", href: "/join" },
+      { label: "Volunteer", href: "/support" },
       { label: "Partner with us", href: "/support" },
     ],
   },
@@ -90,10 +90,6 @@ export default function Footer() {
                         className="group/link flex items-center gap-3 py-2 text-sm text-[#F3EDE2]/65 transition-colors duration-300 hover:text-[#F3EDE2]"
                       >
                         <span>{link.label}</span>
-
-                        <span className="opacity-0 transition-all duration-300 group-hover/link:translate-x-1 group-hover/link:opacity-100">
-                          →
-                        </span>
                       </Link>
                     ))}
                   </nav>

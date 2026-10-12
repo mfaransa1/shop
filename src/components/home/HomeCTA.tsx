@@ -33,13 +33,6 @@ export default function HomeCTA() {
               className="group inline-flex items-center gap-4 bg-[#111111] px-7 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:-translate-y-1"
             >
               <span className="!text-[#F3EDE2]">Join SHoP</span>
-
-              <span
-                aria-hidden="true"
-                className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1"
-              >
-                →
-              </span>
             </Link>
 
             <Link
@@ -47,13 +40,6 @@ export default function HomeCTA() {
               className="group inline-flex items-center gap-4 border border-shop-ink/20 px-7 py-4 text-sm font-semibold transition-all duration-300 hover:bg-shop-paper"
             >
               Support the mission
-
-              <span
-                aria-hidden="true"
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              >
-                →
-              </span>
             </Link>
           </div>
 

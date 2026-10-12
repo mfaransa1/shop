@@ -151,9 +151,6 @@ export default function JoinPage() {
                         Register your interest
                       </span>
 
-                      <span className="!text-[#111111] transition-transform duration-300 group-hover:translate-y-1">
-                        ↓
-                      </span>
                     </a>
 
                     <Link
@@ -164,6 +161,11 @@ export default function JoinPage() {
                         Explore chess
                       </span>
                     </Link>
+                  </div>
+                  <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-[#F3EDE2]/65">
+                    <span>Already have an account?</span>
+                    <Link href="/login" className="font-semibold text-[#F3EDE2] underline underline-offset-4 hover:text-white">Log in</Link>
+                    <Link href="/signup" className="font-semibold text-[#F3EDE2] underline underline-offset-4 hover:text-white">Create a SHoP account</Link>
                   </div>
                 </Reveal>
 
@@ -309,10 +311,15 @@ export default function JoinPage() {
                       WHAT HAPPENS NEXT
                     </span>
 
-                    <p className="mt-4 text-sm leading-6 text-[#F3EDE2]/45">
-                      We&apos;ll review your registration and get in touch with
-                      information about sessions and next steps.
+                    <p className="mt-4 text-sm leading-6 text-[#F3EDE2]/65">
+                      This is a membership application, not an account sign-up. The SHoP team will review your application and contact you with the outcome and next steps.
                     </p>
+                  </div>
+
+                  <div className="mt-8 border border-[#F3EDE2]/15 p-5">
+                    <p className="text-[9px] font-bold tracking-[0.2em] text-[#F3EDE2]/45">MEMBERSHIP CARD</p>
+                    <p className="shop-display mt-3 text-4xl">KSh 513</p>
+                    <p className="mt-3 text-sm leading-6 text-[#F3EDE2]/65">A one-time registration fee for the SHoP membership card applies after your application is approved. Do not pay when submitting this form. Payment instructions will be communicated after approval.</p>
                   </div>
                 </div>
               </Reveal>
@@ -334,9 +341,12 @@ export default function JoinPage() {
                         </h3>
 
                         <p className="mt-8 max-w-xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
-                          Thanks for registering your interest in SHoP. We&apos;ll
-                          be in touch with the next steps.
+                          Your membership application has been submitted for review. This is not yet an approval or a SHoP account. We&apos;ll contact you with the decision and next steps.
                         </p>
+                        <div className="mt-6 border border-shop-border p-5">
+                          <p className="text-[9px] font-bold tracking-[0.18em] text-shop-muted">IF YOUR APPLICATION IS APPROVED</p>
+                          <p className="mt-3 text-sm leading-6 text-shop-ink">A one-time KSh 513 fee applies for your membership card. We will communicate how to pay after approval. Please do not send payment before receiving official instructions.</p>
+                        </div>
                       </div>
 
                       <div className="mt-12 flex flex-wrap gap-3">
@@ -348,9 +358,6 @@ export default function JoinPage() {
                             Explore chess
                           </span>
 
-                          <span className="!text-[#F3EDE2]">
-                            →
-                          </span>
                         </Link>
 
                         <button
@@ -655,10 +662,10 @@ export default function JoinPage() {
                       {/* Submit */}
                       <div className="border-t border-shop-border pt-8">
                         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-                          <p className="max-w-sm text-xs leading-5 text-shop-muted">
-                            By submitting this form, you are registering your
-                            interest in joining SHoP.
-                          </p>
+                          <div className="max-w-sm space-y-3">
+                            <p className="text-xs leading-5 text-shop-muted">Submitting this form applies for SHoP membership. Creating a website account alone does not make you a member.</p>
+                            <p className="text-xs leading-5 text-shop-muted"><strong>One-time membership card fee: KSh 513.</strong> Pay only after approval, using instructions communicated by SHoP.</p>
+                          </div>
 
                           <button
                             type="submit"
@@ -671,9 +678,6 @@ export default function JoinPage() {
                                 : "Submit registration"}
                             </span>
 
-                            <span className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1">
-                              →
-                            </span>
                           </button>
                         </div>
                       </div>
@@ -698,16 +702,11 @@ export default function JoinPage() {
                   about.
                 </p>
 
-                <Link
-                  href="/community"
-                  className="group inline-flex w-fit items-center gap-3 text-sm font-semibold"
-                >
-                  Meet the community
-
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </Link>
+                <div className="flex flex-wrap gap-4">
+                  <Link href="/community" className="inline-flex w-fit text-sm font-semibold underline underline-offset-4">Meet the community</Link>
+                  <Link href="/signup" className="inline-flex w-fit text-sm font-semibold underline underline-offset-4">Create a SHoP account</Link>
+                  <Link href="/login" className="inline-flex w-fit text-sm font-semibold underline underline-offset-4">Log in</Link>
+                </div>
               </div>
             </Reveal>
           </div>

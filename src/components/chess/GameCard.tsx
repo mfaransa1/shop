@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 type GameCardProps = {
@@ -31,12 +30,10 @@ export default function GameCard({
       {/* Visual */}
       <div className="relative aspect-[16/10] overflow-hidden bg-[#111111]">
         {image ? (
-          <Image
+          <img
             src={image}
             alt=""
-            fill
-            sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
-            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-[#111111]">
@@ -80,12 +77,7 @@ export default function GameCard({
             )}
           </div>
 
-          <span
-            aria-hidden="true"
-            className="flex h-10 w-10 shrink-0 items-center justify-center border border-shop-ink/15 text-lg transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-[#111111] group-hover:text-[#F3EDE2]"
-          >
-            →
-          </span>
+
         </div>
 
         {/* Metadata */}

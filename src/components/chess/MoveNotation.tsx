@@ -81,7 +81,7 @@ export default function MoveNotation({
               if (onMoveClick) {
                 return (
                   <button
-                    key={`${index}-${move.san}`}
+                    key={`move-${index}`}
                     type="button"
                     onClick={() => onMoveClick(index)}
                     className={[
@@ -103,7 +103,7 @@ export default function MoveNotation({
 
               return (
                 <div
-                  key={`${index}-${move.san}`}
+                  key={`move-${index}`}
                   className={[
                     "min-h-[48px] border-b border-[#111111]/[0.07]",
                     "px-4 py-3 text-left text-sm",

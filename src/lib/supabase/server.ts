@@ -6,7 +6,7 @@ export async function createClient() {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error("Supabase server configuration is missing.");
+    throw new Error("Supabase server configuration is missing. Configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.");
   }
 
   const cookieStore = await cookies();
@@ -22,7 +22,7 @@ export async function createClient() {
             cookieStore.set(name, value, options);
           });
         } catch {
-          // Server Components cannot always write cookies; API routes can.
+          // Server Components cannot always write cookies. The root proxy refreshes sessions.
         }
       },
     },

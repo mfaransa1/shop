@@ -1,0 +1,25 @@
+/* Import this file in app/globals.css. All overrides are scoped to the admin workspace. */
+.shop-admin { color: #20231f; }
+.shop-admin button, .shop-admin [role="button"], .shop-admin .shop-admin-primary { color: #fff !important; }
+.shop-admin .shop-admin-primary { background: #242923 !important; border: 1px solid #242923 !important; transition: background .18s ease, border-color .18s ease; }
+.shop-admin .shop-admin-primary:hover { background: #454a40 !important; border-color: #454a40 !important; }
+.shop-admin .shop-admin-sidebar { background: #20251f; color: #f8f7f2; }
+.shop-admin .shop-admin-navlink { color: #c8cbc3 !important; transition: color .15s ease, background .15s ease; }
+.shop-admin .shop-admin-navlink:hover { background: #30362e; color: #fff !important; }
+.shop-admin .shop-admin-navlink.is-active { background: #d8a84e; color: #20231f !important; }
+.shop-admin .shop-admin-back { color: #d6d8d1 !important; }
+.shop-admin .shop-admin-back:hover { background: #30362e; color: #fff !important; }
+.shop-admin .shop-admin-textlink { color: #76571b !important; }
+.shop-admin .shop-admin-textlink:hover { color: #242923 !important; text-decoration: underline; }
+.shop-admin .shop-admin-quicklink { color: #272a24 !important; }
+.shop-admin .shop-admin-quicklink:hover { background: #f7f5ef; }
+.shop-admin .shop-admin-shortcut { color: #242923 !important; transition: transform .18s ease, border-color .18s ease; }
+.shop-admin .shop-admin-shortcut:hover { border-color: #c7a35c; transform: translateY(-1px); }
+.shop-admin .shop-admin-shortcut:first-child { color: #fff !important; }
+.shop-admin a:focus-visible, .shop-admin button:focus-visible { outline: 3px solid #d8a84e; outline-offset: 3px; }
+@media (max-width: 767px) {
+ .shop-admin-sidebar { position: static; width: 100%; }
+ .shop-admin-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 8px; max-height: 48vh; }
+ .shop-admin-nav section { min-width: 0; }
+ .shop-admin-navlink { font-size: 12px !important; padding: 10px 8px !important; }
+}

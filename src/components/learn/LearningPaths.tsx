@@ -197,7 +197,7 @@ export default function LearningPaths() {
                         : "group-hover:translate-x-1",
                     ].join(" ")}
                   >
-                    {path.move} →
+                    {path.move}
                   </span>
                 </button>
               );
@@ -413,18 +413,9 @@ export default function LearningPaths() {
 
           <Link
             href="/join"
-            className="group inline-flex w-fit items-center gap-4 bg-[#111111] px-6 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:-translate-y-1"
+            className="group inline-flex w-fit items-center bg-[#111111] px-6 py-4 text-sm font-semibold !text-[#F3EDE2] transition-colors duration-300 hover:bg-shop-ink/85"
           >
-            <span className="!text-[#F3EDE2]">
-              Start learning
-            </span>
-
-            <span
-              aria-hidden="true"
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            >
-              →
-            </span>
+            <span className="!text-[#F3EDE2]">Start learning</span>
           </Link>
         </div>
       </div>

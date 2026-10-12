@@ -86,10 +86,6 @@ export default function Sessions() {
                     <h3 className="shop-display text-4xl leading-none transition-transform duration-500 group-hover:translate-x-1">
                       {session.title}
                     </h3>
-
-                    <span className="mt-1 text-shop-muted transition-transform duration-300 group-hover:translate-x-2">
-                      →
-                    </span>
                   </div>
 
                   <p className="mt-5 max-w-sm text-sm leading-6 text-shop-muted">

@@ -123,13 +123,7 @@ export default function TournamentCard({
             href={`/events/${tournament.slug}`}
             className="group/link inline-flex shrink-0 items-center gap-3 bg-[#111111] px-5 py-3 text-xs font-semibold !text-[#F3EDE2] transition-all duration-300 hover:-translate-y-0.5"
           >
-            <span className="!text-[#F3EDE2]">
-              View tournament
-            </span>
-
-            <span className="!text-[#F3EDE2] transition-transform duration-300 group-hover/link:translate-x-1">
-              →
-            </span>
+            <span className="!text-[#F3EDE2]">View event</span>
           </Link>
         </div>
       </div>

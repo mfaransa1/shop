@@ -1,150 +1,67 @@
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
 
-import MemberCard from "@/components/community/MemberCard";
-import StoryCard from "@/components/community/StoryCard";
-import Gallery from "@/components/community/Gallery";
-
-const experiences = [
+const communityPaths = [
   {
     number: "01",
-    title: "Play",
-    text: "Sit down, make a move and discover the joy of playing chess with other people.",
-    label: "THE BOARD",
+    title: "Find a game",
+    label: "PLAY",
+    description:
+      "See which members are online and challenge someone to a game. When a challenge is accepted, the live game can open directly.",
+    href: "/community/players",
+    action: "Browse online players",
   },
   {
     number: "02",
-    title: "Learn",
-    text: "Develop your game alongside players and coaches who want to see you improve.",
-    label: "THE JOURNEY",
+    title: "Learn at your pace",
+    label: "LEARN",
+    description:
+      "Build your understanding through chess lessons, practice and guided activities, whether you are learning the basics or refining your play.",
+    href: "/learn",
+    action: "Explore learning",
   },
   {
     number: "03",
-    title: "Connect",
-    text: "Meet people, build friendships and become part of something that extends beyond the board.",
-    label: "THE COMMUNITY",
-  },
-];
-
-const sessionSteps = [
-  {
-    number: "01",
-    title: "Arrive",
-    text: "Come through, find a board and settle into the room.",
-  },
-  {
-    number: "02",
-    title: "Play",
-    text: "Get across the board and start making decisions.",
-  },
-  {
-    number: "03",
-    title: "Learn",
-    text: "Analyse positions, ask questions and discover something new.",
+    title: "Follow the standings",
+    label: "PROGRESS",
+    description:
+      "Keep up with the club leaderboard and follow competitive progress based on the ratings and results recorded by the platform.",
+    href: "/community/leaderboard",
+    action: "View leaderboard",
   },
   {
     number: "04",
-    title: "Compete",
-    text: "Challenge yourself and test what you've been learning.",
-  },
-  {
-    number: "05",
-    title: "Connect",
-    text: "Stay around, meet someone new and become part of the community.",
-  },
-];
-
-const stories = [
-  {
-    number: "01",
-    title: "First moves",
-    text: "Every strong player starts somewhere. A first lesson, a first game and a first moment when the board begins to make sense.",
-    image: "/images/sessions/session-01.jpg",
-  },
-  {
-    number: "02",
-    title: "Saturday together",
-    text: "The room changes when people sit around the same board. Games become conversations, lessons become friendships and competition becomes community.",
-    image: "/images/sessions/session-02.jpg",
-  },
-  {
-    number: "03",
-    title: "Beyond the board",
-    text: "The lessons developed through chess travel with our players: patience, confidence, discipline and the courage to make the next move.",
-    image: "/images/sessions/session-03.jpg",
+    title: "Meet at the board",
+    label: "IN PERSON",
+    description:
+      "Explore club events and tournaments for opportunities to learn, play and connect beyond an online game.",
+    href: "/events",
+    action: "Explore events",
   },
 ];
 
-const communityMembers = [
+const waysToContribute = [
   {
-    number: "01",
-    name: "The Players",
-    role: "THE BOARD",
-    bio: "Young people who come to play, learn, compete and discover what they can do through chess.",
-    image: "/images/sessions/session-01.jpg",
-  },
-  {
-    number: "02",
-    name: "The Coaches",
-    role: "THE JOURNEY",
-    bio: "Mentors who help players understand the game, develop confidence and keep moving forward.",
-    image: "/images/sessions/session-02.jpg",
-  },
-  {
-    number: "03",
-    name: "The Community",
-    role: "THE PEOPLE",
-    bio: "Families, friends, volunteers and supporters who help create a place where everyone can belong.",
-    image: "/images/sessions/session-03.jpg",
-  },
-];
-
-const galleryItems = [
-  {
-    src: "/images/sessions/session-01.jpg",
-    alt: "Young people playing chess at SHoP",
-    caption: "First moves",
-  },
-  {
-    src: "/images/sessions/session-02.jpg",
-    alt: "Young people together during a chess session",
-    caption: "Saturday together",
-  },
-  {
-    src: "/images/sessions/session-03.jpg",
-    alt: "Chess players during a SHoP session",
-    caption: "Beyond the board",
-  },
-];
-
-const involvement = [
-  {
-    number: "01",
-    title: "Play with us",
-    text: "Join a session, find a board and become part of the room.",
+    title: "Join as a player",
+    description: "Create an account, build your chess experience and take part in the community.",
     href: "/join",
+    action: "Join SHoP",
   },
   {
-    number: "02",
-    title: "Volunteer",
-    text: "Help create more opportunities for young people to learn and play.",
-    href: "/join",
-  },
-  {
-    number: "03",
-    title: "Partner",
-    text: "Work with SHoP to create opportunities through chess.",
-    href: "/join",
-  },
-  {
-    number: "04",
-    title: "Support",
-    text: "Help us make the game more accessible to the community.",
+    title: "Support the work",
+    description: "Help make chess more accessible and support the growth of a community rooted in Kawangware.",
     href: "/support",
+    action: "Ways to support",
+  },
+  {
+    title: "Bring chess to learners",
+    description: "Explore opportunities for schools and learning communities to connect with SHoP.",
+    href: "/schools",
+    action: "Explore school chess",
   },
 ];
 
@@ -152,551 +69,151 @@ export default function CommunityPage() {
   return (
     <>
       <Navbar />
-
       <main>
-        {/* =========================================================
-            HERO
-        ========================================================= */}
-        <section className="relative min-h-screen overflow-hidden bg-[#111111] text-[#F3EDE2]">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 overflow-hidden"
-          >
-            <div className="absolute -left-32 top-1/4 h-[30rem] w-[30rem] rounded-full bg-[#F3EDE2]/[0.035] blur-[120px] animate-[community-orb_12s_ease-in-out_infinite]" />
-
-            <div className="absolute -right-32 bottom-0 h-[35rem] w-[35rem] rounded-full bg-[#F3EDE2]/[0.025] blur-[130px] animate-[community-orb-reverse_15s_ease-in-out_infinite]" />
+        <section className="relative overflow-hidden bg-[#111111] text-[#F3EDE2]">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+            <div className="absolute -left-32 top-1/4 h-[30rem] w-[30rem] rounded-full bg-[#F3EDE2]/[0.035] blur-[120px]" />
+            <div className="absolute -right-32 bottom-0 h-[30rem] w-[30rem] rounded-full bg-[#F3EDE2]/[0.025] blur-[130px]" />
           </div>
 
-          <div className="shop-container relative z-10 flex min-h-screen items-center py-32 md:py-40 lg:py-44">
-            <div className="grid w-full items-center gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-              <div>
-                <Reveal>
-                  <div className="flex items-center gap-4">
-                    <span className="h-px w-10 bg-[#F3EDE2]/40" />
-
-                    <p className="shop-eyebrow text-[#F3EDE2]/55">
-                      Community
-                    </p>
-                  </div>
-                </Reveal>
-
-                <Reveal delay={120}>
-                  <h1 className="shop-display mt-8 max-w-4xl text-[clamp(4rem,9vw,9.5rem)] leading-[0.8]">
-                    This is bigger
-                    <br />
-                    than chess.
-                  </h1>
-                </Reveal>
-
-                <Reveal delay={260}>
-                  <p className="mt-10 max-w-xl text-base leading-7 text-[#F3EDE2]/55 sm:text-lg sm:leading-8">
-                    SHoP is a place where young people come together to play,
-                    learn, compete and discover what becomes possible when
-                    they have a place to belong.
-                  </p>
-                </Reveal>
-
-                <Reveal delay={400}>
-                  <div className="mt-10 flex flex-wrap gap-3">
-                    <Link
-                      href="#people"
-                      className="group inline-flex items-center gap-4 bg-[#F3EDE2] px-6 py-4 text-sm font-semibold text-[#111111] transition-all duration-300 hover:-translate-y-1"
-                    >
-                      <span>Meet the community</span>
-
-                      <span className="transition-transform duration-300 group-hover:translate-y-1">
-                        ↓
-                      </span>
-                    </Link>
-
-                    <Link
-                      href="/join"
-                      className="inline-flex items-center gap-4 border border-[#F3EDE2]/25 px-6 py-4 text-sm font-semibold text-[#F3EDE2] transition-all duration-300 hover:bg-[#F3EDE2] hover:text-[#111111]"
-                    >
-                      Join SHoP
-                    </Link>
-                  </div>
-                </Reveal>
-
-                <Reveal delay={520}>
-                  <div className="mt-14 flex items-center justify-between border-t border-[#F3EDE2]/10 pt-5">
-                    <span className="text-[9px] font-bold tracking-[0.2em] text-[#F3EDE2]/35">
-                      KAWANGWARE · NAIROBI
-                    </span>
-
-                    <span className="hidden text-[9px] font-bold tracking-[0.2em] text-[#F3EDE2]/30 sm:block">
-                      SHoP / COMMUNITY
-                    </span>
-                  </div>
-                </Reveal>
-              </div>
-
-              <Reveal delay={180}>
-                <div className="relative mx-auto w-full max-w-[680px] lg:ml-auto">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-[#F3EDE2]/5">
-                    <Image
-                      src="/images/sessions/session-02.jpg"
-                      alt="Young people playing chess at SHoP"
-                      fill
-                      priority
-                      sizes="(max-width: 1023px) 100vw, 55vw"
-                      className="object-cover object-center animate-[community-image-in_1200ms_cubic-bezier(0.22,1,0.36,1)_both]"
-                    />
-
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-
-                    <div className="absolute left-5 top-5">
-                      <span className="text-[9px] font-bold tracking-[0.2em] text-white/55">
-                        SHoP / 01
-                      </span>
-                    </div>
-
-                    <div className="absolute bottom-6 left-6 right-6">
-                      <p className="text-[9px] font-bold tracking-[0.2em] text-white/50">
-                        THE ROOM
-                      </p>
-
-                      <p className="shop-display mt-3 text-3xl leading-none text-white sm:text-4xl">
-                        Everyone has a place at the board.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="absolute -bottom-5 -left-4 bg-[#F3EDE2] px-5 py-4 text-[#111111] sm:-left-7">
-                    <span className="text-[9px] font-bold tracking-[0.18em]">
-                      KILA HATUA INA MAANA
-                    </span>
-                  </div>
+          <div className="shop-container relative grid min-h-[82vh] items-center gap-12 py-28 md:py-36 lg:grid-cols-[1fr_0.8fr] lg:gap-20">
+            <div>
+              <Reveal>
+                <p className="shop-eyebrow text-[#F3EDE2]/55">Southside House of Pawns · Community</p>
+              </Reveal>
+              <Reveal delay={100}>
+                <h1 className="shop-display mt-8 max-w-4xl text-[clamp(3.8rem,8vw,8.5rem)] leading-[0.82]">
+                  The board is bigger than the game.
+                </h1>
+              </Reveal>
+              <Reveal delay={200}>
+                <p className="mt-8 max-w-xl text-base leading-7 text-[#F3EDE2]/65 sm:text-lg sm:leading-8">
+                  SHoP brings chess, learning and people together in Kawangware, Nairobi. Play a game, improve your skills, follow club activity or find a way to take part in the community.
+                </p>
+              </Reveal>
+              <Reveal delay={300}>
+                <div className="mt-9 flex flex-wrap gap-3">
+                  <Link href="/join" className="inline-flex min-h-12 items-center justify-center bg-[#F3EDE2] px-6 py-3 text-sm font-semibold !text-[#111111] transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F3EDE2]">
+                    Join SHoP
+                  </Link>
+                  <Link href="/community/players" className="inline-flex min-h-12 items-center justify-center border border-[#F3EDE2]/30 px-6 py-3 text-sm font-semibold text-[#F3EDE2] transition-colors hover:bg-[#F3EDE2] hover:text-[#111111] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F3EDE2]">
+                    Find players
+                  </Link>
+                </div>
+              </Reveal>
+              <Reveal delay={400}>
+                <div className="mt-12 border-t border-[#F3EDE2]/15 pt-5 text-[10px] font-bold tracking-[0.18em] text-[#F3EDE2]/45">
+                  KAWANGWARE · NAIROBI · KENYA <span className="mx-2">/</span> KILA HATUA INA MAANA
                 </div>
               </Reveal>
             </div>
-          </div>
-        </section>
-
-        {/* =========================================================
-            PEOPLE
-        ========================================================= */}
-        <section
-          id="people"
-          className="overflow-hidden bg-shop-cream"
-        >
-          <div className="shop-container py-24 md:py-32 lg:py-40">
-            <Reveal>
-              <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-                <div>
-                  <p className="shop-eyebrow text-shop-muted">
-                    01 — The people
-                  </p>
-
-                  <p className="mt-8 hidden max-w-xs text-xs leading-5 text-shop-muted lg:block">
-                    A community is not a building. It is the people who show
-                    up and make the space what it is.
-                  </p>
-                </div>
-
-                <div>
-                  <h2 className="shop-display max-w-6xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.86]">
-                    A board is just a beginning.
-                  </h2>
-
-                  <p className="mt-8 max-w-2xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
-                    Behind every game is a person. Players, coaches, families,
-                    volunteers and friends all contribute to the environment
-                    we are building at SHoP.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={180}>
-              <div className="mt-16 border-y border-shop-border py-10 md:mt-20 md:py-14">
-                <div className="grid gap-8 md:grid-cols-[0.35fr_1fr] md:gap-16">
-                  <span className="text-[9px] font-bold tracking-[0.2em] text-shop-muted">
-                    WHAT CONNECTS US
-                  </span>
-
-                  <p className="shop-display max-w-5xl text-3xl leading-[0.95] sm:text-4xl md:text-5xl">
-                    The love of the game is where we meet. What we build
-                    together is where we stay.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Reusable member cards */}
-            <div className="mt-16 grid gap-6 md:grid-cols-3">
-              {communityMembers.map((member, index) => (
-                <Reveal
-                  key={member.number}
-                  delay={index * 100}
-                >
-                  <MemberCard {...member} />
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* =========================================================
-            EXPERIENCES
-        ========================================================= */}
-        <section className="overflow-hidden bg-[#111111] text-[#F3EDE2]">
-          <div className="shop-container py-24 md:py-32 lg:py-40">
-            <Reveal>
-              <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-                <p className="shop-eyebrow text-[#F3EDE2]/45">
-                  02 — Come as you are
-                </p>
-
-                <div>
-                  <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.86]">
-                    There is more than one way to belong.
-                  </h2>
-                </div>
-              </div>
-            </Reveal>
-
-            <div className="mt-20 border-t border-[#F3EDE2]/15">
-              {experiences.map((item, index) => (
-                <Reveal key={item.number} delay={index * 100}>
-                  <article className="group grid gap-8 border-b border-[#F3EDE2]/15 py-10 transition-all duration-500 hover:bg-[#F3EDE2]/[0.025] md:grid-cols-[80px_0.7fr_1.3fr_120px] md:items-center md:gap-10 md:px-6">
-                    <span className="text-[10px] font-bold tracking-[0.2em] text-[#F3EDE2]/30">
-                      {item.number}
-                    </span>
-
-                    <div>
-                      <span className="text-[9px] font-bold tracking-[0.2em] text-[#F3EDE2]/35">
-                        {item.label}
-                      </span>
-
-                      <h3 className="shop-display mt-3 text-4xl leading-none transition-transform duration-500 group-hover:translate-x-2 md:text-5xl">
-                        {item.title}
-                      </h3>
-                    </div>
-
-                    <p className="max-w-xl text-sm leading-6 text-[#F3EDE2]/50 md:text-base md:leading-7">
-                      {item.text}
-                    </p>
-
-                    <div className="md:text-right">
-                      <span className="font-mono text-sm text-[#F3EDE2]/45 transition-transform duration-300 group-hover:translate-x-1">
-                        →
-                      </span>
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* =========================================================
-            COMMUNITY STORIES
-        ========================================================= */}
-        <section className="overflow-hidden bg-shop-cream">
-          <div className="shop-container py-24 md:py-32 lg:py-40">
-            <Reveal>
-              <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-                <div>
-                  <p className="shop-eyebrow text-shop-muted">
-                    03 — Community stories
-                  </p>
-                </div>
-
-                <div>
-                  <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.86]">
-                    Every board holds a story.
-                  </h2>
-
-                  <p className="mt-8 max-w-2xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
-                    The most important part of SHoP isn&apos;t the score at the end
-                    of a game. It is what happens to the people who played it.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Reusable StoryCards */}
-            <div className="mt-20 grid gap-6 md:grid-cols-2">
-              {stories.map((story, index) => (
-                <Reveal
-                  key={story.number}
-                  delay={index * 100}
-                >
-                  <StoryCard
-                    title={story.title}
-                    text={story.text}
-                    image={story.image}
-                    number={story.number}
-                    featured={index === 0}
-                  />
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* =========================================================
-            SATURDAY SESSIONS
-        ========================================================= */}
-        <section className="overflow-hidden bg-[#111111] text-[#F3EDE2]">
-          <div className="shop-container py-24 md:py-32 lg:py-40">
-            <Reveal>
-              <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-                <div>
-                  <p className="shop-eyebrow text-[#F3EDE2]/45">
-                    04 — Saturdays at SHoP
-                  </p>
-
-                  <p className="mt-8 hidden max-w-xs text-xs leading-5 text-[#F3EDE2]/35 lg:block">
-                    A session is more than scheduled time on a chessboard. It
-                    is time spent learning and being around people.
-                  </p>
-                </div>
-
-                <div>
-                  <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.86]">
-                    One room.
-                    <br />
-                    Many moves.
-                  </h2>
-                </div>
-              </div>
-            </Reveal>
-
-            <div className="mt-20 border-t border-[#F3EDE2]/15">
-              {sessionSteps.map((step, index) => (
-                <Reveal key={step.number} delay={index * 70}>
-                  <article className="group grid gap-6 border-b border-[#F3EDE2]/15 py-8 md:grid-cols-[80px_0.7fr_1.3fr] md:items-center md:gap-10 md:px-6 md:py-10">
-                    <span className="text-[10px] font-bold tracking-[0.2em] text-[#F3EDE2]/30">
-                      {step.number}
-                    </span>
-
-                    <h3 className="shop-display text-4xl leading-none transition-transform duration-500 group-hover:translate-x-2 md:text-5xl">
-                      {step.title}
-                    </h3>
-
-                    <p className="max-w-xl text-sm leading-6 text-[#F3EDE2]/50 md:text-base md:leading-7">
-                      {step.text}
-                    </p>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-
-            <Reveal delay={300}>
-              <div className="mt-12 flex flex-col gap-6 border-t border-[#F3EDE2]/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
-                <p className="max-w-xl text-sm leading-6 text-[#F3EDE2]/45">
-                  Saturday is where many of the SHoP stories begin.
-                </p>
-
-                <Link
-                  href="/join"
-                  className="group inline-flex w-fit items-center gap-4 border border-[#F3EDE2]/25 px-6 py-4 text-sm font-semibold text-[#F3EDE2] transition-all duration-300 hover:bg-[#F3EDE2] hover:text-[#111111]"
-                >
-                  Join a session
-
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </Link>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* =========================================================
-            EVERYONE HAS A PLACE
-        ========================================================= */}
-        <section className="relative overflow-hidden bg-shop-cream">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-          >
-            <div className="absolute left-1/2 top-1/2 h-[35rem] w-[35rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-shop-ink/[0.025] blur-[120px]" />
-          </div>
-
-          <div className="shop-container relative py-28 md:py-40 lg:py-52">
-            <Reveal>
-              <p className="shop-eyebrow text-shop-muted">
-                05 — Everyone has a place
-              </p>
-            </Reveal>
-
-            <Reveal delay={120}>
-              <h2 className="shop-display mt-8 max-w-7xl text-[clamp(4rem,9vw,10rem)] leading-[0.8]">
-                There is always
-                <br />
-                room at the board.
-              </h2>
-            </Reveal>
-
-            <Reveal delay={260}>
-              <div className="mt-12 grid gap-8 border-t border-shop-border pt-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-                <span className="text-[9px] font-bold tracking-[0.2em] text-shop-muted">
-                  BELONGING
-                </span>
-
-                <p className="max-w-3xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
-                  We believe every young person deserves an environment where
-                  they can ask questions, make mistakes, challenge themselves
-                  and feel seen. Chess gives us a way to create that
-                  environment together.
-                </p>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* =========================================================
-            GALLERY
-        ========================================================= */}
-        <section className="overflow-hidden bg-shop-cream">
-          <div className="shop-container pb-24 md:pb-32 lg:pb-40">
-            <Reveal>
-              <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-                <div>
-                  <p className="shop-eyebrow text-shop-muted">
-                    06 — The room
-                  </p>
-
-                  <p className="mt-8 hidden max-w-xs text-xs leading-5 text-shop-muted lg:block">
-                    The people, the boards and the moments in between.
-                  </p>
-                </div>
-
-                <div>
-                  <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.86]">
-                    See the community.
-                  </h2>
-
-                  <p className="mt-8 max-w-2xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
-                    A glimpse into the room where games become conversations,
-                    lessons become friendships and players keep coming back.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
 
             <Reveal delay={160}>
-              <div className="mt-16">
-                <Gallery items={galleryItems} />
+              <div className="relative mx-auto w-full max-w-[560px]">
+                <div className="relative aspect-[4/5] overflow-hidden bg-[#F3EDE2]/5">
+                  <Image
+                    src="/images/sessions/session-02.jpg"
+                    alt="Chess boards and community play at SHoP"
+                    fill
+                    priority
+                    sizes="(max-width: 1023px) 100vw, 42vw"
+                    className="object-cover object-center"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-transparent" />
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <p className="text-[10px] font-bold tracking-[0.18em] text-white/65">PLAY · LEARN · CONNECT</p>
+                    <p className="shop-display mt-3 max-w-md text-3xl leading-tight text-white sm:text-4xl">Every move is a chance to grow.</p>
+                  </div>
+                </div>
               </div>
             </Reveal>
           </div>
         </section>
 
-        {/* =========================================================
-            GET INVOLVED
-        ========================================================= */}
-        <section className="overflow-hidden bg-[#111111] text-[#F3EDE2]">
-          <div className="shop-container py-24 md:py-32 lg:py-40">
+        <section className="bg-shop-cream">
+          <div className="shop-container py-20 md:py-28">
             <Reveal>
-              <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-                <p className="shop-eyebrow text-[#F3EDE2]/45">
-                  07 — Get involved
-                </p>
-
+              <div className="grid gap-8 border-b border-shop-border pb-10 lg:grid-cols-[0.65fr_1.35fr] lg:gap-16">
+                <p className="shop-eyebrow text-shop-muted">A place to take part</p>
                 <div>
-                  <h2 className="shop-display max-w-5xl text-[clamp(3.25rem,6vw,6.5rem)] leading-[0.86]">
-                    You can be part of the next move.
-                  </h2>
-
-                  <p className="mt-8 max-w-2xl text-base leading-7 text-[#F3EDE2]/50 sm:text-lg sm:leading-8">
-                    Communities grow when people choose to show up. Find the
-                    way that makes sense for you.
+                  <h2 className="shop-display max-w-4xl text-[clamp(2.8rem,6vw,5.8rem)] leading-[0.88]">Find your next move.</h2>
+                  <p className="mt-6 max-w-2xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
+                    Community means more than watching from the sidelines. Use the platform to meet players, practise, track progress and discover opportunities to connect over the game.
                   </p>
                 </div>
               </div>
             </Reveal>
 
-            <div className="mt-20 border-t border-[#F3EDE2]/15">
-              {involvement.map((item, index) => (
-                <Reveal key={item.number} delay={index * 80}>
-                  <Link
-                    href={item.href}
-                    className="group grid gap-6 border-b border-[#F3EDE2]/15 py-8 transition-all duration-500 hover:bg-[#F3EDE2]/[0.035] md:grid-cols-[80px_0.8fr_1.2fr_80px] md:items-center md:gap-10 md:px-6 md:py-10"
-                  >
-                    <span className="text-[10px] font-bold tracking-[0.2em] text-[#F3EDE2]/30">
-                      {item.number}
-                    </span>
-
-                    <h3 className="shop-display text-3xl leading-none transition-transform duration-500 group-hover:translate-x-2 sm:text-4xl">
-                      {item.title}
-                    </h3>
-
-                    <p className="max-w-xl text-sm leading-6 text-[#F3EDE2]/45 md:text-base md:leading-7">
-                      {item.text}
-                    </p>
-
-                    <span className="flex h-11 w-11 items-center justify-center border border-[#F3EDE2]/20 text-lg transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-[#F3EDE2] group-hover:text-[#111111] md:ml-auto">
-                      →
-                    </span>
-                  </Link>
+            <div className="mt-8 grid gap-0 md:grid-cols-2 md:gap-x-10">
+              {communityPaths.map((item, index) => (
+                <Reveal key={item.href} delay={index * 70}>
+                  <article className="grid gap-4 border-b border-shop-border py-8 sm:grid-cols-[56px_1fr] sm:gap-6">
+                    <span className="pt-1 text-[10px] font-bold tracking-[0.18em] text-shop-muted">{item.number}</span>
+                    <div>
+                      <p className="shop-eyebrow text-shop-muted">{item.label}</p>
+                      <h3 className="shop-display mt-3 text-3xl leading-tight sm:text-4xl">{item.title}</h3>
+                      <p className="mt-3 max-w-xl text-sm leading-6 text-shop-muted">{item.description}</p>
+                      <Link href={item.href} className="mt-5 inline-flex min-h-10 items-center border-b border-shop-ink/35 pb-1 text-sm font-semibold transition-colors hover:border-shop-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-shop-ink">
+                        {item.action}
+                      </Link>
+                    </div>
+                  </article>
                 </Reveal>
               ))}
             </div>
           </div>
         </section>
 
-        {/* =========================================================
-            FINAL CTA
-        ========================================================= */}
-        <section className="overflow-hidden bg-shop-cream">
-          <div className="shop-container py-28 md:py-40 lg:py-52">
+        <section className="bg-[#111111] text-[#F3EDE2]">
+          <div className="shop-container py-20 md:py-28">
             <Reveal>
-              <p className="shop-eyebrow text-shop-muted">
-                Your place at the board
-              </p>
-            </Reveal>
-
-            <Reveal delay={120}>
-              <h2 className="shop-display mt-8 max-w-7xl text-[clamp(4rem,9vw,10rem)] leading-[0.8]">
-                Your move
-                <br />
-                starts here.
-              </h2>
-            </Reveal>
-
-            <Reveal delay={260}>
-              <div className="mt-10 flex flex-wrap gap-3">
-                <Link
-                  href="/join"
-                  className="group inline-flex items-center gap-4 bg-[#111111] px-7 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:-translate-y-1"
-                >
-                  <span className="!text-[#F3EDE2]">
-                    Join SHoP
-                  </span>
-
-                  <span className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </Link>
-
-                <Link
-                  href="/support"
-                  className="inline-flex items-center gap-4 border border-shop-ink/20 px-7 py-4 text-sm font-semibold transition-colors duration-300 hover:bg-shop-paper"
-                >
-                  Support the community
-                </Link>
+              <div className="grid gap-8 lg:grid-cols-[0.65fr_1.35fr] lg:gap-16">
+                <p className="shop-eyebrow text-[#F3EDE2]/45">Beyond the board</p>
+                <div>
+                  <h2 className="shop-display max-w-5xl text-[clamp(2.8rem,6vw,5.8rem)] leading-[0.88]">A community grows when people show up.</h2>
+                  <p className="mt-6 max-w-2xl text-base leading-7 text-[#F3EDE2]/60 sm:text-lg sm:leading-8">
+                    Whether you are a player, parent, coach, volunteer, school or supporter, there are different ways to help chess create meaningful opportunities. Start with the path that fits you.
+                  </p>
+                </div>
               </div>
             </Reveal>
 
-            <Reveal delay={380}>
-              <div className="mt-16 flex items-center justify-between border-t border-shop-border pt-6">
-                <span className="text-[9px] font-bold tracking-[0.2em] text-shop-muted">
-                  KAWANGWARE · NAIROBI · KENYA
-                </span>
+            <div className="mt-12 border-t border-[#F3EDE2]/15">
+              {waysToContribute.map((item, index) => (
+                <Reveal key={item.href} delay={index * 80}>
+                  <div className="grid gap-4 border-b border-[#F3EDE2]/15 py-7 sm:grid-cols-[0.8fr_1.2fr_auto] sm:items-center sm:gap-8">
+                    <h3 className="shop-display text-2xl sm:text-3xl">{item.title}</h3>
+                    <p className="max-w-xl text-sm leading-6 text-[#F3EDE2]/55">{item.description}</p>
+                    <Link href={item.href} className="inline-flex min-h-10 w-fit items-center border-b border-[#F3EDE2]/35 pb-1 text-sm font-semibold text-[#F3EDE2] transition-colors hover:border-[#F3EDE2] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F3EDE2]">
+                      {item.action}
+                    </Link>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                <span className="hidden text-[9px] font-bold tracking-[0.2em] text-shop-muted sm:block">
-                  KILA HATUA INA MAANA
-                </span>
+        <section className="bg-shop-cream">
+          <div className="shop-container py-24 md:py-32">
+            <Reveal>
+              <p className="shop-eyebrow text-shop-muted">Your place at the board</p>
+              <h2 className="shop-display mt-7 max-w-6xl text-[clamp(3.5rem,8vw,8rem)] leading-[0.82]">Make your next move count.</h2>
+              <p className="mt-7 max-w-2xl text-base leading-7 text-shop-muted sm:text-lg sm:leading-8">
+                Start playing, keep learning and meet others who share your interest in chess. Kila hatua ina maana.
+              </p>
+              <div className="mt-9 flex flex-wrap gap-3">
+                <Link href="/join" className="inline-flex min-h-12 items-center justify-center bg-[#111111] px-6 py-3 text-sm font-semibold !text-[#F3EDE2] transition-colors hover:bg-[#333333] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shop-ink">
+                  Join SHoP
+                </Link>
+                <Link href="/tournaments" className="inline-flex min-h-12 items-center justify-center border border-shop-ink/25 px-6 py-3 text-sm font-semibold transition-colors hover:bg-shop-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shop-ink">
+                  Explore tournaments
+                </Link>
               </div>
             </Reveal>
           </div>
         </section>
       </main>
-
       <Footer />
     </>
   );

@@ -241,7 +241,7 @@ export const tournaments: Tournament[] = [
     slug: "shop-youth-championship",
     description:
       "A friendly competitive chess tournament giving young players the opportunity to test their skills, meet other players and experience tournament chess.",
-    status: "registration-open",
+    status: "completed",
     format: "Swiss",
     date: "2026-09-19",
     time: "09:00",
@@ -283,7 +283,7 @@ export const tournaments: Tournament[] = [
     slug: "shop-championship",
     description:
       "The championship event bringing the strongest SHoP players together for a final competitive test.",
-    status: "ongoing",
+    status: "completed",
     format: "Knockout",
     date: "2026-08-29",
     time: "09:00",

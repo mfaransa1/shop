@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@import "../src/styles/shop-chess-board.css";
 @theme {
   /* SHoP Brand */
   --color-shop-ink: #111111;

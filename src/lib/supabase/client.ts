@@ -5,7 +5,7 @@ export function createClient() {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error("Supabase browser configuration is missing.");
+    throw new Error("Supabase is not configured. Add the public project URL and anon key to .env.local.");
   }
 
   return createBrowserClient(supabaseUrl, supabaseAnonKey);

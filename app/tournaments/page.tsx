@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
 
 import TournamentCard from "@/components/tournaments/TournamentCard";
+import { getPublishedShopEvents } from "@/lib/shop-cms-public";
 
 import {
   upcomingTournaments,
@@ -82,7 +83,12 @@ const highlights = [
   },
 ];
 
-export default function TournamentsPage() {
+export default async function TournamentsPage() {
+  const cmsEvents = (await getPublishedShopEvents()).filter((event) => event.status === "published");
+  const formatCmsDate = (value: string | null) => value
+    ? new Date(value).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })
+    : "Date to be announced";
+
   return (
     <>
       <Navbar />
@@ -259,14 +265,44 @@ export default function TournamentsPage() {
               </div>
             </Reveal>
 
-            {/* Tournament cards from data */}
-            <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {upcomingTournaments.map((tournament, index) => (
-                <Reveal key={tournament.id} delay={index * 100}>
-                  <TournamentCard tournament={tournament} />
-                </Reveal>
-              ))}
-            </div>
+            {/* Published CMS events take priority; legacy event data remains the safe fallback. */}
+            {cmsEvents.length > 0 ? (
+              <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {cmsEvents.map((event, index) => (
+                  <Reveal key={event.id} delay={index * 100}>
+                    <article className="flex h-full flex-col overflow-hidden border border-shop-border bg-shop-paper">
+                      <div className="bg-[#111111] px-6 py-7 text-[#F3EDE2] sm:px-8">
+                        <div className="flex items-start justify-between gap-4">
+                          <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#F3EDE2]/50">{event.featured ? "Featured event" : "SHoP event"}</span>
+                          <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#F3EDE2]/35">Upcoming</span>
+                        </div>
+                        <p className="mt-10 font-mono text-[10px] tracking-[0.12em] text-[#F3EDE2]/50">{formatCmsDate(event.starts_at)}</p>
+                        <h3 className="shop-display mt-4 text-4xl leading-[0.9] sm:text-5xl">{event.title}</h3>
+                      </div>
+                      <div className="flex flex-1 flex-col p-6 sm:p-8">
+                        <p className="text-sm leading-6 text-shop-muted">{event.summary || event.description || "More details will be announced soon."}</p>
+                        <div className="mt-6 border-y border-shop-border py-4">
+                          <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-shop-muted/60">Venue</p>
+                          <p className="mt-2 text-sm font-semibold">{event.venue}</p>
+                        </div>
+                        <div className="mt-auto pt-6">
+                          <a href={`/events/register?eventId=${encodeURIComponent(event.id)}&eventTitle=${encodeURIComponent(event.title)}`} className="inline-flex w-full justify-center bg-[#111111] px-5 py-3 text-xs font-semibold !text-[#F3EDE2] transition-colors hover:bg-[#333333]">Register for event</a>
+                          {event.registration_url ? <a href={event.registration_url} target={event.registration_url.startsWith("http") ? "_blank" : undefined} rel={event.registration_url.startsWith("http") ? "noreferrer" : undefined} className="mt-2 inline-flex w-full justify-center border border-[#111111]/25 px-5 py-3 text-xs font-semibold text-[#111111]">Event details</a> : null}
+                        </div>
+                      </div>
+                    </article>
+                  </Reveal>
+                ))}
+              </div>
+            ) : (
+              <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {upcomingTournaments.map((tournament, index) => (
+                  <Reveal key={tournament.id} delay={index * 100}>
+                    <TournamentCard tournament={tournament} />
+                  </Reveal>
+                ))}
+              </div>
+            )}
 
             {/* Regular events */}
             <Reveal delay={220}>
@@ -479,7 +515,7 @@ export default function TournamentsPage() {
                   <p className="mt-8 max-w-2xl text-base leading-7 text-[#F3EDE2]/50 sm:text-lg sm:leading-8">
                     Before the tournament comes the board. Join regular
                     Saturday sessions to build your game and meet the people
-                    you&apos;ll eventually compete alongside.
+                    you'll eventually compete alongside.
                   </p>
                 </div>
               </div>
@@ -622,13 +658,13 @@ export default function TournamentsPage() {
             <Reveal delay={180}>
               <div className="mt-14 flex flex-col gap-6 border-t border-[#F3EDE2]/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
                 <p className="max-w-xl text-sm leading-6 text-[#F3EDE2]/45">
-                  Whether you&apos;re ready to compete, learn or simply sit down
+                  Whether you're ready to compete, learn or simply sit down
                   for your first game, there is a place for you at SHoP.
                 </p>
 
                 <Link
                   href="/join"
-                  className="group inline-flex w-fit items-center gap-4 bg-[#F3EDE2] px-7 py-4 text-sm font-semibold text-[#111111] transition-all duration-300 hover:-translate-y-1"
+                  className="group inline-flex w-fit items-center gap-4 bg-[#F3EDE2] px-7 py-4 text-sm font-semibold !text-[#111111] transition-all duration-300 hover:-translate-y-1"
                 >
                   Join SHoP
 

@@ -1,0 +1,7 @@
+"use client";
+import { useEffect, useState } from "react";
+export type BasketProduct={id:string;name:string;price:number;image?:string};
+const KEY="shop-merch-basket-v1";
+export function readBasket():Array<BasketProduct&{quantity:number}>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch{return[]}}
+export function AddToBasketButton({product}:{product:BasketProduct}){const [added,setAdded]=useState(false);function add(){const basket=readBasket();const item=basket.find(x=>x.id===product.id);if(item)item.quantity=Math.min(20,item.quantity+1);else basket.push({...product,quantity:1});localStorage.setItem(KEY,JSON.stringify(basket));window.dispatchEvent(new Event("shop-basket-change"));setAdded(true);setTimeout(()=>setAdded(false),1600)}return <button type="button" onClick={add} className="mt-4 inline-flex w-full justify-center bg-shop-ink px-4 py-3 text-sm font-semibold text-shop-paper transition-colors hover:bg-black">{added?"Added to basket":"Add to basket"}</button>}
+export function BasketLink(){const [count,setCount]=useState(0);useEffect(()=>{const update=()=>setCount(readBasket().reduce((n,x)=>n+x.quantity,0));update();window.addEventListener("shop-basket-change",update);window.addEventListener("storage",update);return()=>{window.removeEventListener("shop-basket-change",update);window.removeEventListener("storage",update)}},[]);return <a href="/merch/checkout" className="inline-flex items-center border border-shop-ink px-5 py-3 text-sm font-semibold">Basket ({count})</a>}

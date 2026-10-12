@@ -1,0 +1,68 @@
+/* Import once in the site's global stylesheet: @import "./shop-chess-board.css"; */
+.shop-chess-frame {
+  width: 100%;
+  max-width: 760px;
+  aspect-ratio: 1;
+  padding: clamp(3px, .6vw, 8px);
+  background: #292a27;
+  border-radius: 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 18%);
+}
+.shop-chess-board {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-rows: repeat(8, minmax(0, 1fr));
+  width: 100%; height: 100%;
+  overflow: hidden;
+  border-radius: 3px;
+}
+.shop-chess-square {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  min-width: 0; min-height: 0; padding: 0; border: 0; border-radius: 0;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+  aspect-ratio: 1;
+}
+.shop-chess-square:disabled { cursor: default; }
+.shop-chess-square.is-light { background: #ecebd2; }
+.shop-chess-square.is-dark { background: #759653; }
+.shop-chess-square.is-selected { background: #f6d365; }
+.shop-chess-square.is-last-move { box-shadow: inset 0 0 0 999px rgb(226 210 91 / 42%); }
+.shop-chess-square.is-check { background: #cf4848; }
+.shop-chess-piece {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  width: 92%; height: 92%; line-height: 1;
+  font-family: "DejaVu Sans", "Segoe UI Symbol", "Noto Sans Symbols 2", sans-serif;
+  font-size: clamp(22px, 8.1cqw, 78px);
+  user-select: none; pointer-events: none;
+}
+.shop-chess-frame { container-type: inline-size; }
+.shop-chess-piece.piece-w {
+  color: #fffdf2 !important;
+  -webkit-text-fill-color: #fffdf2;
+  -webkit-text-stroke: 1px #242424;
+  text-shadow: 0 1px 1px #222, 0 0 2px #222;
+}
+.shop-chess-piece.piece-b {
+  color: #242424 !important;
+  -webkit-text-fill-color: #242424;
+  -webkit-text-stroke: .7px #050505;
+  text-shadow: 0 1px 1px rgb(0 0 0 / 35%);
+}
+.shop-rank-coordinate, .shop-file-coordinate {
+  position: absolute; z-index: 2; font-size: clamp(9px, 1.8cqw, 17px);
+  line-height: 1; font-weight: 700; pointer-events: none;
+}
+.shop-rank-coordinate { top: 5%; left: 6%; }
+.shop-file-coordinate { right: 6%; bottom: 4%; }
+.is-light .shop-rank-coordinate, .is-light .shop-file-coordinate { color: #759653; }
+.is-dark .shop-rank-coordinate, .is-dark .shop-file-coordinate { color: #ecebd2; }
+.shop-legal-dot { position: absolute; width: 23%; height: 23%; border-radius: 50%; background: rgb(30 42 23 / 32%); }
+.shop-legal-capture { position: absolute; inset: 3%; border: max(2px, .45cqw) solid rgb(30 42 23 / 42%); border-radius: 50%; }
+@media (max-width: 480px) {
+  .shop-chess-frame { border-radius: 4px; padding: 3px; }
+  .shop-chess-piece { font-size: clamp(20px, 9.2cqw, 44px); }
+}
