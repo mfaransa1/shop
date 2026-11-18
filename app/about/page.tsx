@@ -74,7 +74,7 @@ export default function AboutPage() {
                 <br />
                 bigger than
                 <br />
-                <span className="relative inline-block">the game<span aria-hidden="true" className="shop-hero-underline absolute bottom-[0.02em] left-0 h-[2px] w-full bg-shop-ink/25" /></span>
+                <span className="relative inline-block">the game</span>
               </h1>
             </Reveal>
             <Reveal delay={240}>

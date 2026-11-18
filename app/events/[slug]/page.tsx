@@ -239,7 +239,7 @@ export default async function TournamentPage({
                       </span>
 
                       <span className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1">
-                        →
+                        
                       </span>
                     </Link>
                   )}
@@ -439,7 +439,7 @@ export default async function TournamentPage({
                   All events
 
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
+                    
                   </span>
                 </Link>
               </div>

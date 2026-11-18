@@ -24,7 +24,7 @@ export default function Impact() {
                 <div className="relative mt-10 max-w-[360px] overflow-hidden md:mt-14">
                   <div className="relative aspect-[4/5] overflow-hidden bg-shop-cream">
                     <Image
-                      src="/images/123.jpeg"
+                      src="/images/optimized/123.webp"
                       alt="Young people participating in a SHoP chess session"
                       fill
                       sizes="(max-width: 1023px) 360px, 30vw"

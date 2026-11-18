@@ -61,14 +61,7 @@ export default function StoryCard({
             {title}
           </h3>
 
-          {href && (
-            <span
-              aria-hidden="true"
-              className="shrink-0 text-shop-muted transition-transform duration-300 group-hover:translate-x-1"
-            >
-              →
-            </span>
-          )}
+          
         </div>
 
         <p className="mt-5 max-w-xl text-sm leading-6 text-shop-muted">

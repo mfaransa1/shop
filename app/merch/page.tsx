@@ -11,48 +11,48 @@ const products = [
     category: "PLAY",
     name: "Chessboard sets",
     description: "Everyday boards and complete sets for home practice, club sessions and gifts.",
-    image: "/images/merch/chessboard-set.jpg",
-    alt: "Chessboard set product image placeholder",
+    image: "/images/optimized/board-set.webp",
+    alt: "Chess set used for SHoP practice and play",
     availability: "Enquire for availability",
   },
   {
     category: "EQUIPMENT",
     name: "Chess pieces",
     description: "Replacement pieces and sets for players, schools and community chess spaces.",
-    image: "/images/merch/chess-pieces.jpg",
-    alt: "Chess pieces product image placeholder",
+    image: "/images/optimized/125.webp",
+    alt: "Chess pieces arranged for a game",
     availability: "Enquire for availability",
   },
   {
     category: "TRAINING",
     name: "Chess clocks",
     description: "Timing equipment for practice games and organised competition.",
-    image: "/images/merch/chess-clock.jpg",
-    alt: "Chess clock product image placeholder",
+    image: "/images/optimized/234.webp",
+    alt: "Players taking part in a chess session",
     availability: "Enquire for availability",
   },
   {
     category: "SHoP GOODS",
     name: "Club apparel",
     description: "SHoP-branded shirts and other club items, subject to confirmed stock and sizing.",
-    image: "/images/merch/shop-apparel.jpg",
-    alt: "SHoP club apparel product image placeholder",
+    image: "/images/optimized/member-01.webp",
+    alt: "SHoP community member",
     availability: "Coming soon",
   },
   {
     category: "LEARNING",
     name: "Learning materials",
     description: "Chess notebooks, score sheets and practice materials for players and schools.",
-    image: "/images/merch/chess-learning-materials.jpg",
-    alt: "Chess learning materials product image placeholder",
+    image: "/images/optimized/688.webp",
+    alt: "A learner studying a chess position",
     availability: "Enquire for availability",
   },
   {
     category: "CLUB SUPPORT",
     name: "Sponsor a board",
     description: "Support access to equipment by helping fund a board set for club or learning use.",
-    image: "/images/merch/sponsor-a-board.jpg",
-    alt: "Chessboard for a community programme product image placeholder",
+    image: "/images/optimized/chessboard-hero.webp",
+    alt: "Chessboard equipment available for community play",
     availability: "Support option",
   },
 ];
@@ -65,7 +65,7 @@ export default async function MerchPage() {
         category: product.category.toUpperCase(),
         name: product.name,
         description: product.description,
-        image: product.image_path || "/images/merch/chessboard-set.jpg",
+        image: product.image_path || "/images/optimized/board-set.webp",
         alt: `${product.name} product image`,
         availability: product.availability,
         price: product.price_kes,
@@ -87,7 +87,7 @@ export default async function MerchPage() {
             </div>
             <Reveal delay={180}>
               <div className="relative aspect-[4/3] overflow-hidden bg-[#F3EDE2]/5">
-                <Image src="/images/merch/chessboard-hero.jpg" alt="Chessboard merchandise hero image placeholder" fill priority sizes="(max-width: 1023px) 100vw, 45vw" className="object-cover" />
+                <Image src="/images/optimized/chessboard-hero.webp" alt="Chess equipment photographed for the SHoP store" fill priority sizes="(max-width: 1023px) 100vw, 45vw" className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
                 <p className="absolute bottom-5 left-5 text-[10px] font-bold tracking-[0.2em] text-white/75">KILA HATUA INA MAANA</p>
               </div>

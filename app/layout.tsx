@@ -7,6 +7,7 @@ import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
 import "@fontsource/dm-serif-display/400.css";
 import "./globals.css";
+import WhatsAppFloatingButton from "@/components/layout/WhatsAppFloatingButton";
 
 export const metadata: Metadata = {
   title: {
@@ -32,6 +33,13 @@ export const metadata: Metadata = {
       "One board. Infinite possibilities. Building a stronger community through chess.",
     type: "website",
     siteName: "SHoP",
+    images: [{ url: "/images/optimized/5555.webp", width: 1599, height: 1200, alt: "Young people playing chess in the SHoP community" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SHoP — Southside House of Pawns",
+    description: "Building a stronger community through chess in Kawangware, Nairobi.",
+    images: ["/images/optimized/5555.webp"],
   },
   icons: {
     icon: "/images/brand/favicon.svg",
@@ -47,6 +55,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
+        <WhatsAppFloatingButton />
         <Analytics />
         <SpeedInsights />
       </body>

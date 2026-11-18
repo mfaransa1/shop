@@ -57,7 +57,7 @@ export default function Button({
   ariaLabel,
 }: ButtonProps) {
   const classes = [
-    "group inline-flex items-center justify-center gap-3",
+    "inline-flex items-center justify-center",
     "font-semibold",
     "transition-all duration-300",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111111]/40 focus-visible:ring-offset-2",
@@ -67,18 +67,7 @@ export default function Button({
     className,
   ].join(" ");
 
-  const content = (
-    <>
-      <span>{children}</span>
-
-      <span
-        aria-hidden="true"
-        className="transition-transform duration-300 group-hover:translate-x-1"
-      >
-        →
-      </span>
-    </>
-  );
+  const content = <span>{children}</span>;
 
   if (href) {
     return (

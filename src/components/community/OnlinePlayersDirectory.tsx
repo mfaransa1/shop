@@ -184,7 +184,7 @@ export default function OnlinePlayersDirectory() {
             href="/dashboard/community-settings"
             className="mt-5 inline-flex border border-shop-border px-4 py-3 text-sm font-semibold"
           >
-            Review profile visibility →
+            Review profile visibility 
           </Link>
         </div>
       ) : (
@@ -219,7 +219,7 @@ export default function OnlinePlayersDirectory() {
                   ? "Sending challenge…"
                   : challengingId
                     ? "Please wait…"
-                    : "Challenge →"}
+                    : "Challenge "}
               </button>
             </article>
           ))}

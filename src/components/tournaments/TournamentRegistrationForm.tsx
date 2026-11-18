@@ -285,7 +285,7 @@ export default function TournamentRegistrationForm({
               className="inline-flex shrink-0 items-center justify-center gap-4 bg-[#111111] px-6 py-4 text-sm font-semibold text-[#F3EDE2] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {submitting ? "Submitting…" : "Submit registration"}
-              {!submitting && <span aria-hidden="true">→</span>}
+              
             </button>
           </div>
         </form>

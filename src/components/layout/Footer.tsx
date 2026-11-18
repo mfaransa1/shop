@@ -14,6 +14,7 @@ const footerLinks = [
       { label: "Community", href: "/community" },
       { label: "Schools", href: "/schools" },
       { label: "Tournaments", href: "/tournaments" },
+      { label: "Contact", href: "/contact" },
     ],
   },
   {
@@ -157,10 +158,6 @@ export default function Footer() {
                 className="group flex items-center gap-2 text-left transition-colors duration-300 hover:text-[#F3EDE2]"
               >
                 BACK TO TOP
-
-                <span className="transition-transform duration-300 group-hover:-translate-y-1">
-                  ↑
-                </span>
               </button>
             </div>
           </div>

@@ -157,12 +157,7 @@ export default async function TournamentsPage() {
                         See upcoming events
                       </span>
 
-                      <span
-                        aria-hidden="true"
-                        className="!text-[#111111] transition-transform duration-300 group-hover:translate-y-1"
-                      >
-                        ↓
-                      </span>
+                      
                     </Link>
 
                     <Link
@@ -194,7 +189,7 @@ export default async function TournamentsPage() {
                 <div className="relative mx-auto w-full max-w-[620px] lg:ml-auto">
                   <div className="relative aspect-[4/5] overflow-hidden bg-[#F3EDE2]/5">
                     <Image
-                      src="/images/sessions/session-03.jpg"
+                      src="/images/optimized/session-03.webp"
                       alt="Chess players during a SHoP session"
                       fill
                       priority
@@ -349,7 +344,7 @@ export default async function TournamentsPage() {
                       </span>
 
                       <span className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1">
-                        →
+                        
                       </span>
                     </Link>
                   </div>
@@ -525,7 +520,7 @@ export default async function TournamentsPage() {
               <div className="mt-16 grid gap-6 md:grid-cols-[1.15fr_0.85fr] md:items-stretch">
                 <div className="relative min-h-[420px] overflow-hidden">
                   <Image
-                    src="/images/sessions/session-01.jpg"
+                    src="/images/optimized/session-01.webp"
                     alt="Chess session at SHoP"
                     fill
                     sizes="(max-width: 767px) 100vw, 60vw"
@@ -581,7 +576,7 @@ export default async function TournamentsPage() {
                     Join a session
 
                     <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      →
+                      
                     </span>
                   </Link>
                 </div>
@@ -669,7 +664,7 @@ export default async function TournamentsPage() {
                   Join SHoP
 
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
+                    
                   </span>
                 </Link>
               </div>
@@ -707,7 +702,7 @@ export default async function TournamentsPage() {
                   </span>
 
                   <span className="!text-[#F3EDE2] transition-transform duration-300 group-hover:translate-x-1">
-                    →
+                    
                   </span>
                 </Link>
 

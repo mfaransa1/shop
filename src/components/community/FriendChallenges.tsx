@@ -178,7 +178,7 @@ export default function FriendChallenges() {
             href="/community/players"
             className="inline-flex bg-shop-ink px-5 py-3 text-sm font-semibold !text-white"
           >
-            Find online players →
+            Find online players 
           </Link>
         </div>
         <details className="mt-5">
@@ -215,7 +215,7 @@ export default function FriendChallenges() {
                 disabled={sending}
                 className="bg-shop-ink px-5 py-3 text-sm font-semibold text-white disabled:opacity-50"
               >
-                {sending ? "Sending…" : "Send invitation →"}
+                {sending ? "Sending…" : "Send invitation "}
               </button>
             </div>
           </form>
@@ -301,7 +301,7 @@ export default function FriendChallenges() {
                       onClick={() => openGame(item.id)}
                       className="bg-shop-ink px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
                     >
-                      {startingId === item.id ? "Opening game…" : "Play challenge →"}
+                      {startingId === item.id ? "Opening game…" : "Play challenge "}
                     </button>
                   </div>
                 )}

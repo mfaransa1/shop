@@ -10,21 +10,21 @@ const sessions = [
     title: "Learn",
     description:
       "Build your chess fundamentals with guided training designed for different levels of experience.",
-    image: "/images/sessions/session-01.jpg",
+    image: "/images/optimized/session-01.webp",
   },
   {
     number: "02",
     title: "Play",
     description:
       "Sit across the board, test your ideas and discover the joy of playing with others.",
-    image: "/images/sessions/session-02.jpg",
+    image: "/images/optimized/session-02.webp",
   },
   {
     number: "03",
     title: "Connect",
     description:
       "Meet other young players, coaches and members of a community built around chess.",
-    image: "/images/sessions/session-03.jpg",
+    image: "/images/optimized/session-03.webp",
   },
 ];
 

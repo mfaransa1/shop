@@ -138,7 +138,7 @@ export default async function DashboardPage() {
                 { href: "/community", title: "Community", detail: "Visit the SHoP community", tag: "CONNECT" },
               ].map((item) => <Link key={item.href} href={item.href} className="group flex min-h-28 flex-col justify-between border border-shop-border p-4 transition-colors hover:border-shop-ink hover:bg-shop-cream focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shop-ink">
                 <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-shop-muted">{item.tag}</span>
-                <span className="mt-4 flex items-start justify-between gap-3"><span><strong className="block text-sm">{item.title}</strong><span className="mt-1 block text-xs leading-5 text-shop-muted">{item.detail}</span></span><span aria-hidden="true" className="text-lg transition-transform group-hover:translate-x-1">→</span></span>
+                <span className="mt-4 flex items-start justify-between gap-3"><span><strong className="block text-sm">{item.title}</strong><span className="mt-1 block text-xs leading-5 text-shop-muted">{item.detail}</span></span></span>
               </Link>)}
             </div>
           </nav>
@@ -171,9 +171,9 @@ export default async function DashboardPage() {
               <p className="shop-eyebrow text-shop-muted">Continue learning</p>
               <h2 className="shop-display mt-4 text-4xl">Make today count.</h2>
               <div className="mt-7 divide-y divide-shop-border border-y border-shop-border">
-                <Link href="/learn/basics" className="flex items-center justify-between gap-5 py-5 transition-transform hover:translate-x-1"><span><strong className="block text-sm">Beginner learning path</strong><span className="mt-1 block text-xs text-shop-muted">Board, pieces, check, and opening principles</span></span><span aria-hidden="true">→</span></Link>
-                <Link href="/learn#daily-puzzle" className="flex items-center justify-between gap-5 py-5 transition-transform hover:translate-x-1"><span><strong className="block text-sm">Daily puzzle</strong><span className="mt-1 block text-xs text-shop-muted">Find the checkmate in one move</span></span><span aria-hidden="true">→</span></Link>
-                <Link href="/learn#play-computer" className="flex items-center justify-between gap-5 py-5 transition-transform hover:translate-x-1"><span><strong className="block text-sm">Play the computer</strong><span className="mt-1 block text-xs text-shop-muted">Play a complete legal chess game</span></span><span aria-hidden="true">→</span></Link>
+                <Link href="/learn/basics" className="flex items-center justify-between gap-5 py-5 transition-transform hover:translate-x-1"><span><strong className="block text-sm">Beginner learning path</strong><span className="mt-1 block text-xs text-shop-muted">Board, pieces, check, and opening principles</span></span></Link>
+                <Link href="/learn#daily-puzzle" className="flex items-center justify-between gap-5 py-5 transition-transform hover:translate-x-1"><span><strong className="block text-sm">Daily puzzle</strong><span className="mt-1 block text-xs text-shop-muted">Find the checkmate in one move</span></span></Link>
+                <Link href="/learn#play-computer" className="flex items-center justify-between gap-5 py-5 transition-transform hover:translate-x-1"><span><strong className="block text-sm">Play the computer</strong><span className="mt-1 block text-xs text-shop-muted">Play a complete legal chess game</span></span></Link>
               </div>
             </section>
 

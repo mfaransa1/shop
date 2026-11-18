@@ -55,6 +55,12 @@ export default function Navbar() {
           {/* Desktop actions */}
           <div className="hidden items-center gap-3 lg:flex">
             <Link
+              href="/dashboard"
+              className="px-4 py-3 text-sm font-semibold transition-opacity hover:opacity-60"
+            >
+              Player Area
+            </Link>
+            <Link
               href="/support"
               className="px-4 py-3 text-sm font-semibold transition-opacity hover:opacity-60"
             >

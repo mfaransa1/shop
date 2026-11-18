@@ -187,7 +187,7 @@ export default function SchoolsPage() {
                 <div className="relative mx-auto w-full max-w-[650px] lg:ml-auto">
                   <div className="relative aspect-[4/5] overflow-hidden bg-[#F3EDE2]/5">
                     <Image
-                      src="/images/sessions/session-03.jpg"
+                      src="/images/optimized/session-03.webp"
                       alt="Young people playing chess"
                       fill
                       priority
@@ -383,7 +383,7 @@ export default function SchoolsPage() {
               <Reveal>
                 <div className="relative min-h-[460px] overflow-hidden md:min-h-[620px]">
                   <Image
-                    src="/images/sessions/session-01.jpg"
+                    src="/images/optimized/session-01.webp"
                     alt="Students playing chess"
                     fill
                     sizes="(max-width: 767px) 100vw, 60vw"

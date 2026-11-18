@@ -37,7 +37,7 @@ export default async function MyGamesPage() {
   if (error) {
     return (
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <Link href="/dashboard" className="text-sm font-semibold text-teal-800 hover:text-teal-950">← Dashboard</Link>
+        <Link href="/dashboard" className="text-sm font-semibold text-teal-800 hover:text-teal-950"> Dashboard</Link>
         <div className="mt-6 rounded-2xl border border-rose-200 bg-rose-50 p-5 sm:p-6">
           <h1 className="text-xl font-semibold text-rose-950">We couldn’t load your games</h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-rose-900">Check that the Phase 4 chess migrations are applied and that your account can read its own games. Your games have not been changed.</p>
@@ -77,7 +77,7 @@ export default async function MyGamesPage() {
   return (
     <main className="min-h-screen bg-slate-50/70">
       <div className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-9 lg:px-8">
-        <Link href="/dashboard" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-teal-800">← Back to dashboard</Link>
+        <Link href="/dashboard" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-teal-800"> Back to dashboard</Link>
         <header className="mt-5 mb-7 overflow-hidden rounded-3xl bg-slate-950 px-5 py-6 text-white shadow-sm sm:px-8 sm:py-8">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-2xl">
@@ -87,7 +87,7 @@ export default async function MyGamesPage() {
             </div>
             <div className="flex flex-wrap gap-2">
               <Link href="/dashboard/performance" className="rounded-xl border border-white/20 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10">Performance</Link>
-              <Link href="/dashboard/challenges" className="rounded-xl bg-teal-400 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-teal-300">Play a challenge ↗</Link>
+              <Link href="/dashboard/challenges" className="rounded-xl bg-teal-400 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-teal-300">Play a challenge </Link>
             </div>
           </div>
           {inProgress > 0 && <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-amber-300/10 px-3 py-1.5 text-xs font-medium text-amber-200"><span className="h-2 w-2 rounded-full bg-amber-300" />{inProgress} game{inProgress === 1 ? "" : "s"} in progress</div>}

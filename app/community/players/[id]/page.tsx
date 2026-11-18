@@ -54,7 +54,7 @@ export default async function PublicPlayerProfilePage({ params }: Props) {
           <h1 className="shop-display mt-5 text-5xl sm:text-7xl">{player.display_name}</h1>
           <p className="mt-4 text-sm text-[#F3EDE2]/65">{player.skill_level || "Beginner"}{joined ? ` · Learning with SHoP since ${joined}` : ""}</p>
         </div>
-        <Link href="/community/leaderboard" className="inline-flex w-fit border border-[#F3EDE2]/30 px-5 py-3 text-sm font-semibold transition hover:bg-[#F3EDE2] hover:text-[#111111]">Community leaderboard ↗</Link>
+        <Link href="/community/leaderboard" className="inline-flex w-fit border border-[#F3EDE2]/30 px-5 py-3 text-sm font-semibold transition hover:bg-[#F3EDE2] hover:text-[#111111]">Community leaderboard </Link>
       </div>
     </div></section>
     <section className="shop-container py-12 md:py-16">
@@ -63,7 +63,7 @@ export default async function PublicPlayerProfilePage({ params }: Props) {
         <div><p className="shop-eyebrow text-shop-muted">Shared learning activity</p><h2 className="shop-display mt-3 text-3xl">Every step counts.</h2><div className="mt-6 grid gap-3 sm:grid-cols-3"><Stat label="Puzzles solved" value={Number(player.puzzles_solved) || 0} /><Stat label="Lessons completed" value={Number(player.lessons_completed) || 0} /><Stat label="Games completed" value={Number(player.games_completed) || 0} /></div><p className="mt-5 text-xs leading-6 text-shop-muted">These counts come from completed learning activity records. They describe practice history, not an official chess rating or verified competitive strength.</p></div>
       </div>
       <ChallengePlayerButton playerId={player.player_id} playerName={player.display_name} />
-      <div className="mt-12 border-t border-shop-border pt-6"><Link href="/community/players" className="mr-6 text-sm font-semibold underline underline-offset-4">← Find online players</Link><Link href="/community/leaderboard" className="text-sm font-semibold underline underline-offset-4">← Back to leaderboard</Link></div>
+      <div className="mt-12 border-t border-shop-border pt-6"><Link href="/community/players" className="mr-6 text-sm font-semibold underline underline-offset-4"> Find online players</Link><Link href="/community/leaderboard" className="text-sm font-semibold underline underline-offset-4"> Back to leaderboard</Link></div>
     </section>
   </main><Footer /></>;
 }

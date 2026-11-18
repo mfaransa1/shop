@@ -186,7 +186,7 @@ export default function JoinPage() {
                 <div className="relative mx-auto w-full max-w-[620px] lg:ml-auto">
                   <div className="relative aspect-[4/5] overflow-hidden bg-[#F3EDE2]/5">
                     <Image
-                      src="/images/sessions/session-01.jpg"
+                      src="/images/optimized/session-01.webp"
                       alt="Young people playing chess at SHoP"
                       fill
                       priority

@@ -392,11 +392,11 @@ export default function ChessPuzzle() {
               <span className={`font-mono text-2xl font-semibold tabular-nums ${timeLeft <= 10 && timedStatus === "running" ? "text-amber-300" : "text-[#F3EDE2]"}`}>{formattedTime}</span>
             </div>}
             {!timedMode ? (
-              <button type="button" onClick={startTimedSession} className="bg-[#F3EDE2] px-5 py-3 text-xs font-bold text-[#111111] transition-opacity hover:opacity-85">Start sprint →</button>
+              <button type="button" onClick={startTimedSession} className="bg-[#F3EDE2] px-5 py-3 text-xs font-bold text-[#111111] transition-opacity hover:opacity-85">Start sprint </button>
             ) : timedStatus === "running" ? (
               <button type="button" onClick={endTimedSession} className="border border-[#F3EDE2]/25 px-4 py-3 text-xs font-semibold text-[#F3EDE2] transition-colors hover:bg-[#F3EDE2]/10">End sprint</button>
             ) : (
-              <button type="button" onClick={startTimedSession} className="bg-[#F3EDE2] px-5 py-3 text-xs font-bold text-[#111111] transition-opacity hover:opacity-85">Try again →</button>
+              <button type="button" onClick={startTimedSession} className="bg-[#F3EDE2] px-5 py-3 text-xs font-bold text-[#111111] transition-opacity hover:opacity-85">Try again </button>
             )}
           </div>
         </div>
@@ -478,7 +478,7 @@ export default function ChessPuzzle() {
           <div className="mt-8 border-t border-[#F3EDE2]/15 pt-6">
             <div className="flex items-center justify-between gap-4">
               <span className="text-[9px] font-bold tracking-[0.2em] text-[#F3EDE2]/35">YOUR MOVE</span>
-              <span className="font-mono text-sm text-[#F3EDE2]/60">{selectedSquare ? `${selectedSquare} → ?` : solved ? activePuzzle.notation : "—"}</span>
+              <span className="font-mono text-sm text-[#F3EDE2]/60">{selectedSquare ? `${selectedSquare}  ?` : solved ? activePuzzle.notation : "—"}</span>
             </div>
           </div>
 
@@ -495,9 +495,9 @@ export default function ChessPuzzle() {
             <span className="text-[9px] font-bold tracking-[0.2em] text-[#F3EDE2]/35">SOLUTION</span>
             <p className="mt-3 text-sm leading-6 text-[#F3EDE2]/60"><strong className="text-[#F3EDE2]">{activePuzzle.notation}</strong> delivers checkmate. Review the position and look for the squares controlled by your queen and king.</p>
             {timedMode && timedStatus === "running" ? (
-              <button type="button" onClick={() => selectPuzzle(nextTimedPuzzle)} className="mt-5 w-full bg-[#F3EDE2] px-5 py-3 text-xs font-bold text-[#111111] transition-opacity hover:opacity-85">Next puzzle →</button>
+              <button type="button" onClick={() => selectPuzzle(nextTimedPuzzle)} className="mt-5 w-full bg-[#F3EDE2] px-5 py-3 text-xs font-bold text-[#111111] transition-opacity hover:opacity-85">Next puzzle </button>
             ) : !timedMode && nextUnsolvedPuzzle ? (
-              <button type="button" onClick={() => selectPuzzle(nextUnsolvedPuzzle)} className="mt-5 w-full bg-[#F3EDE2] px-5 py-3 text-xs font-bold text-[#111111] transition-opacity hover:opacity-85">Next unsolved puzzle →</button>
+              <button type="button" onClick={() => selectPuzzle(nextUnsolvedPuzzle)} className="mt-5 w-full bg-[#F3EDE2] px-5 py-3 text-xs font-bold text-[#111111] transition-opacity hover:opacity-85">Next unsolved puzzle </button>
             ) : null}
           </div>}
 

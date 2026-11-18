@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
+import SHoPPhotoGallery from "@/components/home/SHoPPhotoGallery";
 
 const communityPaths = [
   {
@@ -112,7 +113,7 @@ export default function CommunityPage() {
               <div className="relative mx-auto w-full max-w-[560px]">
                 <div className="relative aspect-[4/5] overflow-hidden bg-[#F3EDE2]/5">
                   <Image
-                    src="/images/sessions/session-02.jpg"
+                    src="/images/optimized/session-02.webp"
                     alt="Chess boards and community play at SHoP"
                     fill
                     priority
@@ -193,6 +194,8 @@ export default function CommunityPage() {
             </div>
           </div>
         </section>
+
+        <SHoPPhotoGallery />
 
         <section className="bg-shop-cream">
           <div className="shop-container py-24 md:py-32">

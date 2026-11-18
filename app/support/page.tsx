@@ -62,7 +62,7 @@ export default function SupportPage() {
             <Reveal delay={180}>
               <div className="relative mx-auto w-full max-w-[560px]">
                 <div className="relative aspect-[4/5] overflow-hidden bg-[#F3EDE2]/5">
-                  <Image src="/images/sessions/session-02.jpg" alt="Chess session at SHoP" fill priority sizes="(max-width: 1023px) 100vw, 45vw" className="object-cover" />
+                  <Image src="/images/optimized/session-02.webp" alt="Chess session at SHoP" fill priority sizes="(max-width: 1023px) 100vw, 45vw" className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6">
                     <p className="text-[10px] font-bold tracking-[0.2em] text-white/65">THE BOARD IS BIGGER THAN THE GAME</p>

@@ -69,14 +69,7 @@ export default function MemberCard({
             </h3>
           </div>
 
-          {href && (
-            <span
-              aria-hidden="true"
-              className="mt-1 shrink-0 text-shop-muted transition-transform duration-300 group-hover:translate-x-1"
-            >
-              →
-            </span>
-          )}
+          
         </div>
 
         {bio && (

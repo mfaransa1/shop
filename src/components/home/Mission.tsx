@@ -25,7 +25,7 @@ export default function Mission() {
           <div className="relative mt-12 overflow-hidden md:mt-16">
             <div className="relative aspect-[16/9] min-h-[480px] overflow-hidden md:min-h-[600px]">
               <Image
-                src="/images/sessions/session-01.jpg"
+                src="/images/optimized/session-01.webp"
                 alt="Young people playing chess at SHoP"
                 fill
                 sizes="100vw"
