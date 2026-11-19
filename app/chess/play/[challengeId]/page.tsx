@@ -2,16 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-
-const PRESETS: Record<string, { timeControl: string; initialTimeMs: number; incrementMs: number }> = {
-  bullet: { timeControl: "bullet", initialTimeMs: 60_000, incrementMs: 0 },
-  "bullet-2-1": { timeControl: "bullet", initialTimeMs: 120_000, incrementMs: 1_000 },
-  blitz: { timeControl: "blitz", initialTimeMs: 180_000, incrementMs: 2_000 },
-  "blitz-5": { timeControl: "blitz", initialTimeMs: 300_000, incrementMs: 0 },
-  rapid: { timeControl: "rapid", initialTimeMs: 600_000, incrementMs: 0 },
-  "rapid-10-5": { timeControl: "rapid", initialTimeMs: 600_000, incrementMs: 5_000 },
-  "rapid-15-10": { timeControl: "rapid", initialTimeMs: 900_000, incrementMs: 10_000 },
-};
+import { getTimeControlPreset } from "@/lib/chess/time-controls";
 
 export default function StartChallengeGamePage() {
   const { challengeId } = useParams<{ challengeId: string }>();
@@ -20,7 +11,8 @@ export default function StartChallengeGamePage() {
   const [error, setError] = useState("");
   const [starting, setStarting] = useState(false);
   const [attempt, setAttempt] = useState(0);
-  const choice = search.get("timeControl") || "blitz";
+  const choice = search.get("timeControl") || "blitz-3-0";
+  const selectedPreset = getTimeControlPreset(choice);
   const requestKey = useRef("");
 
   const start = useCallback(async () => {
@@ -32,7 +24,7 @@ export default function StartChallengeGamePage() {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15_000);
     try {
-      const preset = PRESETS[choice] ?? PRESETS.blitz;
+      const preset = selectedPreset;
       const response = await fetch("/api/chess/games", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -67,7 +59,7 @@ export default function StartChallengeGamePage() {
   return <main className="mx-auto max-w-xl p-6">
     <p className="text-xs uppercase tracking-[.18em] text-slate-500">SHoP LIVE CHESS</p>
     <h1 className="mt-2 text-2xl font-bold">{starting ? "Starting your game" : error ? "We couldn't start the game" : "Opening chessboard…"}</h1>
-    <p className="mt-2 text-slate-600">Preparing your accepted challenge using the <strong>{choice}</strong> time control…</p>
+    <p className="mt-2 text-slate-600">Preparing your accepted challenge using the <strong>{selectedPreset.label}</strong> time control…</p>
     {starting && <div className="mt-5 h-2 overflow-hidden rounded bg-slate-200"><div className="h-full w-1/2 animate-pulse bg-slate-800" /></div>}
     {error && <div className="mt-5 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-900" role="alert">
       <p>{error}</p>

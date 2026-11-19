@@ -1,8 +1,22 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
+import PartnershipEnquiryForm from "@/components/partnerships/PartnershipEnquiryForm";
+
+export const metadata: Metadata = {
+  title: "School Chess Programmes | SHoP",
+  description: "Explore school chess clubs, learning sessions and tournaments with Southside House of Pawns in Kawangware, Nairobi. Submit a dedicated school partnership enquiry.",
+  alternates: { canonical: "/schools" },
+  openGraph: {
+    title: "School Chess Programmes | Southside House of Pawns",
+    description: "Bring chess learning, clubs and school activities to your learners with SHoP.",
+    type: "website",
+    images: [{ url: "/images/optimized/school-01.webp", width: 1200, height: 1500, alt: "School chess activity with SHoP" }],
+  },
+};
 
 const schoolBenefits = [
   {
@@ -159,7 +173,7 @@ export default function SchoolsPage() {
                     </Link>
 
                     <Link
-                      href="/support"
+                      href="#school-enquiry"
                       className="inline-flex items-center gap-4 border border-[#F3EDE2]/25 px-6 py-4 text-sm font-semibold !text-[#F3EDE2] transition-all duration-300 hover:bg-[#F3EDE2] hover:!text-[#111111]"
                     >
                       <span className="!text-current">
@@ -187,7 +201,7 @@ export default function SchoolsPage() {
                 <div className="relative mx-auto w-full max-w-[650px] lg:ml-auto">
                   <div className="relative aspect-[4/5] overflow-hidden bg-[#F3EDE2]/5">
                     <Image
-                      src="/images/optimized/session-03.webp"
+                      src="/images/optimized/images.webp"
                       alt="Young people playing chess"
                       fill
                       priority
@@ -383,7 +397,7 @@ export default function SchoolsPage() {
               <Reveal>
                 <div className="relative min-h-[460px] overflow-hidden md:min-h-[620px]">
                   <Image
-                    src="/images/optimized/session-01.webp"
+                    src="/images/optimized/images-1.webp"
                     alt="Students playing chess"
                     fill
                     sizes="(max-width: 767px) 100vw, 60vw"
@@ -528,14 +542,30 @@ export default function SchoolsPage() {
                   </p>
 
                   <Link
-                    href="/support"
+                    href="#school-enquiry"
                     className="inline-flex w-fit items-center bg-[#F3EDE2] px-7 py-4 text-sm font-semibold !text-[#111111] transition-colors duration-300 hover:bg-white"
                   >
-                    Explore partnership options
+                    Start a school enquiry
                   </Link>
                 </div>
               </div>
             </Reveal>
+          </div>
+        </section>
+
+        {/* =========================================================
+            SCHOOL ENQUIRY
+        ========================================================= */}
+        <section id="school-enquiry" className="scroll-mt-20 bg-shop-cream">
+          <div className="shop-container py-20 md:py-28">
+            <div className="mb-10 grid gap-6 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+              <p className="shop-eyebrow text-shop-muted">06 — Start a school conversation</p>
+              <div>
+                <h2 className="shop-display max-w-5xl text-[clamp(3rem,6vw,6rem)] leading-[0.88]">Tell us what your learners need.</h2>
+                <p className="mt-6 max-w-2xl text-sm leading-7 text-shop-muted sm:text-base">A dedicated enquiry goes to the SHoP partnership review process, not the donation checkout. A school representative can share the programme they would like to explore.</p>
+              </div>
+            </div>
+            <PartnershipEnquiryForm kind="school" />
           </div>
         </section>
 
@@ -568,10 +598,10 @@ export default function SchoolsPage() {
             <Reveal delay={260}>
               <div className="mt-10 flex flex-wrap gap-3">
                 <Link
-                  href="/support"
+                  href="#school-enquiry"
                   className="inline-flex items-center bg-[#111111] px-7 py-4 text-sm font-semibold !text-[#F3EDE2] transition-colors duration-300 hover:bg-[#292929]"
                 >
-                  Explore partnership options
+                  Start a school enquiry
                 </Link>
 
                 <Link

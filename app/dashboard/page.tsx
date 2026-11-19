@@ -124,22 +124,27 @@ export default async function DashboardPage() {
               <div><p className="shop-eyebrow text-shop-muted">Player menu</p><h2 className="shop-display mt-3 text-3xl sm:text-4xl">Everything in one place.</h2></div>
               <p className="max-w-md text-xs leading-5 text-shop-muted">Jump to your training, community, achievements, and club activity.</p>
             </div>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid gap-3 md:grid-cols-3">
               {[
-                { href: "/dashboard/play-computer", title: "Play vs computer", detail: "Start a game against the computer", tag: "PLAY NOW" },
-                { href: "/community/players", title: "Play vs someone", detail: "Find online players and challenge someone", tag: "PLAYERS" },
-                { href: "/learn/basics", title: "Learning path", detail: "Build your chess foundations", tag: "LEARN" },
-                { href: "/dashboard/challenges", title: "Friend challenges", detail: "Send and manage invitations", tag: "PLAYERS" },
-                { href: "/dashboard/history", title: "Game & activity history", detail: "Review your saved records", tag: "PROGRESS" },
-                { href: "/dashboard/achievements", title: "Achievements", detail: "See your milestones", tag: "MILESTONES" },
-                { href: "/dashboard/community-settings", title: "Community settings", detail: "Manage profile visibility and bio", tag: "PRIVACY" },
-                { href: "/community/leaderboard", title: "Player leaderboard", detail: "Discover opted-in SHoP players", tag: "COMMUNITY" },
-                { href: "/events", title: "Tournaments & events", detail: "Explore upcoming club events", tag: "CLUB" },
-                { href: "/community", title: "Community", detail: "Visit the SHoP community", tag: "CONNECT" },
-              ].map((item) => <Link key={item.href} href={item.href} className="group flex min-h-28 flex-col justify-between border border-shop-border p-4 transition-colors hover:border-shop-ink hover:bg-shop-cream focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shop-ink">
+                { href: "/dashboard/play-computer", title: "Play vs computer", detail: "Practice at your own pace", tag: "PLAY" },
+                { href: "/community/players", title: "Find a player", detail: "Challenge someone in the community", tag: "PLAYERS" },
+                { href: "/learn/basics", title: "Continue learning", detail: "Build skills through guided lessons", tag: "LEARN" },
+              ].map((item) => <Link key={item.href} href={item.href} className="flex min-h-28 flex-col justify-between border border-shop-border bg-shop-cream/60 p-5 transition-colors hover:border-shop-ink hover:bg-shop-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shop-ink">
                 <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-shop-muted">{item.tag}</span>
-                <span className="mt-4 flex items-start justify-between gap-3"><span><strong className="block text-sm">{item.title}</strong><span className="mt-1 block text-xs leading-5 text-shop-muted">{item.detail}</span></span></span>
+                <span className="mt-4"><strong className="block text-base">{item.title}</strong><span className="mt-1 block text-xs leading-5 text-shop-muted">{item.detail}</span></span>
               </Link>)}
+            </div>
+            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 border-t border-shop-border pt-5 text-sm">
+              {[
+                ["Friend challenges", "/dashboard/challenges"],
+                ["Game archive", "/dashboard/games"],
+                ["Learning history", "/dashboard/history"],
+                ["Achievements", "/dashboard/achievements"],
+                ["Leaderboard", "/community/leaderboard"],
+                ["Privacy settings", "/dashboard/community-settings"],
+                ["Tournaments", "/events"],
+                ["Community", "/community"],
+              ].map(([label, href]) => <Link key={href} href={href} className="font-medium text-shop-muted underline-offset-4 transition-colors hover:text-shop-ink hover:underline">{label}</Link>)}
             </div>
           </nav>
 
@@ -152,10 +157,10 @@ export default async function DashboardPage() {
             ].map((stat) => <article key={stat.label} className="border border-shop-border bg-white p-6"><p className="text-[9px] font-bold uppercase tracking-[0.18em] text-shop-muted">{stat.label}</p><p className="shop-display mt-5 text-5xl leading-none">{stat.value}</p><p className="mt-4 text-xs leading-5 text-shop-muted">{stat.note}</p></article>)}
           </div>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            <article className="border border-shop-border bg-white p-5"><p className="text-[9px] font-bold uppercase tracking-[0.18em] text-shop-muted">Completed activities</p><p className="shop-display mt-4 text-4xl">{totalCompleted}</p><p className="mt-2 text-xs text-shop-muted">Saved across puzzles, lessons, and games</p></article>
-            <article className="border border-shop-border bg-white p-5"><p className="text-[9px] font-bold uppercase tracking-[0.18em] text-shop-muted">Current streak</p><p className="shop-display mt-4 text-4xl">{currentStreak} <span className="text-base">{currentStreak === 1 ? "day" : "days"}</span></p><p className="mt-2 text-xs text-shop-muted">Based on saved completed activity</p></article>
-            <article className="border border-shop-border bg-white p-5"><p className="text-[9px] font-bold uppercase tracking-[0.18em] text-shop-muted">Active days this week</p><p className="shop-display mt-4 text-4xl">{activeDaysThisWeek}<span className="text-base"> / 7</span></p><p className="mt-2 text-xs text-shop-muted">Days with at least one completion</p></article>
+          <div className="mt-5 grid grid-cols-3 divide-x divide-shop-border border-y border-shop-border bg-white px-2 py-4 sm:px-5">
+            <div className="px-3 sm:px-5"><p className="text-[9px] font-bold uppercase tracking-[0.14em] text-shop-muted">Completed</p><p className="shop-display mt-2 text-3xl sm:text-4xl">{totalCompleted}</p><p className="mt-1 text-[11px] text-shop-muted">Activities</p></div>
+            <div className="px-3 sm:px-5"><p className="text-[9px] font-bold uppercase tracking-[0.14em] text-shop-muted">Streak</p><p className="shop-display mt-2 text-3xl sm:text-4xl">{currentStreak}<span className="ml-1 text-sm">d</span></p><p className="mt-1 text-[11px] text-shop-muted">Consecutive days</p></div>
+            <div className="px-3 sm:px-5"><p className="text-[9px] font-bold uppercase tracking-[0.14em] text-shop-muted">This week</p><p className="shop-display mt-2 text-3xl sm:text-4xl">{activeDaysThisWeek}<span className="text-sm"> / 7</span></p><p className="mt-1 text-[11px] text-shop-muted">Active days</p></div>
           </div>
 
           <section className="mt-12 border border-shop-border bg-white p-6 sm:p-8">
@@ -171,9 +176,9 @@ export default async function DashboardPage() {
               <p className="shop-eyebrow text-shop-muted">Continue learning</p>
               <h2 className="shop-display mt-4 text-4xl">Make today count.</h2>
               <div className="mt-7 divide-y divide-shop-border border-y border-shop-border">
-                <Link href="/learn/basics" className="flex items-center justify-between gap-5 py-5 transition-transform hover:translate-x-1"><span><strong className="block text-sm">Beginner learning path</strong><span className="mt-1 block text-xs text-shop-muted">Board, pieces, check, and opening principles</span></span></Link>
-                <Link href="/learn#daily-puzzle" className="flex items-center justify-between gap-5 py-5 transition-transform hover:translate-x-1"><span><strong className="block text-sm">Daily puzzle</strong><span className="mt-1 block text-xs text-shop-muted">Find the checkmate in one move</span></span></Link>
-                <Link href="/learn#play-computer" className="flex items-center justify-between gap-5 py-5 transition-transform hover:translate-x-1"><span><strong className="block text-sm">Play the computer</strong><span className="mt-1 block text-xs text-shop-muted">Play a complete legal chess game</span></span></Link>
+                <Link href="/learn/basics" className="block py-5"><strong className="block text-sm">Beginner learning path</strong><span className="mt-1 block text-xs text-shop-muted">Board, pieces, check, and opening principles</span></Link>
+                <Link href="/learn#daily-puzzle" className="block py-5"><strong className="block text-sm">Daily puzzle</strong><span className="mt-1 block text-xs text-shop-muted">Find the checkmate in one move</span></Link>
+                <Link href="/dashboard/play-computer" className="block py-5"><strong className="block text-sm">Play the computer</strong><span className="mt-1 block text-xs text-shop-muted">Play a complete legal chess game</span></Link>
               </div>
             </section>
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
+import SocialLinks from "@/components/layout/SocialLinks";
 
 export const metadata: Metadata = {
   title: "Contact SHoP",
@@ -38,7 +39,7 @@ export default function ContactPage() {
           <div>
             <p className="shop-eyebrow text-shop-muted">Get in touch</p>
             <h2 className="shop-display mt-5 text-4xl sm:text-5xl">A conversation can start the next move.</h2>
-            <p className="mt-6 text-sm leading-7 text-shop-muted">SHoP is based in Kawangware, Nairobi, Kenya.</p>
+            <p className="mt-6 text-sm leading-7 text-shop-muted">SHoP is based in Kawangware, Nairobi, Kenya.</p><div className="mt-10"><p className="shop-eyebrow text-shop-muted">Follow our community</p><p className="mt-3 max-w-sm text-sm leading-6 text-shop-muted">Find updates, chess activities and community stories on our social channels.</p><div className="mt-5"><SocialLinks variant="light" /></div></div>
           </div>
           <div className="grid gap-px border border-shop-border bg-shop-border sm:grid-cols-2">
             <div className="bg-shop-paper p-6 sm:p-8">

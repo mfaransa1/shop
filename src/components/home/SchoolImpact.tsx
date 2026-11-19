@@ -51,7 +51,7 @@ export default function SchoolImpact() {
             {/* Large image */}
             <div className="relative aspect-[4/3] overflow-hidden bg-[#111111] lg:aspect-[5/4]">
               <Image
-                src="/images/optimized/school-01.webp"
+                src="/images/optimized/images-5.webp"
                 alt="Young people participating in chess at a SHoP school"
                 fill
                 sizes="(max-width: 1023px) 100vw, 58vw"

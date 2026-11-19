@@ -20,8 +20,16 @@ export const navigation = [
     href: "/schools",
   },
   {
+    label: "Partners",
+    href: "/partners",
+  },
+  {
     label: "Tournaments",
     href: "/tournaments",
+  },
+  {
+    label: "Blog",
+    href: "/blog",
   },
   {
     label: "Merch",

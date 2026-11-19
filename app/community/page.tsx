@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -5,6 +6,14 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
 import SHoPPhotoGallery from "@/components/home/SHoPPhotoGallery";
+
+export const metadata: Metadata = {
+  title: "Chess Community | Play, Learn & Connect",
+  description: "Connect with Southside House of Pawns players, explore chess learning and follow club activity in Kawangware, Nairobi.",
+  alternates: { canonical: "/community" },
+  openGraph: { title: "SHoP Chess Community", description: "Play, learn and connect through chess in Kawangware, Nairobi.", url: "/community", type: "website", images: [{ url: "/images/seo/shop-social-cover.webp", width: 1200, height: 630, alt: "SHoP chess community" }] },
+};
+
 
 const communityPaths = [
   {
@@ -113,7 +122,7 @@ export default function CommunityPage() {
               <div className="relative mx-auto w-full max-w-[560px]">
                 <div className="relative aspect-[4/5] overflow-hidden bg-[#F3EDE2]/5">
                   <Image
-                    src="/images/optimized/session-02.webp"
+                    src="/images/seo/shop-social-cover.webp"
                     alt="Chess boards and community play at SHoP"
                     fill
                     priority

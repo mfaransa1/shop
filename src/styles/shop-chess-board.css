@@ -34,24 +34,13 @@
 .shop-chess-piece {
   position: relative; z-index: 1;
   display: flex; align-items: center; justify-content: center;
-  width: 92%; height: 92%; line-height: 1;
-  font-family: "DejaVu Sans", "Segoe UI Symbol", "Noto Sans Symbols 2", sans-serif;
-  font-size: clamp(22px, 8.1cqw, 78px);
+  width: 100%; height: 100%; line-height: 1;
   user-select: none; pointer-events: none;
+  opacity: 1 !important;
+  -webkit-text-fill-color: currentColor;
 }
 .shop-chess-frame { container-type: inline-size; }
-.shop-chess-piece.piece-w {
-  color: #fffdf2 !important;
-  -webkit-text-fill-color: #fffdf2;
-  -webkit-text-stroke: 1px #242424;
-  text-shadow: 0 1px 1px #222, 0 0 2px #222;
-}
-.shop-chess-piece.piece-b {
-  color: #242424 !important;
-  -webkit-text-fill-color: #242424;
-  -webkit-text-stroke: .7px #050505;
-  text-shadow: 0 1px 1px rgb(0 0 0 / 35%);
-}
+.shop-chess-piece.piece-w, .shop-chess-piece.piece-b { color: inherit; opacity: 1 !important; }
 .shop-rank-coordinate, .shop-file-coordinate {
   position: absolute; z-index: 2; font-size: clamp(9px, 1.8cqw, 17px);
   line-height: 1; font-weight: 700; pointer-events: none;
@@ -64,5 +53,22 @@
 .shop-legal-capture { position: absolute; inset: 3%; border: max(2px, .45cqw) solid rgb(30 42 23 / 42%); border-radius: 50%; }
 @media (max-width: 480px) {
   .shop-chess-frame { border-radius: 4px; padding: 3px; }
-  .shop-chess-piece { font-size: clamp(20px, 9.2cqw, 44px); }
+  .shop-chess-piece { opacity: 1 !important; }
 }
+
+/* Premium SHoP Staunton artwork: opaque independent SVG assets. */
+.shop-piece-art {
+  display: block;
+  flex: 0 0 auto;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  opacity: 1 !important;
+  filter: drop-shadow(0 1px 1px rgb(28 22 15 / 24%)) drop-shadow(0 2px 2px rgb(0 0 0 / 13%));
+  transition: transform 150ms ease, filter 150ms ease;
+}
+.shop-piece-white { filter: drop-shadow(0 1px 1px rgb(73 54 30 / 28%)) drop-shadow(0 2px 2px rgb(0 0 0 / 12%)); }
+.shop-piece-black { filter: drop-shadow(0 1px 1px rgb(0 0 0 / 42%)) drop-shadow(0 2px 2px rgb(0 0 0 / 20%)); }
+.shop-chess-square:hover .shop-piece-art { transform: translateY(-1px); }
+@media (prefers-reduced-motion: reduce) { .shop-piece-art { transition: none; } }

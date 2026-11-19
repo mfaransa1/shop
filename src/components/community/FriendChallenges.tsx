@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import ChessTimeControlSelect from "@/components/chess/ChessTimeControlSelect";
+import { timeControlKeyFromValues } from "@/lib/chess/time-controls";
 
 type Challenge = {
   id: string;
@@ -11,6 +13,7 @@ type Challenge = {
   created_at: string;
   direction: "sent" | "received";
   other_player_name: string;
+  chess_time_control?: string; chess_initial_time_ms?: number; chess_increment_ms?: number;
 };
 
 export default function FriendChallenges() {
@@ -18,16 +21,14 @@ export default function FriendChallenges() {
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [displayName, setDisplayName] = useState("");
   const [message, setMessage] = useState("");
+  const [timeControlKey, setTimeControlKey] = useState("blitz-3-0");
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const [respondingId, setRespondingId] = useState<string | null>(null);
   const [startingId, setStartingId] = useState<string | null>(null);
-  const previousStatuses = useRef<Map<string, string>>(new Map());
-  const autoOpened = useRef(false);
   const refreshInFlight = useRef(false);
-  const initialized = useRef(false);
 
   const refresh = useCallback(async () => {
     // Do not overlap polls or allow an older response to overwrite a newer status.
@@ -44,35 +45,8 @@ export default function FriendChallenges() {
       }
 
       const nextChallenges = (result.challenges ?? []) as Challenge[];
-      const previous = previousStatuses.current;
-
-      // Only auto-open when this mounted page actually observed its sent challenge
-      // transition from pending to accepted. Never auto-open an old accepted item
-      // on initial load; that caused a redirect loop when returning to this page.
-      const newlyAccepted = initialized.current
-        ? nextChallenges.find(
-            (item) =>
-              item.direction === "sent" &&
-              item.status === "accepted" &&
-              previous.get(item.id) === "pending",
-          )
-        : undefined;
-
-      previousStatuses.current = new Map(
-        nextChallenges.map((item) => [item.id, item.status]),
-      );
-      initialized.current = true;
       setChallenges(nextChallenges);
       setError("");
-
-      if (newlyAccepted && !autoOpened.current) {
-        autoOpened.current = true;
-        setStartingId(newlyAccepted.id);
-        setNotice("Your opponent accepted. Opening the chess game…");
-        router.push(
-          `/chess/play/${encodeURIComponent(newlyAccepted.id)}?timeControl=blitz`,
-        );
-      }
     } catch (cause) {
       setError(
         cause instanceof Error ? cause.message : "Could not load invitations.",
@@ -81,7 +55,7 @@ export default function FriendChallenges() {
       setLoading(false);
       refreshInFlight.current = false;
     }
-  }, [router]);
+  }, []);
 
   useEffect(() => {
     const initialRefresh = window.setTimeout(() => { void refresh(); }, 0);
@@ -102,7 +76,7 @@ export default function FriendChallenges() {
       const response = await fetch("/api/community/challenges", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ displayName, message }),
+        body: JSON.stringify({ displayName, message, timeControlKey }),
       });
       const result = await response.json();
       if (!response.ok) {
@@ -139,11 +113,10 @@ export default function FriendChallenges() {
 
       if (status === "accepted") {
         // Record the local status before navigating so a poll cannot race this action.
-        previousStatuses.current.set(id, "accepted");
         setStartingId(id);
         setNotice("Challenge accepted. Opening the chess game…");
         router.push(
-          `/chess/play/${encodeURIComponent(id)}?timeControl=blitz`,
+          `/chess/play/${encodeURIComponent(id)}?timeControl=${timeControlKeyFromValues(challenges.find((item) => item.id === id)?.chess_time_control ?? "blitz", Number(challenges.find((item) => item.id === id)?.chess_initial_time_ms ?? 180000), Number(challenges.find((item) => item.id === id)?.chess_increment_ms ?? 0))}`,
         );
         return;
       }
@@ -161,7 +134,8 @@ export default function FriendChallenges() {
 
   function openGame(id: string) {
     setStartingId(id);
-    router.push(`/chess/play/${encodeURIComponent(id)}?timeControl=blitz`);
+    const item = challenges.find((challenge) => challenge.id === id);
+    router.push(`/chess/play/${encodeURIComponent(id)}?timeControl=${timeControlKeyFromValues(item?.chess_time_control ?? "blitz", Number(item?.chess_initial_time_ms ?? 180000), Number(item?.chess_increment_ms ?? 0))}`);
   }
 
   return (
@@ -171,7 +145,7 @@ export default function FriendChallenges() {
         <h2 className="shop-display mt-3 text-3xl">Invite a player.</h2>
         <p className="mt-3 max-w-2xl text-sm leading-7 text-shop-muted">
           Browse players who are online, open their profile, and challenge them
-          directly. Once a player accepts, the chess session opens automatically.
+          directly. Choose Bullet, Blitz or Rapid for every invitation. Accepted invitations open the game automatically.
         </p>
         <div className="mt-6">
           <Link
@@ -186,6 +160,7 @@ export default function FriendChallenges() {
             Or enter a display name manually
           </summary>
           <form onSubmit={sendInvitation} className="mt-4 grid gap-4">
+            <ChessTimeControlSelect value={timeControlKey} onChange={setTimeControlKey} className="max-w-xs" />
             <label className="grid gap-2 text-sm font-semibold">
               Player’s public display name
               <input

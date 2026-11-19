@@ -121,6 +121,15 @@ export default function Hero() {
             className="relative mx-auto w-full max-w-[620px] lg:ml-auto"
           >
             <div className="relative aspect-square overflow-hidden bg-[#111111]">
+              <Image
+                src="/images/optimized/imagjjes.webp"
+                alt="Young people gathered around chessboards at a SHoP community chess session in Nairobi"
+                fill
+                priority
+                sizes="(max-width: 1023px) 100vw, 48vw"
+                className="object-cover opacity-70"
+              />
+              <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-[#111111]/25 via-[#111111]/35 to-[#111111]/80" />
               {/* Chess board */}
               <div
                 aria-hidden="true"

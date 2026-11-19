@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
@@ -5,6 +6,14 @@ import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
 import { getPublishedShopProducts } from "@/lib/shop-cms-public";
 import { AddToBasketButton, BasketLink } from "@/components/merch/AddToBasketButton";
+
+export const metadata: Metadata = {
+  title: "Chess Equipment & SHoP Merchandise",
+  description: "Explore chessboards, chess pieces, clocks and SHoP merchandise. Contact Southside House of Pawns for current availability and ordering information.",
+  alternates: { canonical: "/merch" },
+  openGraph: { title: "SHoP Chess Equipment & Merchandise", description: "Explore chess equipment and SHoP goods.", url: "/merch", type: "website", images: [{ url: "/images/seo/shop-social-cover.webp", width: 1200, height: 630, alt: "Chess equipment and SHoP merchandise" }] },
+};
+
 
 const products = [
   {
@@ -99,7 +108,7 @@ export default async function MerchPage() {
           <div className="shop-container py-20 md:py-28">
             <div className="grid gap-8 md:grid-cols-[0.75fr_1.25fr] md:items-end">
               <div><p className="shop-eyebrow text-shop-muted">01 — Equipment and goods</p><h2 className="shop-display mt-5 text-5xl leading-[0.88] sm:text-6xl">Made for the next move.</h2></div>
-              <p className="max-w-2xl text-sm leading-7 text-shop-muted sm:text-base">This is the starting catalogue. Product images, prices, stock, delivery options and payment checkout must be confirmed before orders can be taken. Select an item to register your interest while the store is being prepared.</p>
+              <p className="max-w-2xl text-sm leading-7 text-shop-muted sm:text-base">Select an item or items the click basket to checkout .</p>
             </div>
             <div className="mb-5 flex justify-end"><BasketLink /></div>
             <div className="mt-12 grid gap-px border border-shop-border bg-shop-border sm:grid-cols-2 lg:grid-cols-3">

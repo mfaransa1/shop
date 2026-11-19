@@ -50,6 +50,10 @@ function serviceUnavailable() {
 }
 
 export async function POST(request: Request) {
+  const contentLength = Number(request.headers.get("content-length") ?? 0);
+  if (Number.isFinite(contentLength) && contentLength > 16000) {
+    return NextResponse.json({ error: "Request is too large." }, { status: 413 });
+  }
   let payload: JoinPayload;
 
   try {

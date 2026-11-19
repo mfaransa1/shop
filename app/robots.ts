@@ -12,6 +12,7 @@ export default function robots(): MetadataRoute.Robots {
         "/api/",
         "/chess/",
         "/merch/checkout/",
+        "/events/register/",
       ],
     },
     sitemap: "https://shopchess.vercel.app/sitemap.xml",

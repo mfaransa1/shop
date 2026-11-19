@@ -1,7 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import Reveal from "@/components/animations/Reveal";
+
+export const metadata: Metadata = {
+  title: "About SHoP | Our Chess Community in Kawangware",
+  description: "Discover Southside House of Pawns, a chess community in Kawangware, Nairobi, using chess to encourage learning, fair play, confidence and community.",
+  alternates: { canonical: "/about" },
+  openGraph: { title: "About SHoP | Southside House of Pawns", description: "Meet the community and purpose behind SHoP in Kawangware, Nairobi.", url: "/about", type: "website", images: [{ url: "/images/seo/shop-social-cover.webp", width: 1200, height: 630, alt: "Southside House of Pawns chess community" }] },
+};
+
 
 const principles = [
   {

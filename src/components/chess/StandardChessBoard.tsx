@@ -2,11 +2,11 @@
 
 import { useMemo, useState } from "react";
 import {
-  standardBoardTheme,
   type BoardOrientation,
   type BoardPiece,
   type BoardSquare,
 } from "./standardBoardTheme";
+import ChessPiece from "./ChessPiece";
 
 type Props = {
   /** Position in FEN notation. */
@@ -30,11 +30,6 @@ type Props = {
 
 const files = ["a", "b", "c", "d", "e", "f", "g", "h"] as const;
 const ranks = [8, 7, 6, 5, 4, 3, 2, 1] as const;
-const glyphs: Record<BoardPiece["color"], Record<BoardPiece["type"], string>> = {
-  w: { k: "♔\uFE0E", q: "♕\uFE0E", r: "♖\uFE0E", b: "♗\uFE0E", n: "♘\uFE0E", p: "♙\uFE0E" },
-  b: { k: "♚\uFE0E", q: "♛\uFE0E", r: "♜\uFE0E", b: "♝\uFE0E", n: "♞\uFE0E", p: "♟\uFE0E" },
-};
-
 function parseFen(fen: string): Map<BoardSquare, BoardPiece> {
   const board = new Map<BoardSquare, BoardPiece>();
   const placement = (fen.trim().split(/\s+/)[0] || "").split("/");
@@ -110,7 +105,7 @@ export default function StandardChessBoard({
             >
               {showCoordinates && file === displayedFiles[0] && <span className="shop-rank-coordinate">{rank}</span>}
               {showCoordinates && rank === (orientation === "white" ? 1 : 8) && <span className="shop-file-coordinate">{file}</span>}
-              {piece && <span className={`shop-chess-piece piece-${piece.color}`} aria-hidden="true">{renderPiece ? renderPiece(piece, square) : glyphs[piece.color][piece.type]}</span>}
+              {piece && <span className={`shop-chess-piece piece-${piece.color}`} aria-hidden="true">{renderPiece ? renderPiece(piece, square) : <ChessPiece color={piece.color} type={piece.type} />}</span>}
               {isTarget && <span className={piece ? "shop-legal-capture" : "shop-legal-dot"} aria-hidden="true" />}
             </button>
           );

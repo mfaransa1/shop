@@ -14,6 +14,7 @@ const footerLinks = [
       { label: "Community", href: "/community" },
       { label: "Schools", href: "/schools" },
       { label: "Tournaments", href: "/tournaments" },
+      { label: "Blog", href: "/blog" },
       { label: "Contact", href: "/contact" },
     ],
   },
@@ -23,7 +24,7 @@ const footerLinks = [
       { label: "Join SHoP", href: "/join" },
       { label: "Support us", href: "/support" },
       { label: "Volunteer", href: "/support" },
-      { label: "Partner with us", href: "/support" },
+      { label: "Partner with us", href: "/partners" },
     ],
   },
 ];

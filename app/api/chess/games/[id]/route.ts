@@ -32,5 +32,7 @@ export async function GET(_request: Request, { params }: Props) {
     .select("id, game_id, ply, player_id, from_square, to_square, promotion, san, fen_after, created_at")
     .eq("game_id", id).order("ply", { ascending: true });
   if (movesError) return NextResponse.json({ error: "Could not load move history." }, { status: 503 });
-  return NextResponse.json({ game, moves: moves ?? [] });
+  const { data: profiles } = await auth.supabase.from("profiles").select("id, display_name").in("id", [game.white_player_id, game.black_player_id]);
+  const names = Object.fromEntries((profiles ?? []).map((profile: { id: string; display_name: string | null }) => [profile.id, profile.display_name?.trim() || "SHoP Player"]));
+  return NextResponse.json({ game, moves: moves ?? [], players: names });
 }

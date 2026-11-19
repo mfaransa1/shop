@@ -58,7 +58,7 @@ function resultTone(result: string) {
   return "border-amber-200 bg-amber-50 text-amber-800";
 }
 
-function Icon({ name }: { name: "chess" | "search" | "filter" | "clock" | "review" | "arrow" | "calendar" | "sparkles" }) {
+function Icon({ name }: { name: "chess" | "search" | "filter" | "clock" | "review" | "calendar" | "sparkles" }) {
   const common = { width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
   switch (name) {
     case "chess": return <svg {...common}><path d="M7 21h10M9 21l1-4h4l1 4M8 17h8l-1-5H9l-1 5ZM9 8l3-5 3 5M8 8h8l-1 4H9L8 8Z" /></svg>;
@@ -68,7 +68,7 @@ function Icon({ name }: { name: "chess" | "search" | "filter" | "clock" | "revie
     case "review": return <svg {...common}><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21V5.5Z" /><path d="M4 17a2.5 2.5 0 0 1 2.5-2.5H20M8 7h8M8 10h6" /></svg>;
     case "calendar": return <svg {...common}><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M16 3v4M8 3v4M3 10h18" /></svg>;
     case "sparkles": return <svg {...common}><path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z" /><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z" /></svg>;
-    default: return <svg {...common}><path d="M5 12h14m-6-6 6 6-6 6" /></svg>;
+    default: return null;
   }
 }
 
@@ -126,8 +126,8 @@ export default function GameArchive({ games }: { games: Game[] }) {
               <h2 className="text-lg font-semibold text-slate-950">Game archive</h2>
               <p className="mt-1 text-sm text-slate-500">Find a match, revisit the moves and learn from the result.</p>
             </div>
-            <Link href="/dashboard/challenges" className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2">
-              <Icon name="chess" /> Play a challenge <Icon name="arrow" />
+            <Link href="/dashboard/challenges" className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-semibold !text-white transition hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2">
+              <Icon name="chess" /> Play a challenge
             </Link>
           </div>
         </div>
@@ -171,7 +171,7 @@ export default function GameArchive({ games }: { games: Game[] }) {
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-500"><Icon name="chess" /></div>
             <h3 className="mt-4 text-lg font-semibold text-slate-950">{games.length === 0 ? "Your chess story starts here" : "No games match these filters"}</h3>
             <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">{games.length === 0 ? "Play a friend challenge to start building your game library. Completed games will appear here for replay and review." : "Try another opponent name or clear the filters to see more games."}</p>
-            {games.length === 0 ? <Link href="/dashboard/challenges" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800">Find a player <Icon name="arrow" /></Link> : <button type="button" onClick={() => { setResult("all"); setSpeed("all"); setSearch(""); }} className="mt-5 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Clear filters</button>}
+            {games.length === 0 ? <Link href="/dashboard/challenges" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800">Find a player</Link> : <button type="button" onClick={() => { setResult("all"); setSpeed("all"); setSearch(""); }} className="mt-5 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Clear filters</button>}
           </div>
         ) : (
           <div className="divide-y divide-slate-100">
@@ -181,7 +181,7 @@ export default function GameArchive({ games }: { games: Game[] }) {
                   <div className={`mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border text-sm font-bold ${game.myResult === "Win" ? "border-emerald-200 bg-emerald-50 text-emerald-800" : game.myResult === "Loss" ? "border-rose-200 bg-rose-50 text-rose-800" : game.myResult === "Draw" ? "border-slate-200 bg-slate-100 text-slate-700" : "border-amber-200 bg-amber-50 text-amber-800"}`}>{game.myResult === "Win" ? "W" : game.myResult === "Loss" ? "L" : game.myResult === "Draw" ? "½" : "…"}</div>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="truncate font-semibold text-slate-950">vs. {game.opponent || "SHoP Player"}</h3>
+                      <h3 className="truncate font-semibold text-slate-950">vs. {game.opponent || "Opponent"}</h3>
                       <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-semibold ${resultTone(game.myResult)}`}>{game.myResult}</span>
                       <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">{game.myColour}</span>
                     </div>
@@ -196,7 +196,7 @@ export default function GameArchive({ games }: { games: Game[] }) {
                 </div>
                 <div className="flex shrink-0 items-center gap-2 pl-14 sm:pl-0">
                   <Link href={`/dashboard/games/${game.id}`} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-slate-800 transition hover:border-teal-300 hover:bg-teal-50 hover:text-teal-900 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2">
-                    <Icon name="review" /> {game.myResult === "In progress" ? "Open game" : "Review game"} <Icon name="arrow" />
+                    <Icon name="review" /> {game.myResult === "In progress" ? "Open game" : "Review game"}
                   </Link>
                 </div>
               </article>

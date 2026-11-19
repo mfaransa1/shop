@@ -1,9 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
 import ChessPuzzle from "@/components/chess/ChessPuzzle";
 import LearningPaths from "@/components/learn/LearningPaths";
+
+export const metadata: Metadata = {
+  title: "Learn Chess | Lessons, Practice & Puzzles",
+  description: "Build your chess skills with SHoP learning paths, beginner lessons, interactive puzzles and practice activities.",
+  alternates: { canonical: "/learn" },
+  openGraph: { title: "Learn Chess with SHoP", description: "Explore chess lessons, puzzles and practice for developing players.", url: "/learn", type: "website", images: [{ url: "/images/seo/shop-social-cover.webp", width: 1200, height: 630, alt: "Chess learning at SHoP" }] },
+};
+
 
 export default function LearnPage() {
   return (
@@ -120,8 +130,10 @@ export default function LearnPage() {
         {/* =========================================================
             PUT LEARNING INTO PRACTICE
         ========================================================= */}
-        <section className="overflow-hidden bg-[#111111] text-[#F3EDE2]">
-          <div className="shop-container py-20 md:py-28 lg:py-32">
+        <section className="relative isolate overflow-hidden bg-[#111111] text-[#F3EDE2]">
+          <Image src="/images/optimized/session-01.webp" alt="SHoP players learning and practising chess together" fill sizes="100vw" className="-z-10 object-cover opacity-20" />
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-[#111111] via-[#111111]/90 to-[#111111]/65" />
+          <div className="shop-container relative py-20 md:py-28 lg:py-32">
             <Reveal>
               <p className="shop-eyebrow text-[#F3EDE2]/45">Learn by doing</p>
               <div className="mt-8 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end lg:gap-16">

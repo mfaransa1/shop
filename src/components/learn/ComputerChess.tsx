@@ -4,8 +4,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess, type Square, type Move } from "chess.js";
 import Link from "next/link";
 import StandardChessBoard from "@/components/chess/StandardChessBoard";
+import StockfishReviewPanel from "@/components/chess/StockfishReviewPanel";
 import type { BoardSquare } from "@/components/chess/standardBoardTheme";
-import { StockfishClient, type StockfishResult } from "@/lib/chess/stockfishClient";
+import { StockfishClient } from "@/lib/chess/stockfishClient";
 
 const PIECE_VALUES: Record<string, number> = { p: 100, n: 320, b: 335, r: 500, q: 900, k: 0 };
 
@@ -116,10 +117,13 @@ export default function ComputerChess() {
   const [thinkMs, setThinkMs] = useState(700);
   const [engineReady, setEngineReady] = useState(false);
   const [engineError, setEngineError] = useState("");
-  const [analyzing, setAnalyzing] = useState(false);
-  const [analysisRows, setAnalysisRows] = useState<Array<{ ply: number; san: string; bestMove: string; score: string; depth: number }>>([]);
   const game = gameRef.current;
   const legalTargets = useMemo(() => selected ? game.moves({ square: selected, verbose: true }).map((move) => move.to) : [], [version, selected, game]);
+  const reviewMoves = useMemo(() => positionsRef.current.slice(1).map((position, index) => {
+    const before = new Chess(positionsRef.current[index].fen);
+    const move = before.move(position.san);
+    return { ply: position.ply, san: position.san, from_square: move?.from ?? "a1", to_square: move?.to ?? "a1", promotion: move?.promotion ?? null };
+  }), [version]);
 
   useEffect(() => {
     let mounted = true;
@@ -215,7 +219,6 @@ export default function ComputerChess() {
     timerRef.current = null;
     gameRef.current = new Chess();
     positionsRef.current = [{ ply: 0, san: "Start position", fen: new Chess().fen() }];
-    setAnalysisRows([]);
     setEngineError("");
     gameIdRef.current = `computer-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     resultSavedRef.current = false;
@@ -227,21 +230,6 @@ export default function ComputerChess() {
     setStatus("You play White. Make a move to begin.");
   }
 
-  async function analyzeCompletedGame() {
-    if (!game.isGameOver()) return;
-    if (!stockfishRef.current) { setEngineError("Stockfish is unavailable. Install the browser engine files in public/stockfish/."); return; }
-    setAnalyzing(true); setAnalysisRows([]); setEngineError("");
-    const rows: Array<{ ply: number; san: string; bestMove: string; score: string; depth: number }> = [];
-    try {
-      for (const position of positionsRef.current.filter((item) => !new Chess(item.fen).isGameOver())) {
-        const result: StockfishResult = await stockfishRef.current.bestMove(position.fen, 12, Math.max(250, thinkMs));
-        const score = result.score ? result.score.kind === "mate" ? `Mate in ${result.score.value}` : `${(result.score.value / 100).toFixed(2)} pawns` : "—";
-        rows.push({ ply: position.ply, san: position.san, bestMove: result.bestMove, score, depth: result.depth });
-        setAnalysisRows([...rows]);
-      }
-    } catch (error) { setEngineError(error instanceof Error ? error.message : "Game analysis failed."); }
-    finally { setAnalyzing(false); }
-  }
 
   function resign() {
     if (result || game.isGameOver() || botThinking) return;
@@ -265,7 +253,7 @@ export default function ComputerChess() {
             </select>
             <p className="mt-2 text-xs leading-5 text-[#F3EDE2]/45">{DIFFICULTIES[difficulty].description}</p>
             <label htmlFor="computer-thinking-time" className="mb-2 mt-4 block text-xs font-bold uppercase tracking-[0.12em] text-[#F3EDE2]/65">Thinking time</label>
-            <select id="computer-thinking-time" value={thinkMs} onChange={(event) => setThinkMs(Number(event.target.value))} disabled={botThinking || analyzing} className="w-full border border-[#F3EDE2]/25 bg-[#191919] px-3 py-3 text-sm text-[#F3EDE2] outline-none focus:border-[#F3EDE2]/70 disabled:opacity-50">
+            <select id="computer-thinking-time" value={thinkMs} onChange={(event) => setThinkMs(Number(event.target.value))} disabled={botThinking} className="w-full border border-[#F3EDE2]/25 bg-[#191919] px-3 py-3 text-sm text-[#F3EDE2] outline-none focus:border-[#F3EDE2]/70 disabled:opacity-50">
               <option value={250}>Fast · 0.25 seconds</option><option value={500}>Quick · 0.5 seconds</option><option value={700}>Standard · 0.7 seconds</option><option value={1500}>Thoughtful · 1.5 seconds</option><option value={3000}>Deep · 3 seconds</option><option value={5000}>Very deep · 5 seconds</option>
             </select>
             <p className="mt-2 text-xs text-[#F3EDE2]/45">{engineReady ? "Stockfish ready" : engineError ? "Engine unavailable" : "Loading Stockfish…"}</p>
@@ -278,10 +266,7 @@ export default function ComputerChess() {
         </div>
         <div className="mx-auto w-full max-w-[620px]"><StandardChessBoard fen={game.fen()} selectedSquare={selected as BoardSquare | null} onSelectSquare={(square) => setSelected(square as Square | null)} legalTargets={legalTargets as BoardSquare[]} onMove={handleBoardMove} disabled={botThinking || Boolean(result) || game.isGameOver()} showCoordinates /><p className="mt-3 text-center text-[9px] font-semibold uppercase tracking-[0.15em] text-[#F3EDE2]/35">Select a piece, then select its destination</p></div>
       </div>
-      {result && <div className="mt-8 border-t border-[#F3EDE2]/15 pt-6">
-        <div className="flex flex-wrap items-center justify-between gap-4"><div><h3 className="text-lg font-bold">Game analysis</h3><p className="mt-1 text-sm text-[#F3EDE2]/60">Review the engine's best move and evaluation for each position.</p></div><button type="button" onClick={() => void analyzeCompletedGame()} disabled={analyzing || !engineReady} className="bg-[#F3EDE2] px-5 py-3 text-xs font-bold text-[#111111] disabled:opacity-40">{analyzing ? "Analyzing positions…" : analysisRows.length ? "Analyze again" : "Analyze game"}</button></div>
-        {analysisRows.length > 0 && <div className="mt-4 overflow-x-auto"><table className="w-full min-w-[520px] text-left text-xs"><thead className="text-[#F3EDE2]/50"><tr><th className="py-2 pr-4">Ply</th><th className="py-2 pr-4">Played move</th><th className="py-2 pr-4">Engine best move (UCI)</th><th className="py-2 pr-4">Eval</th><th className="py-2">Depth</th></tr></thead><tbody>{analysisRows.map((row) => <tr key={`${row.ply}-${row.bestMove}`} className="border-t border-[#F3EDE2]/10"><td className="py-2 pr-4">{row.ply}</td><td className="py-2 pr-4">{row.san}</td><td className="py-2 pr-4 font-mono">{row.bestMove}</td><td className="py-2 pr-4">{row.score}</td><td className="py-2">{row.depth}</td></tr>)}</tbody></table></div>}
-      </div>}
+      {result && <div className="mt-8 border-t border-[#F3EDE2]/15 pt-6"><StockfishReviewPanel positions={positionsRef.current.map((position) => position.fen)} moves={reviewMoves} /></div>}
     </section>
   );
 }

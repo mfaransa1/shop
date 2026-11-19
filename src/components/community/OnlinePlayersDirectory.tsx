@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import ChessTimeControlSelect from "@/components/chess/ChessTimeControlSelect";
 
 type Player = {
   player_id: string;
@@ -12,25 +12,14 @@ type Player = {
   last_seen: string;
 };
 
-type Challenge = {
-  id: string;
-  status: "pending" | "accepted" | "declined" | "cancelled";
-  created_at: string;
-  direction: "sent" | "received";
-};
-
 export default function OnlinePlayersDirectory() {
-  const router = useRouter();
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [checkedAt, setCheckedAt] = useState("");
   const [challengingId, setChallengingId] = useState<string | null>(null);
-  const previousStatuses = useRef<Map<string, string>>(new Map());
-  const challengesInitialized = useRef(false);
-  const refreshInFlight = useRef(false);
-  const autoOpened = useRef(false);
+  const [timeControlKey, setTimeControlKey] = useState("blitz-3-0");
 
   const refreshPlayers = useCallback(async () => {
     try {
@@ -49,64 +38,20 @@ export default function OnlinePlayersDirectory() {
     }
   }, []);
 
-  // If this page's sender challenge becomes accepted, open it without requiring
-  // the player to return to /dashboard/challenges and click Play challenge.
-  const refreshChallenges = useCallback(async () => {
-    if (refreshInFlight.current) return;
-    refreshInFlight.current = true;
-
-    try {
-      const response = await fetch("/api/community/challenges", { cache: "no-store" });
-      const result = await response.json();
-      if (!response.ok) return;
-
-      const challenges = (result.challenges ?? []) as Challenge[];
-      const previous = previousStatuses.current;
-      const acceptedNow = challenges.find(
-        (item) =>
-          item.direction === "sent" &&
-          item.status === "accepted" &&
-          previous.get(item.id) === "pending",
-      );
-
-      previousStatuses.current = new Map(
-        challenges.map((item) => [item.id, item.status]),
-      );
-
-      // Never auto-open a previously accepted challenge on first load.
-      if (!challengesInitialized.current) {
-        challengesInitialized.current = true;
-        return;
-      }
-
-      if (acceptedNow && !autoOpened.current) {
-        autoOpened.current = true;
-        setNotice("Your opponent accepted. Opening the chess game…");
-        router.push(`/chess/play/${encodeURIComponent(acceptedNow.id)}?timeControl=blitz`);
-      }
-    } catch {
-      // Challenge polling is best-effort; don't interrupt browsing.
-    } finally {
-      refreshInFlight.current = false;
-    }
-  }, [router]);
 
   useEffect(() => {
     // Defer initial requests so the effect does not synchronously trigger state updates.
     const initialRefresh = window.setTimeout(() => {
       void refreshPlayers();
-      void refreshChallenges();
     }, 0);
 
     const playerTimer = window.setInterval(() => void refreshPlayers(), 30_000);
-    const challengeTimer = window.setInterval(() => void refreshChallenges(), 5_000);
 
     return () => {
       window.clearTimeout(initialRefresh);
       window.clearInterval(playerTimer);
-      window.clearInterval(challengeTimer);
     };
-  }, [refreshPlayers, refreshChallenges]);
+  }, [refreshPlayers]);
 
   async function challengePlayer(player: Player) {
     setChallengingId(player.player_id);
@@ -119,8 +64,9 @@ export default function OnlinePlayersDirectory() {
         headers: { "Content-Type": "application/json" },
         cache: "no-store",
         body: JSON.stringify({
-          displayName: player.display_name,
+          playerId: player.player_id,
           message: "",
+          timeControlKey,
         }),
       });
       const result = await response.json();
@@ -130,8 +76,6 @@ export default function OnlinePlayersDirectory() {
       }
 
       setNotice(result.message ?? `Challenge sent to ${player.display_name}. We'll open the game when they accept.`);
-      // Seed current state from the API so the next poll can detect the transition.
-      await refreshChallenges();
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Could not send the challenge.");
     } finally {
@@ -146,12 +90,13 @@ export default function OnlinePlayersDirectory() {
           <p className="shop-eyebrow text-shop-muted">Live club presence</p>
           <h2 className="shop-display mt-2 text-3xl">Players online now.</h2>
           <p className="mt-2 text-sm leading-6 text-shop-muted">
-            Challenge an online player directly. When they accept, your game opens automatically.
+            Choose your preferred clock, challenge an online player, and receive an in-page invitation alert when they accept.
           </p>
+          <ChessTimeControlSelect value={timeControlKey} onChange={setTimeControlKey} className="mt-4 max-w-xs" />
         </div>
         <button
           type="button"
-          onClick={() => { setLoading(true); void refreshPlayers(); void refreshChallenges(); }}
+          onClick={() => { setLoading(true); void refreshPlayers(); }}
           className="border border-shop-border px-4 py-2 text-sm font-semibold"
         >
           Refresh list ↻

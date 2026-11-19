@@ -17,9 +17,9 @@ export default async function GameReviewPage({ params }: Props) {
   if (error) return <main className="mx-auto max-w-5xl px-4 py-10"><h1 className="text-2xl font-bold">Game Review</h1><p className="mt-4">Unable to load this game. Check that the chess migrations are installed.</p><Link href="/dashboard/games" className="mt-4 inline-block underline">Back to My Games</Link></main>;
   if (!game) notFound();
   const { data: profiles } = await supabase.from("profiles").select("id, display_name").in("id", [game.white_player_id, game.black_player_id]);
-  const names = Object.fromEntries((profiles ?? []).map((p: { id: string; display_name: string | null }) => [p.id, p.display_name || "SHoP Player"]));
+  const names = Object.fromEntries((profiles ?? []).map((p: { id: string; display_name: string | null }) => [p.id, p.display_name || "Opponent"]));
   return <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-    <div className="mb-6 flex flex-wrap items-center justify-between gap-3"><div><p className="text-sm font-semibold uppercase tracking-[0.18em] text-teal-700">Chess Library</p><h1 className="mt-2 text-3xl font-bold">Game Review</h1></div><Link href="/dashboard/games" className="rounded-lg border px-4 py-2 text-sm font-semibold hover:bg-gray-50"> My Games</Link></div>
+    <div className="mb-6 flex flex-wrap items-center justify-between gap-3"><div><p className="text-sm font-semibold uppercase tracking-[0.18em] text-teal-700">Chess Library</p><h1 className="mt-2 text-3xl font-bold">Game Review</h1></div><Link href="/dashboard/games" className="rounded-lg border px-4 py-2 text-sm font-semibold hover:bg-gray-50">My Games</Link></div>
     <GameReview game={game} whiteName={names[game.white_player_id] ?? "White"} blackName={names[game.black_player_id] ?? "Black"} currentUserId={user.id} />
   </main>;
 }

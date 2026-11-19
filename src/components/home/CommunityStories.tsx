@@ -11,7 +11,7 @@ const stories = [
     title: "A place to belong",
     description:
       "Chess creates a space where young people can meet, learn from one another and become part of something bigger.",
-    image: "/images/optimized/member-01.webp",
+    image: "/images/optimized/0999.webp",
     href: "/community",
   },
   {
@@ -20,7 +20,7 @@ const stories = [
     title: "Every board brings people together",
     description:
       "The game may begin with two players, but the community around the board keeps growing.",
-    image: "/images/optimized/member-02.webp",
+    image: "/images/optimized/5676.webp",
     href: "/community",
   },
   {

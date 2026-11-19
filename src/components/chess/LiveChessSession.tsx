@@ -16,7 +16,7 @@ type Game = {
   first_move_deadline_at: string | null; white_ready?: boolean; black_ready?: boolean;
 };
 type MoveRow = { id: number; ply: number; player_id: string; san: string; from_square: string; to_square: string; promotion: string | null; fen_after: string; created_at: string };
-type Snapshot = { game: Game; moves: MoveRow[] };
+type Snapshot = { game: Game; moves: MoveRow[]; players?: Record<string, string> };
 
 function formatTime(ms: number) {
   const safe = Math.max(0, ms);
@@ -41,21 +41,27 @@ export default function LiveChessSession() {
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
   const [now, setNow] = useState(0);
+  const [drawOfferFrom, setDrawOfferFrom] = useState<string | null>(null);
+  const [drawNotice, setDrawNotice] = useState("");
   const supabase = useMemo(() => createClient(), []);
-  const audioRefs = useRef<{ move: HTMLAudioElement | null; checkmate: HTMLAudioElement | null }>({ move: null, checkmate: null });
+  const gameChannelRef = useRef<ReturnType<typeof supabase.channel> | null>(null);
+  const audioRefs = useRef<{ move: HTMLAudioElement | null; check: HTMLAudioElement | null; checkmate: HTMLAudioElement | null }>({ move: null, check: null, checkmate: null });
   const soundState = useRef<{ gameId: string; ply: number; terminal: string | null } | null>(null);
 
   useEffect(() => {
-    const move = new Audio("/sounds/move.mp3");
-    const checkmate = new Audio("/sounds/checkmate.mp3");
+    const move = new Audio("/sounds/move.wav");
+    const check = new Audio("/sounds/check.wav");
+    const checkmate = new Audio("/sounds/checkmate.wav");
     move.preload = "auto";
+    check.preload = "auto";
     checkmate.preload = "auto";
-    move.volume = 0.45;
-    checkmate.volume = 0.6;
-    audioRefs.current = { move, checkmate };
+    move.volume = 0.35;
+    check.volume = 0.48;
+    checkmate.volume = 0.58;
+    audioRefs.current = { move, check, checkmate };
     return () => {
-      move.pause(); checkmate.pause();
-      audioRefs.current = { move: null, checkmate: null };
+      move.pause(); check.pause(); checkmate.pause();
+      audioRefs.current = { move: null, check: null, checkmate: null };
     };
   }, []);
 
@@ -77,7 +83,13 @@ export default function LiveChessSession() {
       const audio = audioRefs.current.checkmate;
       if (audio) { audio.currentTime = 0; void audio.play().catch(() => {}); }
     } else if (newMove) {
-      const audio = audioRefs.current.move;
+      let isCheck = false;
+      try {
+        const position = new Chess();
+        position.load(current.fen);
+        isCheck = position.isCheck();
+      } catch { /* Ignore malformed transient snapshots. */ }
+      const audio = isCheck ? audioRefs.current.check : audioRefs.current.move;
       if (audio) { audio.currentTime = 0; void audio.play().catch(() => {}); }
     }
     soundState.current = { gameId: current.id, ply: current.ply, terminal };
@@ -105,12 +117,20 @@ export default function LiveChessSession() {
     const channel = supabase.channel(`chess-game-${id}`)
       .on("postgres_changes", { event: "UPDATE", schema: "public", table: "chess_games", filter: `id=eq.${id}` }, () => { void load(true); })
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "chess_game_moves", filter: `game_id=eq.${id}` }, () => { void load(true); })
+      .on("broadcast", { event: "draw-offer" }, ({ payload }) => {
+        const senderId = typeof payload?.from === "string" ? payload.from : "";
+        if (senderId && senderId !== userId) setDrawOfferFrom(senderId);
+      })
+      .on("broadcast", { event: "draw-declined" }, ({ payload }) => {
+        if (payload?.to === userId) setDrawNotice("Your opponent declined the draw offer.");
+      })
       .subscribe();
+    gameChannelRef.current = channel;
     // Polling is a resilient fallback if Realtime is unavailable or a notification is missed.
     const refresh = window.setInterval(() => { void load(true); }, 2500);
     const clock = window.setInterval(() => setNow(Date.now()), 100);
-    return () => { active = false; window.clearTimeout(initialLoad); window.clearInterval(refresh); window.clearInterval(clock); void supabase.removeChannel(channel); };
-  }, [id, load, supabase]);
+    return () => { active = false; gameChannelRef.current = null; window.clearTimeout(initialLoad); window.clearInterval(refresh); window.clearInterval(clock); void supabase.removeChannel(channel); };
+  }, [id, load, supabase, userId]);
 
   const game = snapshot?.game;
   const chess = useMemo(() => {
@@ -154,7 +174,13 @@ export default function LiveChessSession() {
       const payload = await response.json();
       if (!response.ok) throw new Error(payload.error || "Action could not be completed.");
       await load(true);
-      setNotice(actionName === "offer_draw" ? "Draw offer sent." : "Game updated.");
+      if (actionName === "offer_draw") {
+        await gameChannelRef.current?.send({ type: "broadcast", event: "draw-offer", payload: { from: userId } });
+        setNotice("Draw offer sent to your opponent.");
+      } else if (actionName === "accept_draw") {
+        setDrawOfferFrom(null);
+        setNotice("Draw accepted.");
+      } else setNotice("Game updated.");
     } catch (error) { setNotice(error instanceof Error ? error.message : "Action could not be completed."); }
     finally { setBusy(false); }
   }
@@ -163,6 +189,24 @@ export default function LiveChessSession() {
 
   if (!game) return <main className="mx-auto max-w-4xl p-6"><p className="text-sm text-slate-500">Loading chess game…</p>{notice && <p role="alert" className="mt-3 text-red-600">{notice}</p>}</main>;
   if (!isParticipant && userId) return <main className="mx-auto max-w-4xl p-6"><h1 className="text-xl font-bold">Game unavailable</h1><p>You are not a participant in this game.</p></main>;
+  const opponentId = isWhite ? game.black_player_id : game.white_player_id;
+  const opponentName = snapshot?.players?.[opponentId] || "Opponent";
+  const playerNames = snapshot?.players ?? {};
+  const material = (() => {
+    const position = new Chess();
+    const values: Record<string, number> = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
+    let capturedByWhite = 0; let capturedByBlack = 0;
+    for (const row of snapshot?.moves ?? []) {
+      try {
+        const move = position.move(row.san);
+        if (move?.captured) {
+          if (move.color === "w") capturedByWhite += values[move.captured] ?? 0;
+          else capturedByBlack += values[move.captured] ?? 0;
+        }
+      } catch { /* Skip malformed historical move rows without breaking the live board. */ }
+    }
+    return { capturedByWhite, capturedByBlack, balance: capturedByWhite - capturedByBlack };
+  })();
   const whiteClock = displayClock(game, "w", now);
   const blackClock = displayClock(game, "b", now);
   const lastMove = snapshot?.moves.at(-1);
@@ -183,8 +227,8 @@ export default function LiveChessSession() {
 
   return <main className="mx-auto grid max-w-6xl gap-6 p-4 md:grid-cols-[minmax(0,1.3fr)_minmax(280px,.7fr)] md:p-6">
     <section className="min-w-0">
-      <div className="mb-3 flex flex-wrap items-center justify-between gap-2"><div><p className="text-xs uppercase tracking-[.18em] text-slate-500">SHoP LIVE CHESS</p><h1 className="text-2xl font-bold">{game.time_control.charAt(0).toUpperCase() + game.time_control.slice(1)} game</h1></div><span className={`rounded-full px-3 py-1 text-sm ${game.status === "active" ? "bg-emerald-100 text-emerald-800" : "bg-slate-200 text-slate-700"}`}>{game.status === "waiting" ? "Waiting for both players" : game.status === "active" ? "Live" : `Finished · ${game.termination === "aborted" ? "Abandoned" : game.result ?? "Game over"}`}</span></div>
-      <div className="mb-2 flex items-center justify-between rounded-xl bg-slate-900 p-3 text-white"><span>{isBlack ? "You · Black" : "Opponent · Black"}</span><strong className={`rounded-lg px-3 py-1 font-mono text-xl ${game.side_to_move === "b" && game.status === "active" ? "bg-amber-300 text-slate-950" : "bg-slate-700"}`}>{formatTime(blackClock)}</strong></div>
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2"><div><p className="text-xs uppercase tracking-[.18em] text-slate-500">SHoP LIVE CHESS</p><h1 className="text-2xl font-bold">{game.time_control.charAt(0).toUpperCase() + game.time_control.slice(1)} · vs {opponentName}</h1></div><span className={`rounded-full px-3 py-1 text-sm ${game.status === "active" ? "bg-emerald-100 text-emerald-800" : "bg-slate-200 text-slate-700"}`}>{game.status === "waiting" ? "Waiting for both players" : game.status === "active" ? "Live" : `Finished · ${game.termination === "aborted" ? "Abandoned" : game.result ?? "Game over"}`}</span></div>
+      <div className="mb-2 flex items-center justify-between rounded-xl bg-slate-900 p-3 text-white"><span>{isBlack ? `You · Black · ${playerNames[game.black_player_id] || "You"}` : `Black · ${playerNames[game.black_player_id] || "Opponent"}`}</span><span className="text-xs text-slate-300">{material.balance < 0 ? `Material +${Math.abs(material.balance)}` : ""}</span><strong className={`rounded-lg px-3 py-1 font-mono text-xl ${game.side_to_move === "b" && game.status === "active" ? "bg-amber-300 text-slate-950" : "bg-slate-700"}`}>{formatTime(blackClock)}</strong></div>
       <div className="mx-auto w-full max-w-[680px]">
         <StandardChessBoard
           fen={game.fen}
@@ -196,7 +240,9 @@ export default function LiveChessSession() {
           className="shop-live-board"
         />
       </div>
-      <div className="mt-2 flex items-center justify-between rounded-xl bg-slate-900 p-3 text-white"><span>{isWhite ? "You · White" : "Opponent · White"}</span><strong className={`rounded-lg px-3 py-1 font-mono text-xl ${game.side_to_move === "w" && game.status === "active" ? "bg-amber-300 text-slate-950" : "bg-slate-700"}`}>{formatTime(whiteClock)}</strong></div>
+      <div className="mt-2 flex items-center justify-between rounded-xl bg-slate-900 p-3 text-white"><span>{isWhite ? `You · White · ${playerNames[game.white_player_id] || "You"}` : `White · ${playerNames[game.white_player_id] || "Opponent"}`}</span><span className="text-xs text-slate-500">{material.balance > 0 ? `Material +${material.balance}` : ""}</span><strong className={`rounded-lg px-3 py-1 font-mono text-xl ${game.side_to_move === "w" && game.status === "active" ? "bg-amber-300 text-slate-950" : "bg-slate-700"}`}>{formatTime(whiteClock)}</strong></div>
+      {drawOfferFrom && drawOfferFrom !== userId && game.status === "active" && <div className="fixed inset-0 z-[120] flex items-center justify-center bg-slate-950/65 p-4" role="presentation"><section className="w-full max-w-md rounded-2xl border border-emerald-200 bg-white p-6 shadow-2xl" role="alertdialog" aria-modal="true" aria-label="Draw offer received"><div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-2xl text-emerald-800">½</div><p className="text-xs font-bold uppercase tracking-widest text-emerald-700">Game request</p><h2 className="mt-2 text-2xl font-bold text-slate-950">Draw offer received</h2><p className="mt-2 text-sm text-slate-600">{snapshot?.players?.[drawOfferFrom] || opponentName} would like to agree a draw. Do you accept?</p><div className="mt-5 grid grid-cols-2 gap-3"><button type="button" className="rounded-lg border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-800" onClick={async () => { await gameChannelRef.current?.send({ type: "broadcast", event: "draw-declined", payload: { to: drawOfferFrom } }); setDrawOfferFrom(null); }}>Decline</button><button type="button" className="rounded-lg bg-emerald-700 px-4 py-3 text-sm font-bold text-white" onClick={() => void action("accept_draw")}>Accept draw</button></div></section></div>}
+      {drawNotice && <p role="status" className="mt-3 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{drawNotice}</p>}
       {resultHeadline && <div role="status" className={`mt-4 border p-4 ${game.termination === "checkmate" || game.termination === "timeout" ? "border-amber-300 bg-amber-50 text-slate-950" : "border-slate-200 bg-slate-50 text-slate-800"}`}><p className="text-lg font-bold">{resultHeadline}</p><p className="mt-1 text-sm">{game.termination ? game.termination.replaceAll("_", " ") : "Game finished"}{game.result ? ` · ${game.result}` : ""}</p></div>}
       {firstMoveRemainingMs !== null && <div className="mt-4 border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950"><p className="font-semibold">Make the first move before the deadline.</p><p className="mt-1">If no first move is played within the opening minute, the game is abandoned with no winner.</p><p className="mt-2 font-mono text-xl font-bold">{formatTime(firstMoveRemainingMs)}</p></div>}
       <p className="mt-3 text-sm text-slate-500">{game.status === "waiting" ? "Waiting for both players to join. The clock will start only when both are present." : game.status !== "active" ? `Result: ${game.result ?? "No winner"}${game.termination ? ` · ${game.termination.replaceAll("_", " ")}` : ""}` : myTurn ? "Your turn — select a piece, then its destination." : "Waiting for your opponent's move…"}</p>
@@ -206,5 +252,14 @@ export default function LiveChessSession() {
       <section className="rounded-2xl border border-slate-200 p-4"><div className="mb-3 flex items-center justify-between"><h2 className="text-lg font-semibold">Move history</h2><span className="text-xs text-slate-500">{snapshot?.moves.length ?? 0} plies</span></div><div className="max-h-80 overflow-auto rounded-lg bg-slate-50 p-2"><div className="grid grid-cols-[2rem_1fr_1fr] gap-x-3 gap-y-1 font-mono text-sm">{Array.from({ length: Math.ceil((snapshot?.moves.length ?? 0) / 2) }, (_, i) => <div key={i} className="contents"><span className="text-slate-400">{i + 1}.</span><span>{snapshot?.moves[i * 2]?.san ?? ""}</span><span>{snapshot?.moves[i * 2 + 1]?.san ?? ""}</span></div>)}</div></div><button className="mt-3 w-full rounded-lg border px-3 py-2 text-sm" onClick={() => router.push("/dashboard/games")}>My Games & Review</button></section>
       <section className="rounded-2xl bg-slate-50 p-4 text-sm text-slate-600"><h2 className="mb-1 font-semibold text-slate-900">Connection status</h2><p>{game.status === "waiting" ? "You are in the lobby. The game clock is paused until both players open this game." : game.status === "active" ? "This game refreshes automatically. If you reconnect, the latest saved position will be restored." : "This game is saved. The review library will make completed games easier to revisit."}</p></section>
     </aside>
+    {resultHeadline && <div className="shop-game-result-backdrop" role="presentation">
+      <section className="shop-game-result-card" role="dialog" aria-modal="true" aria-labelledby="shop-game-result-title">
+        <div className="shop-game-result-emblem" aria-hidden="true">{game.termination === "checkmate" ? "♛" : isDraw ? "½" : isWinner ? "♔" : "♟"}</div>
+        <p className="shop-game-result-kicker">SOUTHSIDE HOUSE OF PAWNS</p>
+        <h2 id="shop-game-result-title">{resultHeadline}</h2>
+        <p className="shop-game-result-detail">{game.termination ? game.termination.replaceAll("_", " ") : "Game finished"}{game.result ? ` · ${game.result}` : ""}</p>
+        <button type="button" className="shop-game-result-action" onClick={() => router.push("/dashboard/games")}>View games and analysis</button>
+      </section>
+    </div>}
   </main>;
 }

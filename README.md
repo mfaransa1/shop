@@ -53,22 +53,6 @@ The experience should work for several audiences:
 * Chess enthusiasts
 * Potential partners
 
----
-
-
-
-The project currently has the initial application foundation and design system in place.
-
-### Current milestone
-
-> **Foundation → Global Experience → Homepage Hero**
-
-The next major component to build is the **SHoP Hero**.
-
-The Hero will establish the visual language for the rest of the website.
-
----
-
 ## SHoP
 
 **Southside House of Pawns**

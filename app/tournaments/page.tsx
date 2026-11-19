@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,9 +10,18 @@ import TournamentCard from "@/components/tournaments/TournamentCard";
 import { getPublishedShopEvents } from "@/lib/shop-cms-public";
 
 import {
+
   upcomingTournaments,
   activeTournaments,
 } from "@/data/events";
+
+export const metadata: Metadata = {
+  title: "Chess Tournaments & Events | SHoP Nairobi",
+  description: "Explore chess tournaments, community sessions and event opportunities organised by Southside House of Pawns in Kawangware, Nairobi.",
+  alternates: { canonical: "/tournaments" },
+  openGraph: { title: "SHoP Chess Tournaments & Events", description: "Follow community chess events and tournament opportunities with SHoP.", url: "/tournaments", type: "website", images: [{ url: "/images/seo/shop-social-cover.webp", width: 1200, height: 630, alt: "Chess tournaments and events at SHoP" }] },
+};
+
 
 const calendar = [
   {

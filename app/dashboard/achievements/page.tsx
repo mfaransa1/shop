@@ -59,7 +59,7 @@ export default async function AchievementsPage() {
             <div className="border border-shop-border bg-white p-8">
               <h2 className="shop-display text-3xl">Your first milestone is waiting.</h2>
               <p className="mt-3 max-w-xl text-sm leading-7 text-shop-muted">Complete a lesson, solve a puzzle, or finish a game. Your achievements will appear here from your saved activity.</p>
-              <Link href="/learn" className="mt-6 inline-block border border-shop-border px-5 py-3 text-sm font-semibold">Start learning </Link>
+              <Link href="/learn" className="mt-6 inline-block border border-shop-border px-5 py-3 text-sm font-semibold">Start learning</Link>
             </div>
           ) : (
             <>
@@ -86,7 +86,7 @@ export default async function AchievementsPage() {
               ))}
               <div className="flex flex-wrap gap-3 border-t border-shop-border pt-6">
                 <Link href="/dashboard" className="border border-shop-border px-5 py-3 text-sm font-semibold hover:bg-white">Back to dashboard</Link>
-                <Link href="/learn" className="bg-shop-ink px-5 py-3 text-sm font-semibold text-shop-cream hover:bg-shop-ink/90">Continue learning </Link>
+                <Link href="/learn" className="bg-shop-ink px-5 py-3 text-sm font-semibold text-shop-cream hover:bg-shop-ink/90">Continue learning</Link>
               </div>
             </>
           )}

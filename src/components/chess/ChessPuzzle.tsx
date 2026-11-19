@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Chess, type Color, type PieceSymbol, type Square } from "chess.js";
+import { Chess, type Square } from "chess.js";
 import StandardChessBoard from "@/components/chess/StandardChessBoard";
 import type { BoardSquare } from "@/components/chess/standardBoardTheme";
 
@@ -68,11 +68,6 @@ const PUZZLES: Puzzle[] = [
 ];
 
 const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
-const pieceSymbols: Record<Color, Record<PieceSymbol, string>> = {
-  w: { k: "♔", q: "♕", r: "♖", b: "♗", n: "♘", p: "♙" },
-  b: { k: "♚", q: "♛", r: "♜", b: "♝", n: "♞", p: "♟" },
-};
-
 function getSquarePosition(square: Square) {
   return {
     x: files.indexOf(square[0]) * 12.5 + 6.25,
@@ -461,7 +456,6 @@ export default function ChessPuzzle() {
               onMove={handleStandardBoardMove}
               selectedSquare={selectedSquare as BoardSquare | null}
               lastMove={lastMove ? { from: lastMove.from as BoardSquare, to: lastMove.to as BoardSquare } : null}
-              renderPiece={(piece) => <span className={piece.color === "w" ? "text-[#F3EDE2] drop-shadow-[0_4px_5px_rgba(0,0,0,0.35)]" : "text-[#111111]"}>{pieceSymbols[piece.color][piece.type]}</span>}
               className="w-full"
             />
             {solved && <div className="pointer-events-none absolute bottom-4 left-4 z-30"><span className="bg-[#111111]/90 px-3 py-2 font-mono text-xs font-bold text-[#F3EDE2]">{activePuzzle.notation}</span></div>}

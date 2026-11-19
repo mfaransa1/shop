@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { CHESS_TIME_CONTROL_PRESETS, getTimeControlPreset } from "@/lib/chess/time-controls";
 
 function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -11,7 +12,7 @@ export async function GET() {
   if (authError || !user) return NextResponse.json({ error: "Sign in to view challenges." }, { status: 401 });
   const { data, error } = await supabase
     .from("friend_challenges")
-    .select("id, challenger_id, challenged_id, status, message, created_at, responded_at")
+    .select("id, challenger_id, challenged_id, status, message, created_at, responded_at, chess_time_control, chess_initial_time_ms, chess_increment_ms")
     .or(`challenger_id.eq.${user.id},challenged_id.eq.${user.id}`)
     .order("created_at", { ascending: false })
     .limit(50);
@@ -38,6 +39,8 @@ export async function POST(request: NextRequest) {
   try { body = await request.json(); } catch { return NextResponse.json({ error: "Invalid request." }, { status: 400 }); }
   if (!isObject(body)) return NextResponse.json({ error: "Choose a player to challenge." }, { status: 400 });
   const message = typeof body.message === "string" ? body.message.trim().slice(0, 240) : "";
+  const selectedPreset = body.timeControlKey ? CHESS_TIME_CONTROL_PRESETS.find((preset) => preset.key === body.timeControlKey) : getTimeControlPreset("blitz-3-0");
+  if (!selectedPreset) return NextResponse.json({ error: "Choose a valid chess time control." }, { status: 400 });
   let target: { id: string; display_name: string } | null = null;
 
   // Profile links use a stable player UUID, so duplicate display names are not a problem.
@@ -74,6 +77,9 @@ export async function POST(request: NextRequest) {
 
   const { data, error } = await supabase.from("friend_challenges").insert({
     challenger_id: user.id, challenged_id: target.id, message, status: "pending",
+    chess_time_control: selectedPreset.timeControl,
+    chess_initial_time_ms: selectedPreset.initialTimeMs,
+    chess_increment_ms: selectedPreset.incrementMs,
   }).select("id, status, created_at").single();
   if (error) return NextResponse.json({ error: "Could not send invitation. Please try again." }, { status: 400 });
   return NextResponse.json({ challenge: data, message: "Challenge invitation sent." }, { status: 201 });
@@ -91,7 +97,7 @@ export async function PATCH(request: NextRequest) {
   const status = body.status as "accepted" | "declined";
   const { data, error } = await supabase.from("friend_challenges").update({ status, responded_at: new Date().toISOString() })
     .eq("id", body.id).eq("challenged_id", user.id).eq("status", "pending")
-    .select("id, status, responded_at").maybeSingle();
+    .select("id, status, responded_at, chess_time_control, chess_initial_time_ms, chess_increment_ms").maybeSingle();
   if (error) return NextResponse.json({ error: "Could not update invitation." }, { status: 400 });
   if (!data) return NextResponse.json({ error: "Invitation not found or already answered." }, { status: 404 });
   return NextResponse.json({ challenge: data, message: status === "accepted" ? "Invitation accepted." : "Invitation declined." });

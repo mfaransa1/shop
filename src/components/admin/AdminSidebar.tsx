@@ -3,8 +3,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 const groups = [
- { label:"WORKSPACE", links:[ ["Overview","/admin","⌂"], ["Membership applications","/admin/memberships","♙"], ["Tournament applications","/admin/tournaments","♜"] ] },
- { label:"CONTENT", links:[ ["Events & tournaments","/admin/events","♟"], ["Merch shop","/admin/merch","▣"], ["Announcements","/admin/cms/announcements","◉"] ] },
+ { label:"WORKSPACE", links:[ ["Overview","/admin","⌂"], ["Membership applications","/admin/memberships","♙"], ["Tournament applications","/admin/tournaments","♜"], ["Partnership enquiries","/admin/partnership-enquiries","◇"] ] },
+ { label:"CONTENT", links:[ ["Events & tournaments","/admin/events","♟"], ["Merch shop","/admin/merch","▣"], ["Announcements","/admin/cms/announcements","◉"], ["Blog articles","/admin/cms/blog","✎"] ] },
  { label:"OPERATIONS", links:[ ["Sales & orders","/admin/commerce","▤"], ["Event registrations","/admin/commerce/registrations","♙"], ["Inventory","/admin/commerce/inventory","▦"], ["Delivery settings","/admin/commerce/settings","⚙"] ] },
 ] as const;
 export function AdminSidebar(){

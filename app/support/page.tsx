@@ -1,9 +1,18 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Reveal from "@/components/animations/Reveal";
 import DonationCheckout from "@/components/support/DonationCheckout";
+
+export const metadata: Metadata = {
+  title: "Support SHoP | Help Grow Community Chess",
+  description: "Support Southside House of Pawns through donations, chess equipment, volunteering and community initiatives in Kawangware, Nairobi.",
+  alternates: { canonical: "/support" },
+  openGraph: { title: "Support Southside House of Pawns", description: "Help make chess, learning and community opportunities more accessible.", url: "/support", type: "website", images: [{ url: "/images/seo/shop-social-cover.webp", width: 1200, height: 630, alt: "Support chess opportunities with SHoP" }] },
+};
+
 
 const supportOptions = [
   {
@@ -136,8 +145,9 @@ export default function SupportPage() {
                 <p className="mt-6 max-w-2xl text-base leading-7 text-[#F3EDE2]/60">Schools, organisations, businesses, volunteers and individuals can help with equipment, learning, events or specialist skills.</p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <Link href="/join" className="inline-flex bg-[#F3EDE2] px-6 py-4 text-sm font-semibold !text-[#111111] transition-colors hover:bg-white">Apply to join SHoP</Link>
-                <Link href="/community" className="inline-flex border border-[#F3EDE2]/30 px-6 py-4 text-sm font-semibold text-[#F3EDE2] transition-colors hover:bg-[#F3EDE2]/10">Meet the community</Link>
+                <Link href="/schools#school-enquiry" className="inline-flex bg-[#F3EDE2] px-6 py-4 text-sm font-semibold !text-[#111111] transition-colors hover:bg-white">School partnership enquiry</Link>
+                <Link href="/partners#enquiry" className="inline-flex border border-[#F3EDE2]/30 px-6 py-4 text-sm font-semibold text-[#F3EDE2] transition-colors hover:bg-[#F3EDE2]/10">Sponsor / organisation enquiry</Link>
+                <Link href="/join" className="inline-flex border border-[#F3EDE2]/30 px-6 py-4 text-sm font-semibold text-[#F3EDE2] transition-colors hover:bg-[#F3EDE2]/10">Apply to join SHoP</Link>
               </div>
             </div>
           </div>

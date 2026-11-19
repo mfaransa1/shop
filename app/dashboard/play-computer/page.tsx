@@ -19,7 +19,7 @@ export default async function PlayComputerPage() {
       <Navbar />
       <main className="min-h-[70vh] bg-shop-paper">
         <div className="shop-container py-8 sm:py-12">
-          <Link href="/dashboard" className="inline-flex items-center gap-2 text-xs font-semibold text-shop-muted hover:text-shop-ink"> Back to dashboard</Link>
+          <Link href="/dashboard" className="inline-flex items-center gap-2 text-xs font-semibold text-shop-muted hover:text-shop-ink">Back to dashboard</Link>
           <header className="mb-8 mt-8">
             <p className="shop-eyebrow text-[#007F79]">Practice arena</p>
             <h1 className="shop-display mt-3 text-5xl leading-none sm:text-6xl">Play vs computer.</h1>

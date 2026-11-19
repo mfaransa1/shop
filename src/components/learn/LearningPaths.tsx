@@ -411,12 +411,12 @@ export default function LearningPaths() {
             thing is making the first move.
           </p>
 
-          <Link
-            href="/join"
-            className="group inline-flex w-fit items-center bg-[#111111] px-6 py-4 text-sm font-semibold !text-[#F3EDE2] transition-colors duration-300 hover:bg-shop-ink/85"
-          >
-            <span className="!text-[#F3EDE2]">Start learning</span>
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/learn/basics" className="inline-flex w-fit items-center bg-[#111111] px-6 py-4 text-sm font-semibold !text-[#F3EDE2] transition-colors duration-300 hover:bg-shop-ink/85">
+              <span className="!text-[#F3EDE2]">Open structured lessons</span>
+            </Link>
+            <Link href="/learn#daily-puzzle" className="inline-flex w-fit items-center border border-shop-border px-6 py-4 text-sm font-semibold transition-colors hover:bg-shop-paper">Try a chess puzzle</Link>
+          </div>
         </div>
       </div>
     </section>

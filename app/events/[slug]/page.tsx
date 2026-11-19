@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -22,6 +23,29 @@ type TournamentPageProps = {
 };
 
 export const revalidate = 3600;
+
+type TournamentMetadataProps = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: TournamentMetadataProps): Promise<Metadata> {
+  const { slug } = await params;
+  const tournament = getTournamentBySlug(slug);
+  if (!tournament) return { title: "Event not found | SHoP", robots: { index: false, follow: false } };
+
+  const title = `${tournament.name} | SHoP Chess`;
+  const description = `${tournament.description} Event details from Southside House of Pawns in ${tournament.location}.`;
+  return {
+    title,
+    description,
+    alternates: { canonical: `/events/${tournament.slug}` },
+    openGraph: {
+      title,
+      description,
+      url: `/events/${tournament.slug}`,
+      type: "website",
+      images: [{ url: "/images/seo/shop-social-cover.webp", width: 1200, height: 630, alt: `${tournament.name} — Southside House of Pawns` }],
+    },
+  };
+}
 
 export function generateStaticParams() {
   return tournaments.map((tournament) => ({
